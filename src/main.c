@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 17:27:33 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/18 17:30:47 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,4 @@ int	main(int ac, char **av, char **env)
 
 // signals	[X]
 // syntax	[|]
-// files	[ ] BOUADEL PUSH
+// files	[ ]
