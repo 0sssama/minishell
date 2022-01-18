@@ -1,0 +1,5 @@
+minishell
+*.dSYM
+*.out
+*.o
+*.a
