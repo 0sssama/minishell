@@ -1,0 +1,53 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
+#    Updated: 2022/01/18 17:19:42 by olabrahm         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+CC=gcc
+FLAGS= -Wall -Wextra -Werror
+FILES= 	src/main utils/ft_free_exit src/ft_prompt src/ft_execute \
+		utils/ft_cd utils/ft_echo utils/ft_env utils/ft_env_export utils/ft_env_unset \
+		utils/ft_pwd utils/ft_setup_env utils/ft_lstutils utils/ft_split_env utils/ft_clean_args
+OBJS= $(FILES:=.o)
+NAME= minishell
+INCLUDES=includes
+READLINE=-lreadline
+RM= rm -rf
+LIBFT= libft.a
+LIBFT_PATH= libft/libft.a
+
+.PHONY: all re clean fclean gen 
+
+%.o: %.c 
+	@$(CC) $(FLAGS) -I $(INCLUDES) -c $? -o $@ $(CPPFLAGS)
+
+all: $(NAME)
+
+$(NAME): $(LIBFT) $(OBJS) 
+	@$(CC) $(FLAGS) $(OBJS) $(LIBFT_PATH) -I $(INCLUDES) $(READLINE) $(LDFLAGS) -o $(NAME)
+	@echo "\033[30;1m---> \033[0mMinishell V1.1  \033[32;1m [OK] \033[0m"
+
+$(LIBFT): 
+	@$(MAKE) -C libft
+
+clean:
+	@$(RM) $(OBJS)
+	@$(MAKE) clean -C libft 
+	@echo "\033[30;1m---> \033[0mObject files clean\033[32;1m [DONE] \033[0m"
+
+fclean: clean
+	@$(RM) $(NAME)
+	@$(MAKE) fclean -C libft 
+	@echo "\033[30;1m---> \033[0mBinary files clean\033[32;1m [DONE] \033[0m"
+
+gen: all clean 
+	clear
+	./minishell
+re: fclean all
