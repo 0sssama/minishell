@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/17 17:24:28 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:15:13 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ void			ft_handle_sigkill(int signal);
 /*			PROMPT				*/
 void			ft_prompt(t_state *state);
 char			**ft_clean_args(t_state *state);
+void			ft_free_split(char **array, size_t len);
+char			**ft_split_args(char const *s, char c);
 /*		 PROMPT - END			*/
 
 /*				EXECUTION			*/

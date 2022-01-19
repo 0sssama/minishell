@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/01/17 16:13:17 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:41:39 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	get_quote(t_state *state, int *q, int *i, char c)
 {
-	state->line[(*i)++] = DELIMIT;
+	state->line[(*i)++] = QUOTE;
 	(*q)++;
 	while (state->line[(*i)] && state->line[(*i)] != c)
 	{
@@ -23,7 +23,7 @@ static void	get_quote(t_state *state, int *q, int *i, char c)
 	if (state->line[(*i)] == c)
 	{
 		(*q)++;
-		state->line[(*i)] = DELIMIT;	
+		state->line[(*i)] = QUOTE;	
 	}
 }
 
@@ -57,11 +57,11 @@ char	**ft_clean_args(t_state *state)
 
 	if (!token_it(state))
 	{
-		printf("[!]Unclosed quote[!]\n");
+		printf("[!] Unclosed quote [!]\n");
 		state->man_err = 1;
 		return (NULL);
 	}
-	cmd = ft_split(state->line, DELIMIT);
+	cmd = ft_split_args(state->line, DELIMIT);
 	if (!cmd)
 		ft_free_exit(state, 12);
 	return (cmd);
