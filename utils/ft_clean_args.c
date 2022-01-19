@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/01/17 16:13:17 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:18:20 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	**ft_clean_args(t_state *state)
 
 	if (!token_it(state))
 	{
-		printf("[!]Unclosed quote[!]\n");
+		printf("[!] Unclosed quotes [!]\n");
 		state->man_err = 1;
 		return (NULL);
 	}

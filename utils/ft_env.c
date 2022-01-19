@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:25:48 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/16 14:59:01 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:33:49 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,29 @@
 t_env_var	*ft_get_env(t_env_var **head, char *name)
 {
 	t_env_var	*current_node;
+	int			adding;
 	
 	if (!head || !(*head))
 		return (NULL);
+	adding = 0;
+	if (name[ft_strlen(name) - 1] == '+')
+	{
+		adding = 1;
+		name[ft_strlen(name) - 1] = '\0';
+	}
 	current_node = *head;
 	while (current_node)
 	{
 		if (!ft_strcmp(current_node->name, name))
+		{
+			if (adding)
+				name[ft_strlen(name)] = '+';
 			return (current_node);
+		}
 		current_node = current_node->next;
 	}
+	if (adding)
+		name[ft_strlen(name)] = '+';
 	return (NULL);
 }
 

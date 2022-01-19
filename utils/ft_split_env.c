@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 09:54:46 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 17:20:11 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:23:25 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_env_validname(char *name)
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
-			if (!name[i + 1] && name[i] == '+')
+			if (!name[i + 1] && name[i] == '+' && i > 0)
 				return (1);
 			return (0);
 		}
@@ -113,7 +113,7 @@ char	**ft_split_env(char *str, char c)
 		return (NULL);
 	name = ft_extract_name(str, c);
 	if (!name || !ft_env_validname(name))
-		return (ft_free((void *) output, NULL, NULL));
+		return (ft_free((void *) output, (void *) name, NULL));
 	value = ft_extract_value(str, c, (unsigned int) ft_strlen(name));
 	if (!value)
 		return (ft_free((void *) output, (void *) name, NULL));
