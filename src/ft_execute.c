@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/01/17 20:27:29 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:29:52 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 		}
 		if (!found)
 			perror(cmdarg[0]);
-		// state->pid = -1;
 		exit(1);
 	}
 	wait(NULL);

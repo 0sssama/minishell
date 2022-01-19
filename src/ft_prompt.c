@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/17 20:27:26 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:34:28 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_prompt(t_state *state)
 {
 	state->line = NULL;
 	signal(SIGINT, ft_handle_sigint);
-	signal(SIGQUIT, ft_handle_sigkill);
+	signal(SIGQUIT, ft_handle_sigquit);
 	while (1)
 	{
 		state->man_err = 0;
