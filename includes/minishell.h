@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/19 09:34:43 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:18:33 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define DELIMIT -7
 # define QUOTE -8
 
-
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -29,7 +28,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
-
 
 /*		  COMMAND LINKED LISTS		*/
 typedef struct s_cmd {
@@ -81,6 +79,8 @@ void			ft_handle_sigquit(int signal);
 /*			PROMPT				*/
 void			ft_prompt(t_state *state);
 char			**ft_clean_args(t_state *state);
+void			ft_free_split(char **array, size_t len);
+char			**ft_split_args(char const *s, char c);
 /*		 PROMPT - END			*/
 
 /*				EXECUTION			*/

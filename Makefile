@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
+#    By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/01/18 18:17:15 by olabrahm         ###   ########.fr        #
+#    Updated: 2022/01/18 18:13:31 by obouadel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ FLAGS= -Wall -Wextra -Werror
 FILES= 	src/main utils/ft_free_exit src/ft_prompt src/ft_execute \
 		utils/ft_cd utils/ft_echo utils/ft_env utils/ft_env_export utils/ft_env_unset \
 		utils/ft_pwd utils/ft_setup_env utils/ft_lstutils utils/ft_split_env utils/ft_clean_args \
-		utils/ft_env_addfront
+		utils/ft_free_split_args utils/ft_split_args utils/ft_env_addfront
 OBJS= $(FILES:=.o)
 NAME= minishell
 INCLUDES=includes
@@ -51,4 +51,8 @@ fclean: clean
 gen: all clean 
 	clear
 	./minishell
+
+val: all clean
+	clear
+	valgrind --leak-check=full ./minishell
 re: fclean all

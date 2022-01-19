@@ -43,7 +43,7 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 			free(forfree);
 		}
 		if (!found)
-			perror(cmdarg[0]);
+			printf("%s: command not found\n", cmdarg[0]);
 		exit(1);
 	}
 	wait(NULL);
