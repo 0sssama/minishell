@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 09:54:46 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 17:20:11 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:54:30 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ char	**ft_split_env(char *str, char c)
 		return (NULL);
 	name = ft_extract_name(str, c);
 	if (!name || !ft_env_validname(name))
-		return (ft_free((void *) output, NULL, NULL));
+		return (ft_free((void *) output, (void *) name, NULL));
 	value = ft_extract_value(str, c, (unsigned int) ft_strlen(name));
 	if (!value)
 		return (ft_free((void *) output, (void *) name, NULL));
