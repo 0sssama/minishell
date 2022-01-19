@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 17:30:47 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:34:58 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 t_state	g_state;
 
-void	ft_handle_sigkill(int signal)
+void	ft_handle_sigquit(int signal)
 {
 	(void) signal;
 	if (g_state.pid > 0)
@@ -47,7 +47,6 @@ int	main(int ac, char **av, char **env)
 {
 	(void) av;
 	(void) ac;
-	(void) env;
 	g_state.man_err = 0;
 	g_state.line = NULL;
 	g_state.path = getenv("PATH");

@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
 /*   Updated: 2022/01/19 15:18:33 by obouadel         ###   ########.fr       */
@@ -73,7 +73,7 @@ void			ft_free_matrix(char **matrix);
 
 /*			SIGNALS				*/
 void			ft_handle_sigint(int signal);
-void			ft_handle_sigkill(int signal);
+void			ft_handle_sigquit(int signal);
 /*		 SIGNALS - END			*/
 
 /*			PROMPT				*/
@@ -91,13 +91,14 @@ void			ft_execute(t_state *state);
 t_env_var		*ft_setup_env(char **env);
 t_env_var		*ft_lstnew(char **value);
 t_env_var		*ft_lstlast(t_env_var *head);
+t_env_var		*ft_get_env(t_env_var **head, char *name);
 unsigned int	ft_lstsize(t_env_var *head);
 char			**ft_split_env(char *str, char c);
 void			ft_lstadd_back(t_env_var **head, t_env_var *new);
 void			ft_lstclear(t_env_var **head);
 void			ft_setup_indexes(t_env_var *head);
 void			ft_freenode(t_env_var *node);
-t_env_var		*ft_get_env(t_env_var **head, char *name);
+void			ft_env_addfront(t_env_var **head, char **new);
 /*			 ENV-VARIABLES - END		*/
 
 /*				BUILTINS			*/

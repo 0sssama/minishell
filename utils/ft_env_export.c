@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:26:07 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 17:20:24 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/18 18:28:10 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	ft_env_add(t_env_var **head, char **new)
 {
 	t_env_var	*new_env_var;
 
+	if (new[0][ft_strlen(new[0]) - 1] == '+')
+		new[0][ft_strlen(new[0]) - 1] = '\0';
 	new_env_var = ft_lstnew(new);
 	ft_lstadd_back(head, new_env_var);
 }
@@ -57,14 +59,12 @@ static void	ft_env_update(t_env_var **head, char **new)
 	t_env_var	*var;
 	char		*name;
 	char		*value;
-	int			adding;
 
-	adding = 0;
 	name = new[0];
 	if (name[ft_strlen(name) - 1] == '+')
 	{
-		name[ft_strlen(name) - 1] = '\0';
-		adding = 1;
+		ft_env_addfront(head, new);
+		return ;
 	}
 	value = new[1];
 	var = ft_get_env(head, name);
@@ -74,10 +74,7 @@ static void	ft_env_update(t_env_var **head, char **new)
 	free(var->name);
 	free(var->both);
 	var->name = name;
-	if (adding)
-		var->value = ft_strjoin(var->value, value);
-	else
-		var->value = value;
+	var->value = value;
 	var->both = new;
 }
 

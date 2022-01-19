@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 09:54:46 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 18:54:30 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/19 09:23:25 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_env_validname(char *name)
 	{
 		if (!ft_isalnum(name[i]) && name[i] != '_')
 		{
-			if (!name[i + 1] && name[i] == '+')
+			if (!name[i + 1] && name[i] == '+' && i > 0)
 				return (1);
 			return (0);
 		}
