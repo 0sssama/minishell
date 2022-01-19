@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/01/17 20:27:29 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:17:47 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 			free(forfree);
 		}
 		if (!found)
-			perror(cmdarg[0]);
-		// state->pid = -1;
+			printf("%s: command not found\n", cmdarg[0]);
 		exit(1);
 	}
 	wait(NULL);

@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 18:15:13 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:18:33 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define DELIMIT -7
 # define QUOTE -8
 
-
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
@@ -29,7 +28,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
-
 
 /*		  COMMAND LINKED LISTS		*/
 typedef struct s_cmd {

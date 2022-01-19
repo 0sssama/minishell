@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/01/18 18:41:39 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:20:45 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	get_quote(t_state *state, int *q, int *i, char c)
 	if (state->line[(*i)] == c)
 	{
 		(*q)++;
-		state->line[(*i)] = QUOTE;	
+		state->line[(*i)] = QUOTE;
 	}
 }
 
@@ -38,7 +38,7 @@ static int	token_it(t_state *state)
 	{
 		if (state->line[i] == 39 || state->line[i] == 34)
 		{
-			get_quote(state, &quotes, &i, state->line[i]);	
+			get_quote(state, &quotes, &i, state->line[i]);
 			if (!state->line[i])
 				break ;
 		}

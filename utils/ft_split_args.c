@@ -6,12 +6,11 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:41:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 18:47:47 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/19 15:20:07 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 static int	ft_get_len(char *str, int len)
 {
@@ -56,7 +55,7 @@ static size_t	ft_word_count(char const *s, char c)
 
 static char	*ft_strndup(char *str, size_t len)
 {
-	size_t		i;
+	size_t	i;
 	char	*output;
 	int		j;
 
@@ -100,8 +99,6 @@ char	**ft_split_args(char const *s, char c)
 	size_t	wc;
 	size_t	i;
 
-	if (!s)
-		return (0);
 	wc = -1;
 	i = 0;
 	word_count = ft_word_count(s, c);
