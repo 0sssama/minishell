@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/19 09:34:28 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:48:59 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	ft_fill(t_state *state)
 	char	**cmd;
 	int		i;
 
+	add_history(state->line);
 	cmd = ft_clean_args(state);
 	if (!cmd && state->man_err)
 		return ;
@@ -32,14 +33,13 @@ static void	ft_fill(t_state *state)
 
 void	ft_prompt(t_state *state)
 {
-	state->line = NULL;
 	signal(SIGINT, ft_handle_sigint);
 	signal(SIGQUIT, ft_handle_sigquit);
 	while (1)
 	{
 		state->man_err = 0;
 		state->pid = -1;
-		state->line = readline("\033[1mminishell-1.1$> \033[m");
+		state->line = readline("\033[1mminishell-1.2$> \033[m");
 		rl_on_new_line();
 		if (!state->line)
 			break ;
@@ -48,7 +48,6 @@ void	ft_prompt(t_state *state)
 			free(state->line);
 			continue ;
 		}
-		add_history(state->line);
 		ft_fill(state);
 		if (state->man_err)
 		{

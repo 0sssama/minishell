@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 09:54:46 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/19 09:23:25 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/19 21:33:56 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,9 @@ static char	*ft_extract_name(char *str, char c)
 		name_len++;
 	}
 	name[name_len] = '\0';
-	name = ft_strtrim(name, "\'\"");
+	/* name = ft_strtrim(name, "\'\"");
 	if (!name)
-		return (NULL);
+		return (NULL); */
 	if (ft_strlen(name) == 0)
 	{
 		free(name);

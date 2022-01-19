@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:33:14 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/16 15:39:25 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/01/19 21:47:38 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ char	*ft_strtrim(char *s1, char *set)
 		output[i++] = s1[start++];
 	output[i] = 0;
 	free((void *) s1);
-	s1 = NULL;
 	return (output);
 }
