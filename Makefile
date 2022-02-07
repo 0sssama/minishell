@@ -6,7 +6,7 @@
 #    By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/01/18 18:13:31 by obouadel         ###   ########.fr        #
+#    Updated: 2022/01/19 20:41:59 by obouadel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS) 
 	@$(CC) $(FLAGS) $(OBJS) $(LIBFT_PATH) -I $(INCLUDES) $(READLINE) $(LDFLAGS) -o $(NAME)
-	@echo "\033[30;1m---> \033[0mMinishell V1.1  \033[32;1m [OK] \033[0m"
+	@echo "\033[30;1m---> \033[0mMinishell V1.2  \033[32;1m [OK] \033[0m"
 
 $(LIBFT): 
 	@$(MAKE) -C libft

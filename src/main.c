@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/19 09:34:58 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/19 20:40:54 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	main(int ac, char **av, char **env)
 {
 	(void) av;
 	(void) ac;
+	g_state.line = NULL;
 	g_state.man_err = 0;
 	g_state.line = NULL;
 	g_state.path = getenv("PATH");

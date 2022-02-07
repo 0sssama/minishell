@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_addfront.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/18 17:53:35 by olabrahm          #+#    #+#             */
 /*   Updated: 2022/01/19 16:42:34 by olabrahm         ###   ########.fr       */
