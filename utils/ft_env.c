@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:25:48 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 18:33:49 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/01/19 16:31:01 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_env_var	*ft_get_env(t_env_var **head, char *name)
 {
 	t_env_var	*current_node;
 	int			adding;
-	
+
 	if (!head || !(*head))
 		return (NULL);
 	adding = 0;
@@ -48,7 +48,7 @@ static void	ft_print_env(t_state *state)
 	current_node = state->env;
 	while (current_node)
 	{
-		printf("%s=\"%s\"\n", current_node->name, current_node->value);
+		printf("%s=%s\n", current_node->name, current_node->value);
 		current_node = current_node->next;
 	}
 }
