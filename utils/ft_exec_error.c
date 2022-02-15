@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_exec_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/01 16:04:42 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/15 17:28:53 by obouadel         ###   ########.fr       */
+/*   Created: 2022/02/14 15:26:31 by obouadel          #+#    #+#             */
+/*   Updated: 2022/02/15 20:35:36 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-int	ft_isdigit(int c)
+void	ft_exec_error(t_state *state)
 {
-	return (c >= '0' && c <= '9');
+	(void)state;
 }

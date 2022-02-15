@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/19 15:18:33 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/15 20:29:12 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,9 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <errno.h>
 # include <signal.h>
+# include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -63,12 +65,16 @@ typedef struct s_state {
 	char		*home;
 	t_env_var	*env;
 	char		**envtab;
+	int			status;
+	char		*pwd;
+	char		*oldpwd;
 }	t_state;
 
 /*			EXITTING			*/
 void			ft_free_exit(t_state *state, int status);
 void			ft_free_cmd(t_state *state);
 void			ft_free_matrix(char **matrix);
+void			ft_exit(t_state *state);
 /*		 EXITTING - END			*/
 
 /*			SIGNALS				*/
@@ -108,6 +114,7 @@ void			ft_env(t_state *state);
 void			ft_env_export(t_state *state);
 void			ft_env_unset(t_state *state);
 void			ft_pwd(t_state *state);
+char			*get_pwd(char *pwd);
 /*			 BUILTINS - END			*/
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_setup_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:14:14 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 17:20:32 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/15 20:35:20 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,6 @@ t_env_var	*ft_setup_env(char **env)
 	char			**new_env;
 	unsigned int	i;
 
-	/* 
-		!-- This function still needs protection from malloc --!
-	*/
 	i = 0;
 	if (!env || !env[i])
 		return (NULL);
