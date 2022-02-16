@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/15 20:29:12 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:37:37 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void			ft_free_exit(t_state *state, int status);
 void			ft_free_cmd(t_state *state);
 void			ft_free_matrix(char **matrix);
 void			ft_exit(t_state *state);
+void			ft_perror(t_state *state, char *str, int status);
 /*		 EXITTING - END			*/
 
 /*			SIGNALS				*/

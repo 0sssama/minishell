@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:25:13 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/15 20:31:00 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:34:10 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ void	ft_pwd(t_state *state)
 		state->pwd = getcwd(NULL, PATH_MAX);
 	if (state->pwd == NULL && errno == ENOENT)
 		state->pwd = getcwd(state->pwd, PATH_MAX);
+	state->status = 0;
 	printf("%s\n", state->pwd);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_unset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:26:20 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/15 16:31:35 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/16 15:44:53 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,5 @@ void	ft_env_unset(t_state *state)
 		if (ft_get_env(&state->env, state->current_cmd.args[i]))
 			ft_env_del(state, state->current_cmd.args[i]);
 	}
+	state->status = 0;
 }
