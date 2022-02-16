@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/19 20:40:54 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/15 20:15:21 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,9 @@ int	main(int ac, char **av, char **env)
 	g_state.home = getenv("HOME");
 	g_state.envtab = env;
 	g_state.env = ft_setup_env(env);
+	g_state.status = 0;
+	g_state.oldpwd = NULL;
+	g_state.pwd = NULL;
 	ft_prompt(&g_state);
 	ft_free_exit(&g_state, 0);
 	return (0);

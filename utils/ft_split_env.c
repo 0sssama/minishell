@@ -6,18 +6,12 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 09:54:46 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/19 21:33:56 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/15 20:35:02 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-	Environment variable names used by the utilities in the Shell and Utilities 
-	volume of  IEEE  Std  1003.1-2001  consist  solely of uppercase or lowecase 
-	letters, digits, and the  '_' (underscore)  from  the  characters   defined 
-	in Portable Character Set and do not begin with a digit.
-*/
 static int	ft_env_validname(char *name)
 {
 	int	i;

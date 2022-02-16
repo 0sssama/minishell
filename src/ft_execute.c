@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/01/19 09:29:52 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/15 20:40:12 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 	i = 0;
 	found = 0;
 	state->pid = fork();
+	if (state->pid == -1)
+		ft_free_exit(state, 1);
 	if (state->pid == 0)
 	{
 		while (paths[i])
@@ -49,6 +51,23 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 	wait(NULL);
 }
 
+static void	ft_exec_path(t_state *state)
+{
+	state->pid = fork();
+	if (state->pid == -1)
+		ft_free_exit(state, 1);
+	if (state->pid == 0)
+	{
+		if (execve(state->current_cmd.name, \
+			state->current_cmd.args, state->envtab) == -1)
+		{
+			perror(state->current_cmd.name);
+			exit(127);
+		}
+	}
+	wait(NULL);
+}
+
 static void	ft_execve(t_state *state)
 {
 	char	**paths;
@@ -57,6 +76,9 @@ static void	ft_execve(t_state *state)
 	int		i;
 
 	i = -1;
+	if (state->current_cmd.args[0][0] == '.' ||
+		state->current_cmd.args[0][0] == '/')
+		return (ft_exec_path(state));
 	cmdarg = state->current_cmd.args;
 	paths = ft_split(state->path, ':');
 	if (!paths)
@@ -86,10 +108,7 @@ void	ft_execute(t_state *state)
 	else if (!ft_strncmp(state->current_cmd.name, "export", 7))
 		ft_env_export(state);
 	else if (!ft_strncmp(state->current_cmd.name, "exit", 5))
-	{
-		ft_free_cmd(state);
-		ft_free_exit(state, 1);
-	}
+		ft_exit(state);
 	else
 		ft_execve(state);
 	ft_free_cmd(state);
