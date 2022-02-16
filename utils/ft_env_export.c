@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:26:07 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/16 15:43:50 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/16 19:19:00 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_print_env_export(t_env_var *head)
 	}
 }
 
-static void	ft_env_add(t_env_var **head, char **new)
+void	ft_env_add(t_env_var **head, char **new)
 {
 	t_env_var	*new_env_var;
 
@@ -54,7 +54,7 @@ static void	ft_env_add(t_env_var **head, char **new)
 	ft_lstadd_back(head, new_env_var);
 }
 
-static void	ft_env_update(t_env_var **head, char **new)
+void	ft_env_update(t_env_var **head, char **new)
 {
 	t_env_var	*var;
 	char		*name;

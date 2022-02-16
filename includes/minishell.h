@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/16 15:37:37 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/16 19:19:17 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ void			ft_lstclear(t_env_var **head);
 void			ft_setup_indexes(t_env_var *head);
 void			ft_freenode(t_env_var *node);
 void			ft_env_addfront(t_env_var **head, char **new);
+void			ft_env_add(t_env_var **head, char **new);
+void			ft_env_update(t_env_var **head, char **new);
 /*			 ENV-VARIABLES - END		*/
 
 /*				BUILTINS			*/
