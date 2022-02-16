@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/15 20:40:12 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/16 18:54:35 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 		}
 		if (!found)
 			printf("%s: command not found\n", cmdarg[0]);
-		exit(1);
+		exit(127);
 	}
-	wait(NULL);
+	waitpid(state->pid, &state->status, 0);
+	state->status = WEXITSTATUS(state->status);
 }
 
 static void	ft_exec_path(t_state *state)
@@ -65,7 +66,7 @@ static void	ft_exec_path(t_state *state)
 			exit(127);
 		}
 	}
-	wait(NULL);
+	waitpid(state->pid, &state->status, 0);
 }
 
 static void	ft_execve(t_state *state)

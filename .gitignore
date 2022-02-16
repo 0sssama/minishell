@@ -4,3 +4,4 @@ minishell
 *.o
 *.a
 .vscode
+*.json

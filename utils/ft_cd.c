@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:24:23 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/15 20:38:00 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/16 17:26:30 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ char	*get_pwd(char *pwd)
 void	ft_cd(t_state *state)
 {
 	state->oldpwd = get_pwd(state->oldpwd);
+		state->status = 0;
 	if (state->current_cmd.num_of_args == 1)
 	{
 		if (chdir(state->home) == -1)
-			perror("cd");
+			ft_perror(state, "cd", 1);
 		state->pwd = get_pwd(state->pwd);
 	}
 	else if (state->current_cmd.num_of_args == 2)
@@ -42,7 +43,7 @@ void	ft_cd(t_state *state)
 			return ;
 		}
 		if (chdir(state->current_cmd.args[1]) == -1)
-			perror(state->current_cmd.args[1]);
+			ft_perror(state, state->current_cmd.args[1], 1);
 		state->pwd = get_pwd(state->pwd);
 	}
 }
