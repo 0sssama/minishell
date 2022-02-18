@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/16 17:17:18 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/18 17:39:54 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	ft_fill(t_state *state)
 	i = 0;
 	while (cmd[i])
 		i++;
-	state->current_cmd.name = cmd[0];
+	state->current_cmd.name = ft_lowerstr(cmd[0]);
 	state->current_cmd.args = cmd;
 	state->current_cmd.num_of_args = i;
 }

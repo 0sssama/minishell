@@ -6,18 +6,20 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/15 20:36:57 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/18 20:18:52 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	get_quote(t_state *state, int *q, int *i, char c)
+static void	ft_get_quote(t_state *state, int *q, int *i, char c)
 {
 	state->line[(*i)++] = QUOTE;
 	(*q)++;
 	while (state->line[(*i)] && state->line[(*i)] != c)
 	{
+		if (state->line[(*i)] == '$' && c == '"')
+			ft_get_vars(state, i);
 		(*i)++;
 	}
 	if (state->line[(*i)] == c)
@@ -38,10 +40,12 @@ static int	token_it(t_state *state)
 	{
 		if (state->line[i] == 39 || state->line[i] == 34)
 		{
-			get_quote(state, &quotes, &i, state->line[i]);
+			ft_get_quote(state, &quotes, &i, state->line[i]);
 			if (!state->line[i])
 				break ;
 		}
+		else if (state->line[i] == '$')
+			ft_get_vars(state, &i);
 		else if (state->line[i] == ' ')
 			state->line[i] = DELIMIT;
 		i++;
@@ -57,7 +61,7 @@ char	**ft_clean_args(t_state *state)
 
 	if (!token_it(state))
 	{
-		printf("[!] Unclosed quote [!]\n");
+		printf("minishell: Unclosed quotes\n");
 		state->man_err = 1;
 		return (NULL);
 	}

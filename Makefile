@@ -6,7 +6,7 @@
 #    By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/02/16 15:37:56 by obouadel         ###   ########.fr        #
+#    Updated: 2022/02/18 18:16:24 by obouadel         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ FILES= 	src/main utils/ft_free_exit src/ft_prompt src/ft_execute \
 		utils/ft_cd utils/ft_echo utils/ft_env utils/ft_env_export utils/ft_env_unset \
 		utils/ft_pwd utils/ft_setup_env utils/ft_lstutils utils/ft_split_env utils/ft_clean_args \
 		utils/ft_free_split_args utils/ft_split_args utils/ft_env_addfront utils/ft_exec_error \
-		utils/ft_exit utils/ft_perror
+		utils/ft_exit utils/ft_perror utils/ft_lowerstr utils/ft_get_vars
 OBJS= $(FILES:=.o)
 NAME= minishell
 INCLUDES=includes

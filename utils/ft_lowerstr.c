@@ -1,24 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_lowerstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 09:44:45 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/18 18:30:58 by obouadel         ###   ########.fr       */
+/*   Created: 2022/02/17 17:53:00 by obouadel          #+#    #+#             */
+/*   Updated: 2022/02/18 20:21:19 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_lowerstr(char *str)
 {
-	void	*allocated_ptr;
+	int	i;
 
-	allocated_ptr = malloc(nmemb * size);
-	if (!allocated_ptr)
-		return (0);
-	ft_bzero(allocated_ptr, nmemb * size);
-	return (allocated_ptr);
+	i = 0;
+	while (str[i])
+	{
+		str[i] = ft_tolower(str[i]);
+		i++;
+	}
+	return (str);
 }

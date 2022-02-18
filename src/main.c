@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/15 20:15:21 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/18 16:55:30 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ int	main(int ac, char **av, char **env)
 	(void) ac;
 	g_state.line = NULL;
 	g_state.man_err = 0;
-	g_state.line = NULL;
-	g_state.path = getenv("PATH");
-	g_state.pid = -1;
-	g_state.home = getenv("HOME");
 	g_state.envtab = env;
 	g_state.env = ft_setup_env(env);
+	if (g_state.env)
+	{
+		g_state.home = ft_get_env(&g_state.env, "HOME");
+		g_state.path = ft_get_env(&g_state.env, "PATH");
+	}
+	g_state.pid = -1;
 	g_state.status = 0;
 	g_state.oldpwd = NULL;
 	g_state.pwd = NULL;

@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/16 18:54:35 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/18 16:56:49 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 		ft_free_exit(state, 1);
 	if (state->pid == 0)
 	{
-		while (paths[i])
+		while (paths && paths[i])
 		{
 			forfree = ft_strjoin(paths[i], cmdarg[0]);
 			if (execve(forfree, cmdarg, state->envtab) == -1)
@@ -81,10 +81,11 @@ static void	ft_execve(t_state *state)
 		state->current_cmd.args[0][0] == '/')
 		return (ft_exec_path(state));
 	cmdarg = state->current_cmd.args;
-	paths = ft_split(state->path, ':');
-	if (!paths)
-		ft_free_exit(state, 12);
-	while (paths[++i])
+	state->path = ft_get_env(&state->env, "PATH");
+	paths = NULL;
+	if (state->path)
+		paths = ft_split(state->path->value, ':');
+	while (paths && paths[++i])
 	{
 		forfree = paths[i];
 		paths[i] = ft_strjoin(paths[i], "/");
