@@ -6,11 +6,24 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/18 17:39:54 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/19 19:28:27 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_empty_line(char *str)
+{
+	int	i;
+
+	i = -1;
+	if (str[0] == 0)
+		return (1);
+	while (str[++i])
+		if (str[i] != ' ' && str[i] != DELIMIT)
+			return (0);
+	return (1);
+}
 
 static void	ft_fill(t_state *state)
 {
@@ -43,7 +56,7 @@ void	ft_prompt(t_state *state)
 		rl_on_new_line();
 		if (!state->line)
 			break ;
-		if (!state->line[0])
+		if (ft_empty_line(state->line))
 		{
 			free(state->line);
 			continue ;

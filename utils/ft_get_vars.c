@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:16:32 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/18 20:21:13 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/19 19:29:06 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,32 @@ static int	ft_replace_line(t_state *state, int start, int end, t_env_var *var)
 	return (start);
 }
 
+static int	ft_get_status(t_state *state, int start, int end)
+{
+	char	*newline;
+	char	*status;
+	int		len;
+	int		i;
+	int		j;
+
+	i = -1;
+	j = 0;
+	status = ft_itoa(state->status);
+	len = ft_strlen(state->line) - (end - start) + ft_strlen(status);
+	newline = ft_calloc(len, sizeof(char));
+	while (++i < start)
+		newline[i] = state->line[i];
+	while (status[j])
+		newline[i++] = status[j++];
+	start = i;
+	while (state->line[++end])
+		newline[i++] = state->line[end];
+	free(status);
+	free(state->line);
+	state->line = newline;
+	return (start);
+}
+
 void	ft_get_vars(t_state *state, int *i)
 {
 	int			l;
@@ -59,12 +85,17 @@ void	ft_get_vars(t_state *state, int *i)
 	t_env_var	*var;
 
 	l = (*i) + 1;
-	while (ft_is_valid(state->line[l]) && state->line[l])
-		l++;
-	name = ft_substr(state->line, (*i) + 1, (l - (*i) - 1));
-	if (!name)
-		ft_free_exit(state, 12);
-	var = ft_get_env(&state->env, name);
-	free(name);
-	*i = ft_replace_line(state, *i, l, var);
+	if (state->line[l] == '?')
+		*i = ft_get_status(state, *i, l);
+	else
+	{
+		while (ft_is_valid(state->line[l]) && state->line[l])
+			l++;
+		name = ft_substr(state->line, (*i) + 1, (l - (*i) - 1));
+		if (!name)
+			ft_free_exit(state, 12);
+		var = ft_get_env(&state->env, name);
+		free(name);
+		*i = ft_replace_line(state, *i, l, var);
+	}
 }

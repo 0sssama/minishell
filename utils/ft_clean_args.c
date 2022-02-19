@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/18 20:18:52 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/19 16:13:25 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static void	ft_get_quote(t_state *state, int *q, int *i, char c)
 	{
 		if (state->line[(*i)] == '$' && c == '"')
 			ft_get_vars(state, i);
-		(*i)++;
+		else
+			(*i)++;
 	}
 	if (state->line[(*i)] == c)
 	{
@@ -62,6 +63,11 @@ char	**ft_clean_args(t_state *state)
 	if (!token_it(state))
 	{
 		printf("minishell: Unclosed quotes\n");
+		state->man_err = 1;
+		return (NULL);
+	}
+	if (ft_empty_line(state->line))
+	{
 		state->man_err = 1;
 		return (NULL);
 	}

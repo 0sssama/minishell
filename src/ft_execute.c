@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/18 16:56:49 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/19 16:45:11 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,23 @@ static void	ft_free_temp(char **s1)
 
 static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 {
-	char	*forfree;
-	int		found;
+	char	*path;
 	int		i;
 
 	i = 0;
-	found = 0;
+	path = ft_check_path(state, paths, cmdarg);
+	if (!path)
+	{
+		printf("minishell: %s: command not found\n", cmdarg[0]);
+		return ;
+	}
 	state->pid = fork();
 	if (state->pid == -1)
 		ft_free_exit(state, 1);
 	if (state->pid == 0)
-	{
-		while (paths && paths[i])
-		{
-			forfree = ft_strjoin(paths[i], cmdarg[0]);
-			if (execve(forfree, cmdarg, state->envtab) == -1)
-				i++;
-			free(forfree);
-		}
-		if (!found)
-			printf("%s: command not found\n", cmdarg[0]);
-		exit(127);
-	}
+		execve(path, cmdarg, state->envtab);
 	waitpid(state->pid, &state->status, 0);
+	free(path);
 	state->status = WEXITSTATUS(state->status);
 }
 
