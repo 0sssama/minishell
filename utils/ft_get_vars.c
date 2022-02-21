@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:16:32 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/19 19:29:06 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:11:29 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void	ft_get_vars(t_state *state, int *i)
 	t_env_var	*var;
 
 	l = (*i) + 1;
+	if (!ft_is_valid(state->line[l]))
+		return ;
 	if (state->line[l] == '?')
 		*i = ft_get_status(state, *i, l);
 	else

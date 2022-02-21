@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_perror.c                                        :+:      :+:    :+:   */
+/*   ft_get_opperators.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/16 15:35:49 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/19 19:40:05 by obouadel         ###   ########.fr       */
+/*   Created: 2022/02/19 19:51:25 by obouadel          #+#    #+#             */
+/*   Updated: 2022/02/21 14:42:16 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_put_error(char *name, char *error)
+void	ft_get_opperators(t_state *state)
 {
-	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(name, 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(error, 2);
-}
-
-void	ft_perror(t_state *state, char *str, int status)
-{
-	perror(str);
-	state->status = status;
+	(void)state;	
 }

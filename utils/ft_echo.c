@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:23:13 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/16 15:41:46 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:18:31 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,18 @@ static void	ft_print(char **array, int starting_from)
 
 void	ft_echo(t_state *state)
 {
+	int	i;
+
+	i = 1;
 	if (state->current_cmd.num_of_args >= 2)
 	{
-		if (!ft_strncmp(state->current_cmd.args[1], "-n", 3))
+		if (!ft_strncmp(state->current_cmd.args[i], "-n", 3))
 		{
+			while (!ft_strncmp(state->current_cmd.args[i], "-n", 3))
+				i++;			
 			if (state->current_cmd.num_of_args < 3)
 				return ;
-			ft_print(state->current_cmd.args, 2);
+			ft_print(state->current_cmd.args, i);
 			return ;
 		}
 		ft_print(state->current_cmd.args, 1);

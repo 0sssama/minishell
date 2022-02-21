@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/19 16:40:44 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/19 19:40:17 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,6 @@ char			*get_pwd(char *pwd);
 char			*ft_lowerstr(char *str);
 void			ft_perror(t_state *state, char *str, int status);
 int				ft_empty_line(char *str);
+void			ft_put_error(char *name, char *error);
 /*			 UTILS - END			*/
 #endif

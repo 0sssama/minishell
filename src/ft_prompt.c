@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/19 19:28:27 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:05:18 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_prompt(t_state *state)
 	{
 		state->man_err = 0;
 		state->pid = -1;
-		state->line = readline("\033[1mminishell-1.3$> \033[m");
+		state->line = readline("\033[1mminishell-1.7$> \033[m");
 		rl_on_new_line();
 		if (!state->line)
 			break ;

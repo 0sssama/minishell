@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/19 16:45:11 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/21 17:04:29 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 	path = ft_check_path(state, paths, cmdarg);
 	if (!path)
 	{
-		printf("minishell: %s: command not found\n", cmdarg[0]);
+		ft_put_error(state->current_cmd.name,\
+				"command not found\n");
 		return ;
 	}
 	state->pid = fork();
@@ -56,7 +57,11 @@ static void	ft_exec_path(t_state *state)
 		if (execve(state->current_cmd.name, \
 			state->current_cmd.args, state->envtab) == -1)
 		{
-			perror(state->current_cmd.name);
+			if (ft_strchr(state->current_cmd.name, '/'))
+				ft_put_error(state->current_cmd.name,\
+				"No such file or directory\n");
+			else
+				ft_put_error(state->current_cmd.name, "command not found\n");
 			exit(127);
 		}
 	}
@@ -72,7 +77,7 @@ static void	ft_execve(t_state *state)
 
 	i = -1;
 	if (state->current_cmd.args[0][0] == '.' ||
-		state->current_cmd.args[0][0] == '/')
+		ft_strchr(state->current_cmd.args[0], '/'))
 		return (ft_exec_path(state));
 	cmdarg = state->current_cmd.args;
 	state->path = ft_get_env(&state->env, "PATH");
