@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_export.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:26:07 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/16 19:19:00 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:10:10 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	ft_print_env_export(t_env_var *head)
 		current_node = ft_get_sorted_index(head, i);
 		if (!current_node)
 			return ;
-		printf("export %s=\"%s\"\n", current_node->name, current_node->value);
+		printf("declare -x %s=\"%s\"\n", current_node->name, current_node->value);
 		i++;
 	}
 }

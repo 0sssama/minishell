@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/16 15:35:49 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/19 19:40:05 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:16:13 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 void	ft_put_error(char *name, char *error)
 {
 	ft_putstr_fd("minishell: ", 2);
-	ft_putstr_fd(name, 2);
-	ft_putstr_fd(": ", 2);
+	if (name)
+	{
+		ft_putstr_fd(name, 2);
+		ft_putstr_fd(": ", 2);
+	}
 	ft_putstr_fd(error, 2);
 }
 

@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/21 17:04:29 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:05:57 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 	path = ft_check_path(state, paths, cmdarg);
 	if (!path)
 	{
-		ft_put_error(state->current_cmd.name,\
-				"command not found\n");
+		ft_put_error(state->current_cmd.name, "command not found\n");
 		return ;
 	}
 	state->pid = fork();
@@ -58,14 +57,15 @@ static void	ft_exec_path(t_state *state)
 			state->current_cmd.args, state->envtab) == -1)
 		{
 			if (ft_strchr(state->current_cmd.name, '/'))
-				ft_put_error(state->current_cmd.name,\
-				"No such file or directory\n");
+				ft_put_error(state->current_cmd.name, \
+					"No such file or directory\n");
 			else
 				ft_put_error(state->current_cmd.name, "command not found\n");
 			exit(127);
 		}
 	}
 	waitpid(state->pid, &state->status, 0);
+	state->status = WEXITSTATUS(state->status);
 }
 
 static void	ft_execve(t_state *state)

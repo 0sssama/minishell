@@ -6,11 +6,38 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/21 17:05:18 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/24 17:14:11 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_lexer(char *line)
+{
+	int i;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == PIPE)
+			printf("PIPE");
+		else if (line[i] == REDIN)
+			printf("REDIN");
+		else if (line[i] == REDOUT)
+			printf("REDOUT");
+		else if (line[i] == APPEND)
+			printf("APPEND");
+		else if (line[i] == HEREDOC)
+			printf("HEREDOC");
+		else if (line[i] == DELIMIT)
+			printf("SPACE");
+		else if (line[i] == QUOTE)
+			printf("QUOTE");
+		else
+			printf("%c", line[i]);
+	}
+	printf("\n");
+}
 
 int	ft_empty_line(char *str)
 {
@@ -36,6 +63,7 @@ static void	ft_fill(t_state *state)
 		return ;
 	if (!cmd)
 		ft_free_exit(state, 12);
+	ft_lexer(state->line);
 	i = 0;
 	while (cmd[i])
 		i++;
@@ -52,7 +80,7 @@ void	ft_prompt(t_state *state)
 	{
 		state->man_err = 0;
 		state->pid = -1;
-		state->line = readline("\033[1mminishell-1.7$> \033[m");
+		state->line = readline("\033[1mminishell-1.0$> \033[m");
 		rl_on_new_line();
 		if (!state->line)
 			break ;

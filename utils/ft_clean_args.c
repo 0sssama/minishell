@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/21 17:09:46 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/24 16:42:46 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	ft_get_quote(t_state *state, int *q, int *i, char c)
 	}
 }
 
-static int	token_it(t_state *state)
+static int	expand_it(t_state *state)
 {
 	int	i;
 	int	quotes;
@@ -47,8 +47,6 @@ static int	token_it(t_state *state)
 		}
 		else if (state->line[i] == '$')
 			ft_get_vars(state, &i);
-		else if (state->line[i] == ' ')
-			state->line[i] = DELIMIT;
 		i++;
 	}
 	if (quotes % 2)
@@ -60,12 +58,18 @@ char	**ft_clean_args(t_state *state)
 {
 	char	**cmd;
 
-	if (!token_it(state))
+	if (!ft_token(state->line))
 	{
-		printf("minishell: Unclosed quotes\n");
 		state->man_err = 1;
 		return (NULL);
 	}
+	if (!expand_it(state))
+	{
+		ft_put_error(NULL, "minishell: syntax error unclosed quotes\n");
+		state->man_err = 1;
+		return (NULL);
+	}
+	printf("LINE: |%s|\n", state->line);
 	if (ft_empty_line(state->line))
 	{
 		state->man_err = 1;

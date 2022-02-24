@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/19 19:13:16 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/23 20:18:28 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,3 +68,21 @@ int	main(int ac, char **av, char **env)
 // signals	[X]
 // syntax	[|]
 // files	[ ]
+
+/*
+
+	-> Add quit 3
+------------------------------
+	-> tokenization [need to token operators, > < >> << | || &&]
+
+	-> expand
+
+	-> parse tree
+	
+	-> Syntax
+		- if ( | ) are in the beginning or end
+		- if (> - < - << - >>) are in the end
+		- unclosed quote
+
+	token = 0
+*/
