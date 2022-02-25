@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/24 16:42:46 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/25 17:14:18 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,19 @@ char	**ft_clean_args(t_state *state)
 {
 	char	**cmd;
 
-	if (!ft_token(state->line))
+	if (!ft_token(state->line)) // tokenization
 	{
 		state->man_err = 1;
 		return (NULL);
 	}
-	if (!expand_it(state))
+	if (!expand_it(state)) // expands $, removes quotes
 	{
 		ft_put_error(NULL, "minishell: syntax error unclosed quotes\n");
 		state->man_err = 1;
 		return (NULL);
 	}
 	printf("LINE: |%s|\n", state->line);
-	if (ft_empty_line(state->line))
+	if (ft_empty_line(state->line)) // checks if line empty
 	{
 		state->man_err = 1;
 		return (NULL);

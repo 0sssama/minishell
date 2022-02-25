@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_token.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:11:26 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/24 16:59:21 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/25 17:19:52 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,13 @@ static int	ft_check_redout(char *line, int *i)
 
 static void	ft_end_quote(char *line, int *i)
 {
-	int	quote;
+	char	quote;
 
-	quote = *i;
+	quote = line[*i];
+	(*i)++;
 	while (line[*i] && line[*i] != quote)
 		(*i)++;
+	(*i)++;
 }
 
 static int	ft_replace_opp(char *line, int *i)
@@ -74,7 +76,7 @@ int	ft_token(char *line)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '"')
+		if (line[i] == '"' || line[i] == '\'')
 			ft_end_quote(line, &i);
 		else if (ft_strchr("<>|", line[i]))
 		{

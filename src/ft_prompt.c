@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/24 17:14:11 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/25 17:23:15 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,21 +52,20 @@ int	ft_empty_line(char *str)
 	return (1);
 }
 
-static void	ft_fill(t_state *state)
+static void	ft_parse(t_state *state)
 {
 	char	**cmd;
 	int		i;
 
 	add_history(state->line);
-	cmd = ft_clean_args(state);
+	cmd = ft_clean_args(state); // tokenizer
 	if (!cmd && state->man_err)
 		return ;
-	if (!cmd)
-		ft_free_exit(state, 12);
 	ft_lexer(state->line);
 	i = 0;
 	while (cmd[i])
 		i++;
+	// here put parse tree :)
 	state->current_cmd.name = ft_lowerstr(cmd[0]);
 	state->current_cmd.args = cmd;
 	state->current_cmd.num_of_args = i;
@@ -80,22 +79,25 @@ void	ft_prompt(t_state *state)
 	{
 		state->man_err = 0;
 		state->pid = -1;
+		state->sig = 0;
 		state->line = readline("\033[1mminishell-1.0$> \033[m");
 		rl_on_new_line();
 		if (!state->line)
 			break ;
 		if (ft_empty_line(state->line))
 		{
+			state->status = 0;
 			free(state->line);
 			continue ;
 		}
-		ft_fill(state);
+		ft_parse(state);
 		if (state->man_err)
 		{
+			state->status = 258;
 			free(state->line);
 			continue ;
 		}
-		ft_execute(state);
+		// ft_execute(state);
 		free(state->line);
 	}
 }

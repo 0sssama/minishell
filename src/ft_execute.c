@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/24 17:05:57 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/25 17:00:12 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,12 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 		execve(path, cmdarg, state->envtab);
 	waitpid(state->pid, &state->status, 0);
 	free(path);
-	state->status = WEXITSTATUS(state->status);
+	if (state->sig == SIGQUIT)
+		state->status = 131;
+	else if (state->sig == SIGINT)
+		state->status = 130;
+	else
+		state->status = WEXITSTATUS(state->status);
 }
 
 static void	ft_exec_path(t_state *state)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/24 17:25:36 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/25 16:58:45 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ typedef struct s_cmd {
 	char			*str;
 	char			*name;
 	char			**args;
-	int				num_of_args;
 	int				token;
+	unsigned int	num_of_args;
 	struct s_cmd	*next;
 }	t_cmd;
 
@@ -65,6 +65,7 @@ typedef struct s_state {
 	char		*oldpwd;
 	int			man_err;
 	int			status;
+	int			sig;
 	int			pid;
 }	t_state;
 
