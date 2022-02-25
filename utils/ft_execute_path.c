@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calloc.c                                        :+:      :+:    :+:   */
+/*   ft_execute_path.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/05 09:44:45 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/18 18:30:58 by obouadel         ###   ########.fr       */
+/*   Created: 2022/02/14 15:26:31 by obouadel          #+#    #+#             */
+/*   Updated: 2022/02/19 19:28:45 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_check_path(t_state *state, char **paths, char **cmdarg)
 {
-	void	*allocated_ptr;
+	int		i;
+	char	*forfree;
 
-	allocated_ptr = malloc(nmemb * size);
-	if (!allocated_ptr)
-		return (0);
-	ft_bzero(allocated_ptr, nmemb * size);
-	return (allocated_ptr);
+	i = 0;
+	while (paths && paths[i])
+	{
+		forfree = ft_strjoin(paths[i++], cmdarg[0]);
+		if (!access(forfree, X_OK | F_OK))
+			return (forfree);
+		free(forfree);
+	}
+	state->status = 127;
+	return (NULL);
 }

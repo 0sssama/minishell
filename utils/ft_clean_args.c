@@ -3,22 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/15 20:36:57 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/25 17:14:18 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	get_quote(t_state *state, int *q, int *i, char c)
+static void	ft_get_quote(t_state *state, int *q, int *i, char c)
 {
 	state->line[(*i)++] = QUOTE;
 	(*q)++;
 	while (state->line[(*i)] && state->line[(*i)] != c)
 	{
-		(*i)++;
+		if (state->line[(*i)] == '$' && c == '"')
+			ft_get_vars(state, i);
+		else
+			(*i)++;
 	}
 	if (state->line[(*i)] == c)
 	{
@@ -27,7 +30,7 @@ static void	get_quote(t_state *state, int *q, int *i, char c)
 	}
 }
 
-static int	token_it(t_state *state)
+static int	expand_it(t_state *state)
 {
 	int	i;
 	int	quotes;
@@ -38,12 +41,12 @@ static int	token_it(t_state *state)
 	{
 		if (state->line[i] == 39 || state->line[i] == 34)
 		{
-			get_quote(state, &quotes, &i, state->line[i]);
+			ft_get_quote(state, &quotes, &i, state->line[i]);
 			if (!state->line[i])
 				break ;
 		}
-		else if (state->line[i] == ' ')
-			state->line[i] = DELIMIT;
+		else if (state->line[i] == '$')
+			ft_get_vars(state, &i);
 		i++;
 	}
 	if (quotes % 2)
@@ -55,9 +58,20 @@ char	**ft_clean_args(t_state *state)
 {
 	char	**cmd;
 
-	if (!token_it(state))
+	if (!ft_token(state->line)) // tokenization
 	{
-		printf("[!] Unclosed quote [!]\n");
+		state->man_err = 1;
+		return (NULL);
+	}
+	if (!expand_it(state)) // expands $, removes quotes
+	{
+		ft_put_error(NULL, "minishell: syntax error unclosed quotes\n");
+		state->man_err = 1;
+		return (NULL);
+	}
+	printf("LINE: |%s|\n", state->line);
+	if (ft_empty_line(state->line)) // checks if line empty
+	{
 		state->man_err = 1;
 		return (NULL);
 	}

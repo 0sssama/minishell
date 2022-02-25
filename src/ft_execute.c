@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/16 18:54:35 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/25 17:00:12 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,29 @@ static void	ft_free_temp(char **s1)
 
 static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 {
-	char	*forfree;
-	int		found;
+	char	*path;
 	int		i;
 
 	i = 0;
-	found = 0;
+	path = ft_check_path(state, paths, cmdarg);
+	if (!path)
+	{
+		ft_put_error(state->current_cmd.name, "command not found\n");
+		return ;
+	}
 	state->pid = fork();
 	if (state->pid == -1)
 		ft_free_exit(state, 1);
 	if (state->pid == 0)
-	{
-		while (paths[i])
-		{
-			forfree = ft_strjoin(paths[i], cmdarg[0]);
-			if (execve(forfree, cmdarg, state->envtab) == -1)
-				i++;
-			free(forfree);
-		}
-		if (!found)
-			printf("%s: command not found\n", cmdarg[0]);
-		exit(127);
-	}
+		execve(path, cmdarg, state->envtab);
 	waitpid(state->pid, &state->status, 0);
-	state->status = WEXITSTATUS(state->status);
+	free(path);
+	if (state->sig == SIGQUIT)
+		state->status = 131;
+	else if (state->sig == SIGINT)
+		state->status = 130;
+	else
+		state->status = WEXITSTATUS(state->status);
 }
 
 static void	ft_exec_path(t_state *state)
@@ -62,11 +61,16 @@ static void	ft_exec_path(t_state *state)
 		if (execve(state->current_cmd.name, \
 			state->current_cmd.args, state->envtab) == -1)
 		{
-			perror(state->current_cmd.name);
+			if (ft_strchr(state->current_cmd.name, '/'))
+				ft_put_error(state->current_cmd.name, \
+					"No such file or directory\n");
+			else
+				ft_put_error(state->current_cmd.name, "command not found\n");
 			exit(127);
 		}
 	}
 	waitpid(state->pid, &state->status, 0);
+	state->status = WEXITSTATUS(state->status);
 }
 
 static void	ft_execve(t_state *state)
@@ -78,13 +82,14 @@ static void	ft_execve(t_state *state)
 
 	i = -1;
 	if (state->current_cmd.args[0][0] == '.' ||
-		state->current_cmd.args[0][0] == '/')
+		ft_strchr(state->current_cmd.args[0], '/'))
 		return (ft_exec_path(state));
 	cmdarg = state->current_cmd.args;
-	paths = ft_split(state->path, ':');
-	if (!paths)
-		ft_free_exit(state, 12);
-	while (paths[++i])
+	state->path = ft_get_env(&state->env, "PATH");
+	paths = NULL;
+	if (state->path)
+		paths = ft_split(state->path->value, ':');
+	while (paths && paths[++i])
 	{
 		forfree = paths[i];
 		paths[i] = ft_strjoin(paths[i], "/");

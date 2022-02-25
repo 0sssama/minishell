@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:25:48 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/16 15:44:25 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/18 16:50:35 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_env_var	*ft_get_env(t_env_var **head, char *name)
 	t_env_var	*current_node;
 	int			adding;
 
+	current_node = NULL;
 	if (!head || !(*head))
 		return (NULL);
 	adding = 0;
@@ -36,8 +37,6 @@ t_env_var	*ft_get_env(t_env_var **head, char *name)
 		}
 		current_node = current_node->next;
 	}
-	if (adding)
-		name[ft_strlen(name)] = '+';
 	return (NULL);
 }
 
