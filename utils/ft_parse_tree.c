@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/26 16:14:09 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/28 14:39:43 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,12 @@ t_cmd	*ft_parse_tree(char **cmd)
 	t_cmd			*current_node;
 	t_cmd			*head;
 	int				inside_cmd;
+	int				file[2];
 
 	i = 0;
 	inside_cmd = 0;
+	file[0] = 0; // means we passed a file, and need to add args to last cmd
+	file[1] = 0; // means we expect a file in the next arg
 	previous_node = NULL;
 	head = NULL;
 	current_node = NULL;
@@ -118,9 +121,22 @@ t_cmd	*ft_parse_tree(char **cmd)
 		{
 			if (inside_cmd)
 			{
-				// we are inside cmd, add to args
-				current_node->args = ft_add_arg(current_node->args, cmd[i]);
-				(current_node->num_of_args)++;
+				if (file[0]) // means we just passed a file, and need to add args to previous cmd
+				{
+					previous_node->args = ft_add_arg(previous_node->args, cmd[i]);
+					(previous_node->num_of_args)++;
+				}
+				else if (file[1]) // means we found a file
+				{
+					current_node->file = ft_strdup(cmd[i]);
+					file[0] = 1;
+				}
+				else
+				{
+					// we are inside cmd, add to args
+					current_node->args = ft_add_arg(current_node->args, cmd[i]);
+					(current_node->num_of_args)++;
+				}
 			}
 			else
 			{
@@ -137,6 +153,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 				current_node->name = ft_strdup(ft_lowerstr(cmd[i]));
 				current_node->num_of_args = 1;
 				current_node->args = ft_init_args(cmd[i]);
+				current_node->file = NULL;
 				current_node->token = 0;
 				current_node->next = NULL;
 			}
@@ -153,8 +170,12 @@ t_cmd	*ft_parse_tree(char **cmd)
 				current_node->name = NULL;
 				current_node->args = NULL;
 				current_node->next = NULL;
+				current_node->file = NULL;
 				current_node->token = ft_str_istoken(cmd[i]);
-				inside_cmd = 0;
+				inside_cmd = ft_str_istoken(cmd[i]) == REDOUT;
+				file[0] = 0;
+				// means if we found a REDOUT, we expect next arg to be file.
+				file[1] = ft_str_istoken(cmd[i]) == REDOUT;
 			}
 			else
 			{

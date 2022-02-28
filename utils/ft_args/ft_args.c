@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 13:25:30 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/26 15:48:08 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/28 14:34:08 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ char	**ft_add_arg(char **args, char *new_arg)
 	if (!new_args[i - 1])
 		return (NULL);
 	new_args[i] = NULL;
-	printf("got here 1\n");
 	ft_free_matrix(args);
-	printf("got here 2\n");
 	return (new_args);
 }

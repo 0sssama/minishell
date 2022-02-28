@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/26 14:05:59 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/28 14:19:20 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 typedef struct s_cmd {
 	char			*name;
 	char			**args;
+	char			*file;
 	int				token;
 	unsigned int	num_of_args;
 	struct s_cmd	*next;

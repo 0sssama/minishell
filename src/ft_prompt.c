@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/26 16:13:09 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/28 14:36:38 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ static void	ft_print_tree(t_cmd *head)
 			printf("[%s] ", current_node->args[i++]);
 		printf("-\n");
 		printf("-	NUM_OF_ARGS : %d -\n", current_node->num_of_args);
+		printf("-	FILE : %s -\n", current_node->file);
 		printf("-	TOKEN : %d -\n", current_node->token);
 		current_node = current_node->next;
 	}
