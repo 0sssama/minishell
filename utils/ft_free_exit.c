@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:11:20 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/15 20:12:33 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/02/26 16:13:36 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_free_matrix(char **matrix)
 	int	i;
 
 	i = 0;
-	while (matrix[i])
+	while (matrix && matrix[i])
 	{
 		free(matrix[i]);
 		matrix[i++] = NULL;

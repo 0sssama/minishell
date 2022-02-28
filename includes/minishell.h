@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/25 16:58:45 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/26 14:05:59 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 # define REDIN -4 // <
 # define REDOUT -5 // >
 # define APPEND -6 // >>
-# define HEREDOC -9 // <<
 # define DELIMIT -7 // ' '
+# define HEREDOC -9 // <<
 # define QUOTE -10 // ' "
 
 # include <stdlib.h>
@@ -33,7 +33,6 @@
 
 /*		  COMMAND LINKED LISTS		*/
 typedef struct s_cmd {
-	char			*str;
 	char			*name;
 	char			**args;
 	int				token;
@@ -55,12 +54,13 @@ typedef struct s_env_var {
 
 /*		ENV-VARIABLES LISTS - END	*/
 typedef struct s_state {
-	t_cmd		current_cmd;
-	char		*line;
 	t_env_var	*path;
 	t_env_var	*home;
 	t_env_var	*env;
+	t_cmd		current_cmd;
+	t_cmd		*cmd_tree;
 	char		**envtab;
+	char		*line;
 	char		*pwd;
 	char		*oldpwd;
 	int			man_err;
@@ -95,11 +95,12 @@ char			*ft_check_path(t_state *state, char **paths, char **cmdarg);
 /*			 EXECUTION - END		*/
 
 /*				PARSING			*/
-
 int				ft_check_syntax(char *str);
 int				ft_token(char *line);
-
+t_cmd			*ft_parse_tree(char **cmd);
+t_cmd			*ft_free_tree(t_cmd **head);
 /*			 PARSING - END		*/
+
 /*				ENV-VARIABLES			*/
 t_env_var		*ft_setup_env(char **env);
 t_env_var		*ft_lstnew(char **value);
@@ -125,6 +126,12 @@ void			ft_env_export(t_state *state);
 void			ft_env_unset(t_state *state);
 void			ft_pwd(t_state *state);
 /*			 BUILTINS - END			*/
+
+/*				ARGS UTILS			*/
+unsigned int	ft_args_len(char **args);
+char			**ft_init_args(char *init);
+char			**ft_add_arg(char **args, char *new_arg);
+/*			ARGS UTILS - END		*/
 
 /*			 	UTILS				*/
 char			*get_pwd(char *pwd);
