@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/28 14:39:43 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/02/28 16:39:11 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_cmd	*ft_free_tree(t_cmd **head)
 	while (current_node)
 	{
 		free(current_node->name);
+		free(current_node->file);
 		ft_free_matrix(current_node->args);
 		tmp = current_node->next;
 		free(current_node);
@@ -107,6 +108,8 @@ t_cmd	*ft_parse_tree(char **cmd)
 	t_cmd			*head;
 	int				inside_cmd;
 	int				file[2];
+	t_cmd			*last_cmd;
+	char			*tmp;
 
 	i = 0;
 	inside_cmd = 0;
@@ -123,8 +126,8 @@ t_cmd	*ft_parse_tree(char **cmd)
 			{
 				if (file[0]) // means we just passed a file, and need to add args to previous cmd
 				{
-					previous_node->args = ft_add_arg(previous_node->args, cmd[i]);
-					(previous_node->num_of_args)++;
+					last_cmd->args = ft_add_arg(last_cmd->args, cmd[i]);
+					(last_cmd->num_of_args)++;
 				}
 				else if (file[1]) // means we found a file
 				{
@@ -156,6 +159,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 				current_node->file = NULL;
 				current_node->token = 0;
 				current_node->next = NULL;
+				last_cmd = current_node;
 			}
 		}
 		else {
@@ -169,6 +173,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 					return (ft_free_tree(&head));
 				current_node->name = NULL;
 				current_node->args = NULL;
+				current_node->num_of_args = 0;
 				current_node->next = NULL;
 				current_node->file = NULL;
 				current_node->token = ft_str_istoken(cmd[i]);
@@ -179,9 +184,13 @@ t_cmd	*ft_parse_tree(char **cmd)
 			}
 			else
 			{
+				tmp = ft_token_to_str(cmd[i]);
 				ft_put_error(NULL, "syntax error near unexpected token `");
-				ft_putstr_fd(ft_token_to_str(cmd[i]), 2);
+				ft_putstr_fd(tmp, 2);
 				ft_putstr_fd("`\n", 2);
+				free(tmp);
+				tmp = NULL;
+				ft_free_matrix(cmd);
 				return (ft_free_tree(&head));
 			}
 		}
