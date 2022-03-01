@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/28 14:19:20 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:01:43 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,13 @@ char			*ft_check_path(t_state *state, char **paths, char **cmdarg);
 /*			 EXECUTION - END		*/
 
 /*				PARSING			*/
-int				ft_check_syntax(char *str);
-int				ft_token(char *line);
 t_cmd			*ft_parse_tree(char **cmd);
 t_cmd			*ft_free_tree(t_cmd **head);
+int				ft_check_syntax(char *str);
+int				ft_token(char *line);
+int				ft_istoken(char c);
+int				ft_contains_token(char *str);
+char			**ft_check_tokens(char **cmd);
 /*			 PARSING - END		*/
 
 /*				ENV-VARIABLES			*/
@@ -132,6 +135,7 @@ void			ft_pwd(t_state *state);
 unsigned int	ft_args_len(char **args);
 char			**ft_init_args(char *init);
 char			**ft_add_arg(char **args, char *new_arg);
+char			**ft_merge_args(char **args1, char **args2);
 /*			ARGS UTILS - END		*/
 
 /*			 	UTILS				*/

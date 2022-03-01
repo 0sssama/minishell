@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/25 17:14:18 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:01:06 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,9 @@ char	**ft_clean_args(t_state *state)
 		return (NULL);
 	}
 	cmd = ft_split_args(state->line, DELIMIT);
+	if (!cmd)
+		ft_free_exit(state, 12);
+	cmd = ft_check_tokens(cmd);
 	if (!cmd)
 		ft_free_exit(state, 12);
 	return (cmd);

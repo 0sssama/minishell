@@ -6,35 +6,35 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/28 16:39:11 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:19:18 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ft_istoken(char c)
+int	ft_istoken(char c)
 {
 	return (c == PIPE || c == REDIN || c == REDOUT
 		|| c == APPEND || c == HEREDOC);
 }
 
-// /*
-// 	This function checks if there is a token '<', '>', '|'..
-// 	inside of a given string.
-// */
-// static int	ft_contains_token(char *str)
-// {
-// 	unsigned int	i;
+/*
+	This function checks if there is a token '<', '>', '|'..
+	inside of a given string.
+*/
+int	ft_contains_token(char *str)
+{
+	unsigned int	i;
 
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		if (ft_istoken(str[i]))
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	i = 0;
+	while (str[i])
+	{
+		if (ft_istoken(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 static int	ft_str_istoken(char *str)
 {
@@ -61,7 +61,9 @@ t_cmd	*ft_free_tree(t_cmd **head)
 	while (current_node)
 	{
 		free(current_node->name);
+		current_node->name = NULL;
 		free(current_node->file);
+		current_node->file = NULL;
 		ft_free_matrix(current_node->args);
 		tmp = current_node->next;
 		free(current_node);

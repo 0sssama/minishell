@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/28 14:36:38 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:18:23 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ void	ft_prompt(t_state *state)
 	signal(SIGQUIT, ft_handle_sigquit);
 	while (1)
 	{
+		state->cmd_tree = NULL;
 		state->man_err = 0;
 		state->pid = -1;
 		state->sig = 0;
