@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 10:25:27 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/01 16:25:33 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <errno.h>
 # include <signal.h>
 # include <limits.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -36,6 +37,7 @@ typedef struct s_cmd {
 	char			*name;
 	char			**args;
 	char			*file;
+	int				fd;
 	int				token;
 	unsigned int	num_of_args;
 	struct s_cmd	*next;

@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 10:19:18 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/01 16:26:13 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ t_cmd	*ft_free_tree(t_cmd **head)
 		current_node->name = NULL;
 		free(current_node->file);
 		current_node->file = NULL;
+		if (current_node->fd)
+			close(current_node->fd);
 		ft_free_matrix(current_node->args);
 		tmp = current_node->next;
 		free(current_node);
@@ -135,6 +137,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 				{
 					current_node->file = ft_strdup(cmd[i]);
 					file[0] = 1;
+					current_node->fd = open(current_node->file, O_CREAT | O_RDWR);
 				}
 				else
 				{
@@ -159,6 +162,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 				current_node->num_of_args = 1;
 				current_node->args = ft_init_args(cmd[i]);
 				current_node->file = NULL;
+				current_node->fd = 0;
 				current_node->token = 0;
 				current_node->next = NULL;
 				last_cmd = current_node;
@@ -178,6 +182,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 				current_node->num_of_args = 0;
 				current_node->next = NULL;
 				current_node->file = NULL;
+				current_node->fd = 0;
 				current_node->token = ft_str_istoken(cmd[i]);
 				inside_cmd = ft_str_istoken(cmd[i]) == REDOUT;
 				file[0] = 0;

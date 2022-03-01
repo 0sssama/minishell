@@ -6,7 +6,7 @@
 #    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/03/01 10:28:13 by olabrahm         ###   ########.fr        #
+#    Updated: 2022/03/01 16:27:28 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ FILES= 	src/main utils/exits/ft_free_exit src/ft_prompt src/ft_execute utils/imp
 		utils/implement/ft_pwd utils/env/ft_setup_env utils/env/ft_lstutils utils/env/ft_split_env utils/parsing/ft_clean_args \
 		utils/exits/ft_free_split_args utils/parsing/ft_split_args utils/env/ft_env_addfront \
 		utils/exits/ft_exit utils/exits/ft_perror utils/env/ft_get_vars utils/execution/ft_execute_path \
-		utils/parsing/ft_token utils/parsing/ft_parse_tree utils/ft_args/ft_args \
+		utils/parsing/ft_token utils/parsing/ft_parse_tree utils/args/ft_args \
 		utils/parsing/ft_check_tokens
 OBJS= $(FILES:=.o)
 NAME= minishell
@@ -27,7 +27,7 @@ RM= rm -rf
 LIBFT= libft.a
 LIBFT_PATH= libft/libft.a
 
-.PHONY: all re clean fclean gen 
+.PHONY: all re clean fclean gen val
 
 %.o: %.c 
 	@$(CC) $(FLAGS) -I $(INCLUDES) -c $? -o $@ $(CPPFLAGS)
