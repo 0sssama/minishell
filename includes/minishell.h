@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 10:01:43 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:25:27 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,6 @@ char			**ft_merge_args(char **args1, char **args2);
 
 /*			 	UTILS				*/
 char			*get_pwd(char *pwd);
-char			*ft_lowerstr(char *str);
 void			ft_perror(t_state *state, char *str, int status);
 int				ft_empty_line(char *str);
 void			ft_put_error(char *name, char *error);

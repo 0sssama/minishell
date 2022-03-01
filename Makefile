@@ -6,18 +6,18 @@
 #    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/03/01 10:00:47 by olabrahm         ###   ########.fr        #
+#    Updated: 2022/03/01 10:28:13 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
 FLAGS= -Wall -Wextra -Werror
-FILES= 	src/main utils/ft_free_exit src/ft_prompt src/ft_execute utils/ft_cd \
-		utils/ft_echo utils/ft_env utils/ft_env_export utils/ft_env_unset \
-		utils/ft_pwd utils/ft_setup_env utils/ft_lstutils utils/ft_split_env utils/ft_clean_args \
-		utils/ft_free_split_args utils/ft_split_args utils/ft_env_addfront \
-		utils/ft_exit utils/ft_perror utils/ft_lowerstr utils/ft_get_vars \
-		utils/ft_execute_path utils/ft_token utils/ft_parse_tree utils/ft_args/ft_args \
+FILES= 	src/main utils/exits/ft_free_exit src/ft_prompt src/ft_execute utils/implement/ft_cd \
+		utils/implement/ft_echo utils/env/ft_env utils/env/ft_env_export utils/env/ft_env_unset \
+		utils/implement/ft_pwd utils/env/ft_setup_env utils/env/ft_lstutils utils/env/ft_split_env utils/parsing/ft_clean_args \
+		utils/exits/ft_free_split_args utils/parsing/ft_split_args utils/env/ft_env_addfront \
+		utils/exits/ft_exit utils/exits/ft_perror utils/env/ft_get_vars utils/execution/ft_execute_path \
+		utils/parsing/ft_token utils/parsing/ft_parse_tree utils/ft_args/ft_args \
 		utils/parsing/ft_check_tokens
 OBJS= $(FILES:=.o)
 NAME= minishell
