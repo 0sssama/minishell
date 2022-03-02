@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:28:58 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 10:08:58 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/02 21:33:23 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static char	**ft_split_token(char *str)
 	unsigned int	i;
 	char			**output;
 	char			*tmp;
+	char			last_char;
 
 	i = 0;
 	output = NULL;
@@ -35,8 +36,14 @@ static char	**ft_split_token(char *str)
 			free(tmp);
 			tmp = NULL;
 		}
-		while (str[i] && ft_istoken(str[i]))
+		last_char = str[i];
+		while (str[i] && ft_istoken(str[i]) && str[i] == last_char)
 		{
+			/*
+				This should normally only happen on HEREDOC, and APPEND.
+				But on other tokens, this should only check one character
+			*/
+			last_char = str[i];
 			tmp = ft_charjoin(tmp, str[i++]);
 			if (!tmp)
 				return (NULL);

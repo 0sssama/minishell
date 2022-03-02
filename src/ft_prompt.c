@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 16:27:02 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/02 19:04:28 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,25 +82,13 @@ static void	ft_print_tree(t_cmd *head)
 static void	ft_parse(t_state *state)
 {
 	char	**cmd;
-	int		i;
 
 	add_history(state->line);
 	cmd = ft_clean_args(state); // tokenizer
 	if (!cmd && state->man_err)
 		return ;
 	ft_lexer(state->line);
-	i = 0;
-	while (cmd[i])
-	{
-		printf("[%s] ", cmd[i]);
-		i++;
-	}
-	printf("\n");
-	// here put parse tree :)
 	state->cmd_tree = ft_parse_tree(cmd);
-	// state->current_cmd.name = ft_lowerstr(cmd[0]);
-	// state->current_cmd.args = cmd;
-	// state->current_cmd.num_of_args = i;
 	ft_print_tree(state->cmd_tree);
 }
 

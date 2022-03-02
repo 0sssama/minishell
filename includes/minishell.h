@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 16:25:33 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/02 21:10:20 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,17 +94,17 @@ char			**ft_split_args(char const *s, char c);
 /*				EXECUTION			*/
 void			ft_execute(t_state *state);
 char			*ft_check_path(t_state *state, char **paths, char **cmdarg);
-
 /*			 EXECUTION - END		*/
 
 /*				PARSING			*/
 t_cmd			*ft_parse_tree(char **cmd);
 t_cmd			*ft_free_tree(t_cmd **head);
-int				ft_check_syntax(char *str);
+char			**ft_check_tokens(char **cmd);
+char			*ft_token_to_str(char *tokenized_str);
 int				ft_token(char *line);
 int				ft_istoken(char c);
 int				ft_contains_token(char *str);
-char			**ft_check_tokens(char **cmd);
+int				ft_check_syntax(char **cmd, char *line);
 /*			 PARSING - END		*/
 
 /*				ENV-VARIABLES			*/
