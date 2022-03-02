@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 16:27:02 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/01 19:16:44 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_lexer(char *line)
+/* static void	ft_lexer(char *line)
 {
 	int i;
 
@@ -37,7 +37,7 @@ static void	ft_lexer(char *line)
 			printf("%c", line[i]);
 	}
 	printf("\n");
-}
+} */
 
 int	ft_empty_line(char *str)
 {
@@ -82,19 +82,18 @@ static void	ft_print_tree(t_cmd *head)
 static void	ft_parse(t_state *state)
 {
 	char	**cmd;
-	int		i;
 
 	add_history(state->line);
 	cmd = ft_clean_args(state); // tokenizer
 	if (!cmd && state->man_err)
 		return ;
-	ft_lexer(state->line);
-	i = 0;
+	// ft_lexer(state->line);
+	/* int i = 0;
 	while (cmd[i])
 	{
 		printf("[%s] ", cmd[i]);
 		i++;
-	}
+	} */
 	printf("\n");
 	// here put parse tree :)
 	state->cmd_tree = ft_parse_tree(cmd);
@@ -131,7 +130,7 @@ void	ft_prompt(t_state *state)
 			free(state->line);
 			continue ;
 		}
-		// ft_execute(state);
+		ft_execution(state);
 		free(state->line);
 		ft_free_tree(&state->cmd_tree);
 	}

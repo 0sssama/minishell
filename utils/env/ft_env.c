@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:25:48 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/26 14:04:39 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/01 18:20:38 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ static void	ft_print_env(t_state *state)
 	}
 }
 
-void	ft_env(t_state *state)
+void	ft_env(t_state *state, t_cmd *current_cmd)
 {
-	if (state->current_cmd.num_of_args == 1)
+	if (current_cmd->num_of_args == 1)
 	{
 		ft_print_env(state);
 		state->status = 0;

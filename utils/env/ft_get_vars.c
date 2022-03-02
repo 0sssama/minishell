@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:16:32 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/25 16:47:24 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/02 17:01:14 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,10 @@ void	ft_get_vars(t_state *state, int *i)
 		return ;
 	}
 	if (!ft_is_valid(state->line[l]))
+	{
+		(*i)++;
 		return ;
+	}
 	else
 	{
 		while (ft_is_valid(state->line[l]) && state->line[l])

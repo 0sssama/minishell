@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_tree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 16:26:13 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/02 18:26:01 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 				{
 					current_node->file = ft_strdup(cmd[i]);
 					file[0] = 1;
-					current_node->fd = open(current_node->file, O_CREAT | O_RDWR);
+					current_node->fd = open(current_node->file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 				}
 				else
 				{
