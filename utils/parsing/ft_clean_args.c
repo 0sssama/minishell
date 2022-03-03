@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/03 12:03:39 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 13:50:32 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ static char	*ft_expand_str(t_state *state, char *old_str)
 	new_str = NULL;
 	env_name = NULL;
 	i = 0;
+	if (ft_strlen(old_str) == 1)
+		return (ft_strdup("$"));
 	while (old_str[i])
 	{
 		while (old_str[i] && old_str[i] != ENV_SIGN)
@@ -96,6 +98,8 @@ static char	*ft_expand_str(t_state *state, char *old_str)
 			i++;
 		}
 		i++;
+		if (!old_str[i])
+			break ;
 		if (old_str[i] && ft_isdigit(old_str[i]))
 		{
 			i++;
@@ -106,9 +110,7 @@ static char	*ft_expand_str(t_state *state, char *old_str)
 			env_name = ft_charjoin(env_name, old_str[i]);
 			i++;
 		}
-		if (!old_str[i])
-			break ;
-		if (!env_name)
+		if (!env_name && old_str[i])
 			new_str = ft_charjoin(new_str, '$');
 		else
 		{
