@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/03 11:48:24 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:30:10 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ static void	ft_lexer(char *line)
 			printf("QUOTE");
 		else if (line[i] == ENV_SIGN)
 			printf("ENV_SIGN");
+		else if (line[i] == EXIT_STATUS)
+			printf("EXIT");
 		else
 			printf("%c", line[i]);
 	}

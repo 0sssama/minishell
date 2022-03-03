@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/03 11:45:29 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:19:53 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define HEREDOC -9 // <<
 # define QUOTE -10 // ' "
 # define ENV_SIGN -11 // $
+# define EXIT_STATUS -12 // $?
 
 # include <stdlib.h>
 # include <unistd.h>

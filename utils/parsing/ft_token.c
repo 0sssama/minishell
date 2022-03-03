@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:11:26 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/03 10:55:32 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:23:37 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,16 @@ static void	ft_end_quote(char *line, int *i)
 	while (line[*i] && line[*i] != quote)
 	{
 		if (line[*i] == '$' && replace_env)
-			line[*i] = ENV_SIGN;
+		{
+			if (line[*i + 1] == '?')
+			{
+				line[*i] = EXIT_STATUS;
+				line[*i + 1] = EXIT_STATUS;
+				(*i)++;
+			}
+			else
+				line[*i] = ENV_SIGN;
+		}
 		(*i)++;
 	}
 	if (!line[*i])
@@ -113,7 +122,16 @@ static void	ft_replace_opp(char *line, int *i)
 			line[*i] = REDOUT;
 	}
 	else if (line[*i] == '$')
-		line[*i] = ENV_SIGN;
+	{
+		if (line[*i + 1] == '?')
+		{
+			line[*i] = EXIT_STATUS;
+			line[*i + 1] = EXIT_STATUS;
+			(*i)++;
+		}
+		else 
+			line[*i] = ENV_SIGN;
+	}
 	(*i)++;
 }
 
