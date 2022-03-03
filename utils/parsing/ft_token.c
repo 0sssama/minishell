@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:11:26 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/02 21:00:15 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 09:22:26 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	ft_replace_opp(char *line, int *i)
 
 int	ft_token(char *line)
 {
-	unsigned int	i;
+	int	i;
 
 	i = 0;
 	while (line[i])

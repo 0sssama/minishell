@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:02:09 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/02 21:30:01 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 10:25:38 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	ft_correct_quotes(char *line)
 {
 	unsigned int	i;
-	unsigned int	count;
+	int				count;
 
 	i = 0;
 	count = 0;
@@ -32,6 +32,8 @@ static int	ft_correct_quotes(char *line)
 
 static int	ft_get_token(char *str)
 {
+	if (!str)
+		return (0);
 	if (ft_istoken(str[0]) && (!str[1] || (str[0] == str[1] && !str[2])))
 		return (str[0]);
 	return (0);
@@ -39,6 +41,7 @@ static int	ft_get_token(char *str)
 
 /*
 	DEV NOTE: meaning of each ft_check_syntax return code
+	sorry for the hard code, its syntax checking for fuckssake.
 
 	0: success;
 	1: unclosed quotes; (ft_correct_quotes())
@@ -56,21 +59,21 @@ int	ft_check_syntax(char **cmd, char *line)
 		return (1);
 	while (cmd[i])
 	{
-		if (ft_get_token(cmd[i]) == REDOUT)
-		{
-			if (ft_contains_token(cmd[i + 1]))
-				return (2);
-		}
-		else if (ft_get_token(cmd[i]) == PIPE)
-		{
-			if (ft_contains_token(cmd[i + 1]) && ft_get_token(cmd[i + 1]) == REDOUT)
-				return (2);
-		}
-		else if (ft_get_token(cmd[i]) == ft_get_token(cmd[i + 1]))
+		if (ft_contains_token(cmd[i]) && !cmd[i + 1])
 			return (2);
-		else if (ft_get_token(cmd[i]) == HEREDOC && ft_get_token(cmd[i + 1]) == APPEND)
+		if ((ft_get_token(cmd[i]) == REDOUT || ft_get_token(cmd[i]) == REDIN)
+			&& ft_contains_token(cmd[i + 1]))
 			return (2);
-		else if (ft_get_token(cmd[i]) == REDIN && ft_get_token(cmd[i]) == REDOUT)
+		if (ft_get_token(cmd[i]) == PIPE
+			&& ft_contains_token(cmd[i + 1]) && ft_get_token(cmd[i + 1]) == REDOUT)
+			return (2);
+		if (ft_get_token(cmd[i]) != 0 && ft_get_token(cmd[i]) == ft_get_token(cmd[i + 1]))
+			return (2);
+		if (ft_get_token(cmd[i]) == HEREDOC && ft_get_token(cmd[i + 1]) == APPEND)
+			return (2);
+		if (ft_get_token(cmd[i]) == REDIN && ft_get_token(cmd[i]) == REDOUT)
+			return (2);
+		if (ft_contains_token(cmd[i]) && ft_get_token(cmd[i + 1]) == PIPE)
 			return (2);
 		i++;
 	}

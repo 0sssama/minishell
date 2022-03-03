@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/02 21:14:18 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 10:25:57 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ static char	**ft_put_syntax_error(t_state *state, int syntax_code)
 	ft_put_error(NULL, message);
 	free(message);
 	message = NULL;
+	return (set_man_err_null(state));
 }
 
 char	**ft_clean_args(t_state *state)

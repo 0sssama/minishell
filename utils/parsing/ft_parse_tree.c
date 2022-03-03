@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 16:26:13 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 09:41:18 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_cmd	*ft_free_tree(t_cmd **head)
 		current_node->name = NULL;
 		free(current_node->file);
 		current_node->file = NULL;
-		if (current_node->fd)
+		if (current_node->fd && current_node->fd > -1)
 			close(current_node->fd);
 		ft_free_matrix(current_node->args);
 		tmp = current_node->next;
