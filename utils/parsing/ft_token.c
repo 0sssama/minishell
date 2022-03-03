@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:11:26 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/03 09:22:26 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 10:55:32 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,21 @@
 static void	ft_end_quote(char *line, int *i)
 {
 	char	quote;
+	int		replace_env;
 
 	quote = line[*i];
+	replace_env = quote == '"';
+	line[*i] = QUOTE;
 	(*i)++;
 	while (line[*i] && line[*i] != quote)
+	{
+		if (line[*i] == '$' && replace_env)
+			line[*i] = ENV_SIGN;
 		(*i)++;
+	}
+	if (!line[*i])
+		return ;
+	line[*i] = QUOTE;
 	(*i)++;
 }
 
@@ -102,6 +112,8 @@ static void	ft_replace_opp(char *line, int *i)
 		else
 			line[*i] = REDOUT;
 	}
+	else if (line[*i] == '$')
+		line[*i] = ENV_SIGN;
 	(*i)++;
 }
 
@@ -114,7 +126,7 @@ int	ft_token(char *line)
 	{
 		if (line[i] == '"' || line[i] == '\'')
 			ft_end_quote(line, &i);
-		else if (ft_strchr("<>|", line[i]))
+		else if (ft_strchr("<>|$", line[i]))
 			ft_replace_opp(line, &i);
 		else if (line[i] == ' ')
 			line[i++] = DELIMIT;

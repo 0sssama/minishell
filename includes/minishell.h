@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/02 21:10:20 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 11:45:29 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define DELIMIT -7 // ' '
 # define HEREDOC -9 // <<
 # define QUOTE -10 // ' "
+# define ENV_SIGN -11 // $
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -88,7 +89,7 @@ void			ft_handle_sigquit(int signal);
 void			ft_prompt(t_state *state);
 char			**ft_clean_args(t_state *state);
 void			ft_free_split(char **array, size_t len);
-char			**ft_split_args(char const *s, char c);
+char			**ft_split_args(char *s, char c);
 /*		 PROMPT - END			*/
 
 /*				EXECUTION			*/
