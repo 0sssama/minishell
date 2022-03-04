@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:48:22 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/02 19:19:02 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:58:54 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,28 @@ t_cmd	*ft_redirect(t_cmd *cmd)
 		cmd->next->token == APPEND))
 			cmd = cmd->next;
 		if (cmd)
+		{
 			dup2(cmd->fd, 1);
+			close(cmd->fd);
+		}
 	}
 	else if (cmd->token == REDIN)
 	{
 		while (cmd->next && cmd->next->token == REDIN)
 			cmd = cmd->next;
 		if (cmd)
+		{
 			dup2(cmd->fd, 0);
+			close(cmd->fd);
+		}
 	}
 	return (cmd);
 }
 
-void	ft_execute_pipeline(t_state *state, t_cmd *cmd, t_cmd *sv)
+static void	ft_execute_pipeline(t_state *state, t_cmd *cmd, t_cmd *sv)
 {
 	t_cmd	*save;
-
+ 
 	save = sv;
 	if (!cmd || cmd->token == PIPE)
 	{
@@ -71,17 +77,7 @@ void	ft_execute_pipeline(t_state *state, t_cmd *cmd, t_cmd *sv)
 
 void	ft_exec_cmd(t_state *state, t_cmd *cmd)
 {
-	int	pid;
-
-	pid = fork();
-	if (pid < 0)
-		ft_free_exit(state, 1);
-	if (!pid)
-	{
-		ft_execute_pipeline(state, cmd, NULL);
-		exit(state->status);
-	}
-	waitpid(pid, &state->status, 0);
+	ft_execute_pipeline(state, cmd, NULL);
 }
 
 void	ft_execution(t_state *state)
@@ -93,10 +89,7 @@ void	ft_execution(t_state *state)
 	current_node = state->cmd_tree;
 	state->pipes = ft_get_pipes(&state->cmd_tree);
 	if (state->pipes == 0)
-	{
-		ft_exec_cmd(state, current_node);
-		return ;
-	}
+		return (ft_exec_cmd(state, current_node));
 	ft_setup_pipe(state);
 	ft_loop_pipe(state, current_node);
 	ft_close(state);

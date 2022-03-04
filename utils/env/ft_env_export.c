@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:26:07 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 18:19:30 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/04 16:17:17 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,7 @@ void	ft_env_export(t_state *state, t_cmd *current_cmd)
 			new_var = ft_split_env(current_cmd->args[i], '=');
 			if (!new_var)
 			{
-				printf("minishell: export: `%s`: not a valid identifier\n",
-					current_cmd->args[i]);
+				ft_put_error(NULL, "`%s`: not a valid identifier\n");
 				state->status = 1;
 			}
 			else if (ft_get_env(&state->env, new_var[0]))

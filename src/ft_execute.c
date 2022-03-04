@@ -6,22 +6,16 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/01 19:29:26 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:12:54 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_free_temp(char **s1)
+static void	ft_reset_signals(void)
 {
-	int	i;
-
-	i = 0;
-	if (!s1)
-		return ;
-	while (s1[i])
-		free(s1[i++]);
-	free(s1);
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
 }
 
 static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
@@ -40,7 +34,10 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 	if (state->pid == -1)
 		ft_free_exit(state, 1);
 	if (state->pid == 0)
+	{
+		ft_reset_signals();
 		execve(path, cmdarg, state->envtab);
+	}
 	waitpid(state->pid, &state->status, 0);
 	free(path);
 	if (state->sig == SIGQUIT)
@@ -58,6 +55,7 @@ static void	ft_exec_path(t_state *state, t_cmd *current_cmd)
 		ft_free_exit(state, 1);
 	if (state->pid == 0)
 	{
+		ft_reset_signals();
 		if (execve(current_cmd->name, \
 			current_cmd->args, state->envtab) == -1)
 		{

@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/02 19:13:43 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/04 17:06:02 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <signal.h>
 # include <limits.h>
 # include <fcntl.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -62,6 +63,7 @@ typedef struct s_state {
 	t_env_var	*env;
 	t_cmd		current_cmd;
 	t_cmd		*cmd_tree;
+	int			io[2];
 	int			**fds;
 	int			*pids;
 	int			pipes;
@@ -101,8 +103,9 @@ void			ft_pipe_it(t_state *state, t_cmd *current_cmd, int i);
 int				ft_get_pipes(t_cmd **cmd_tree);
 void			ft_setup_pipe(t_state *state);
 void			ft_exec_cmd(t_state *state, t_cmd *cmd);
-void		ft_loop_pipe(t_state *state, t_cmd *current_node);
-
+void			ft_loop_pipe(t_state *state, t_cmd *current_node);
+void			ft_save_io(t_state *state);
+void			ft_reset_io(t_state *state);
 /*			 EXECUTION - END		*/
 
 /*				PARSING			*/
@@ -155,6 +158,6 @@ void			ft_perror(t_state *state, char *str, int status);
 int				ft_empty_line(char *str);
 void			ft_put_error(char *name, char *error);
 void			ft_close(t_state *state);
-
+void			ft_free_temp(char **s1);
 /*			 UTILS - END			*/
 #endif
