@@ -6,19 +6,32 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 16:49:10 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/15 20:35:30 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/02 18:29:28 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_check_status(t_state *state)
+void	ft_close(t_state *state)
+{
+	int	i;
+
+	i = 0;
+	while (i < state->pipes)
+	{
+		close(state->fds[i][0]);
+		close(state->fds[i][1]);
+		i++;
+	}
+}
+
+static void	ft_check_status(t_state *state, t_cmd *current_cmd)
 {
 	char	*arg;
 	int		i;
 
 	i = 0;
-	arg = state->current_cmd.args[1];
+	arg = current_cmd->args[1];
 	if (arg[i] == '-' || arg[i] == '+')
 		i++;
 	while (arg[i])
@@ -33,19 +46,19 @@ static void	ft_check_status(t_state *state)
 	}
 }
 
-void	ft_exit(t_state *state)
+void	ft_exit(t_state *state, t_cmd *current_cmd)
 {
 	int	status;
 
-	if (state->current_cmd.args[1] == NULL)
+	if (current_cmd->args[1] == NULL)
 	{
 		ft_free_cmd(state);
 		ft_free_exit(state, 0);
 	}
-	else if (state->current_cmd.args[2] == NULL)
+	else if (current_cmd->args[2] == NULL)
 	{
-		ft_check_status(state);
-		status = ft_atoi(state->current_cmd.args[1]);
+		ft_check_status(state, current_cmd);
+		status = ft_atoi(current_cmd->args[1]);
 		ft_free_cmd(state);
 		ft_free_exit(state, status);
 	}
