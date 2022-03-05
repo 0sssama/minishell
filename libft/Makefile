@@ -6,7 +6,7 @@
 #    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/08 13:16:18 by olabrahm          #+#    #+#              #
-#    Updated: 2022/01/15 20:55:52 by olabrahm         ###   ########.fr        #
+#    Updated: 2022/03/01 10:25:40 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ MANDATORY =	ft_isalpha ft_isdigit ft_isalnum ft_isascii \
 			ft_strchr ft_strrchr ft_strncmp ft_memchr ft_memcmp \
 			ft_strnstr ft_atoi ft_calloc ft_strdup ft_substr ft_strjoin \
 			ft_strtrim ft_split ft_itoa ft_strmapi ft_striteri \
-			ft_putchar_fd ft_putstr_fd ft_putendl_fd ft_putnbr_fd ft_strcmp ft_charjoin
+			ft_putchar_fd ft_putstr_fd ft_putendl_fd ft_putnbr_fd ft_strcmp ft_charjoin ft_lowerstr
 BONUS=		ft_lstnew ft_lstadd_front ft_lstsize ft_lstlast ft_lstadd_back \
 			ft_lstdelone ft_lstclear ft_lstiter ft_lstmap
 OBJS=$(MANDATORY:=.o)

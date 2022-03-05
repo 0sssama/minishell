@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lowerstr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 17:53:00 by obouadel          #+#    #+#             */
-/*   Updated: 2022/02/19 16:02:57 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/01 10:26:53 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 char	*ft_lowerstr(char *str)
 {

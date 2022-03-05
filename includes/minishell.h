@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/25 16:58:45 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:19:53 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@
 # define REDIN -4 // <
 # define REDOUT -5 // >
 # define APPEND -6 // >>
-# define HEREDOC -9 // <<
 # define DELIMIT -7 // ' '
+# define HEREDOC -9 // <<
 # define QUOTE -10 // ' "
+# define ENV_SIGN -11 // $
+# define EXIT_STATUS -12 // $?
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -27,15 +29,17 @@
 # include <errno.h>
 # include <signal.h>
 # include <limits.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
 
 /*		  COMMAND LINKED LISTS		*/
 typedef struct s_cmd {
-	char			*str;
 	char			*name;
 	char			**args;
+	char			*file;
+	int				fd;
 	int				token;
 	unsigned int	num_of_args;
 	struct s_cmd	*next;
@@ -55,12 +59,13 @@ typedef struct s_env_var {
 
 /*		ENV-VARIABLES LISTS - END	*/
 typedef struct s_state {
-	t_cmd		current_cmd;
-	char		*line;
 	t_env_var	*path;
 	t_env_var	*home;
 	t_env_var	*env;
+	t_cmd		current_cmd;
+	t_cmd		*cmd_tree;
 	char		**envtab;
+	char		*line;
 	char		*pwd;
 	char		*oldpwd;
 	int			man_err;
@@ -85,21 +90,25 @@ void			ft_handle_sigquit(int signal);
 void			ft_prompt(t_state *state);
 char			**ft_clean_args(t_state *state);
 void			ft_free_split(char **array, size_t len);
-char			**ft_split_args(char const *s, char c);
+char			**ft_split_args(char *s, char c);
 /*		 PROMPT - END			*/
 
 /*				EXECUTION			*/
 void			ft_execute(t_state *state);
 char			*ft_check_path(t_state *state, char **paths, char **cmdarg);
-
 /*			 EXECUTION - END		*/
 
 /*				PARSING			*/
-
-int				ft_check_syntax(char *str);
+t_cmd			*ft_parse_tree(char **cmd);
+t_cmd			*ft_free_tree(t_cmd **head);
+char			**ft_check_tokens(char **cmd);
+char			*ft_token_to_str(char *tokenized_str);
 int				ft_token(char *line);
-
+int				ft_istoken(char c);
+int				ft_contains_token(char *str);
+int				ft_check_syntax(char **cmd, char *line);
 /*			 PARSING - END		*/
+
 /*				ENV-VARIABLES			*/
 t_env_var		*ft_setup_env(char **env);
 t_env_var		*ft_lstnew(char **value);
@@ -126,9 +135,15 @@ void			ft_env_unset(t_state *state);
 void			ft_pwd(t_state *state);
 /*			 BUILTINS - END			*/
 
+/*				ARGS UTILS			*/
+unsigned int	ft_args_len(char **args);
+char			**ft_init_args(char *init);
+char			**ft_add_arg(char **args, char *new_arg);
+char			**ft_merge_args(char **args1, char **args2);
+/*			ARGS UTILS - END		*/
+
 /*			 	UTILS				*/
 char			*get_pwd(char *pwd);
-char			*ft_lowerstr(char *str);
 void			ft_perror(t_state *state, char *str, int status);
 int				ft_empty_line(char *str);
 void			ft_put_error(char *name, char *error);

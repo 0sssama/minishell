@@ -3,21 +3,22 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+         #
+#    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/02/24 17:04:07 by obouadel         ###   ########.fr        #
+#    Updated: 2022/03/03 09:23:51 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC=gcc
 FLAGS= -Wall -Wextra -Werror
-FILES= 	src/main utils/ft_free_exit src/ft_prompt src/ft_execute \
-		utils/ft_cd utils/ft_echo utils/ft_env utils/ft_env_export utils/ft_env_unset \
-		utils/ft_pwd utils/ft_setup_env utils/ft_lstutils utils/ft_split_env utils/ft_clean_args \
-		utils/ft_free_split_args utils/ft_split_args utils/ft_env_addfront \
-		utils/ft_exit utils/ft_perror utils/ft_lowerstr utils/ft_get_vars \
-		utils/ft_execute_path utils/ft_token
+FILES= 	src/main utils/exits/ft_free_exit src/ft_prompt src/ft_execute utils/implement/ft_cd \
+		utils/implement/ft_echo utils/env/ft_env utils/env/ft_env_export utils/env/ft_env_unset \
+		utils/implement/ft_pwd utils/env/ft_setup_env utils/env/ft_lstutils utils/env/ft_split_env utils/parsing/ft_clean_args \
+		utils/exits/ft_free_split_args utils/parsing/ft_split_args utils/env/ft_env_addfront \
+		utils/exits/ft_exit utils/exits/ft_perror utils/env/ft_get_vars utils/execution/ft_execute_path \
+		utils/parsing/ft_token utils/parsing/ft_parse_tree utils/args/ft_args \
+		utils/parsing/ft_check_tokens utils/parsing/ft_check_syntax
 OBJS= $(FILES:=.o)
 NAME= minishell
 INCLUDES=includes
@@ -26,7 +27,7 @@ RM= rm -rf
 LIBFT= libft.a
 LIBFT_PATH= libft/libft.a
 
-.PHONY: all re clean fclean gen 
+.PHONY: all re clean fclean gen val
 
 %.o: %.c 
 	@$(CC) $(FLAGS) -I $(INCLUDES) -c $? -o $@ $(CPPFLAGS)
@@ -50,9 +51,10 @@ fclean: clean
 	@$(MAKE) fclean -C libft 
 	@echo "\033[30;1m---> \033[0mBinary files clean\033[32;1m [DONE] \033[0m"
 
-gen: all clean 
+gen: fclean all
 	clear
-	./minishell
+	@$(MAKE) clean
+	@./minishell
 
 val: all clean
 	clear
