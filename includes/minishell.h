@@ -20,6 +20,8 @@
 # define DELIMIT -7 // ' '
 # define HEREDOC -9 // <<
 # define QUOTE -10 // ' "
+# define ENV_SIGN -11 // $
+# define EXIT_STATUS -12 // $?
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -92,7 +94,7 @@ void			ft_handle_sigquit(int signal);
 void			ft_prompt(t_state *state);
 char			**ft_clean_args(t_state *state);
 void			ft_free_split(char **array, size_t len);
-char			**ft_split_args(char const *s, char c);
+char			**ft_split_args(char *s, char c);
 /*		 PROMPT - END			*/
 
 /*				EXECUTION			*/
@@ -111,11 +113,12 @@ void			ft_reset_io(t_state *state);
 /*				PARSING			*/
 t_cmd			*ft_parse_tree(char **cmd);
 t_cmd			*ft_free_tree(t_cmd **head);
-int				ft_check_syntax(char *str);
+char			**ft_check_tokens(char **cmd);
+char			*ft_token_to_str(char *tokenized_str);
 int				ft_token(char *line);
 int				ft_istoken(char c);
 int				ft_contains_token(char *str);
-char			**ft_check_tokens(char **cmd);
+int				ft_check_syntax(char **cmd, char *line);
 /*			 PARSING - END		*/
 
 /*				ENV-VARIABLES			*/

@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:28:58 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 10:08:58 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 10:20:40 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ static char	**ft_split_token(char *str)
 		}
 		while (str[i] && ft_istoken(str[i]))
 		{
+			if (tmp && tmp[0] != APPEND && tmp[0] != HEREDOC)
+				break ;
+			if (tmp && (tmp[0] == APPEND || tmp[0] == HEREDOC) && ft_strlen(tmp) == 2)
+				break ;
 			tmp = ft_charjoin(tmp, str[i++]);
 			if (!tmp)
 				return (NULL);

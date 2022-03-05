@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:41:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/19 15:20:07 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/03 11:45:29 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	ft_get_len(char *str, int len)
 	return (count);
 }
 
-static size_t	ft_word_count(char const *s, char c)
+static size_t	ft_word_count(char *s, char c)
 {
 	size_t	output;
 	size_t	i;
@@ -75,7 +75,7 @@ static char	*ft_strndup(char *str, size_t len)
 	return (output);
 }
 
-static char	*ft_get_next_word(char const *s, size_t *i, char c)
+static char	*ft_get_next_word(char *s, size_t *i, char c)
 {
 	size_t	k;
 	char	*word;
@@ -92,7 +92,7 @@ static char	*ft_get_next_word(char const *s, size_t *i, char c)
 	return (word);
 }
 
-char	**ft_split_args(char const *s, char c)
+char	**ft_split_args(char *s, char c)
 {
 	char	**output;
 	size_t	word_count;

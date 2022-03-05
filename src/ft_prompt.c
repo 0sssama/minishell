@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/04 17:10:53 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/03 18:30:10 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ static void	ft_parse(t_state *state)
 	cmd = ft_clean_args(state); // tokenizer
 	if (!cmd && state->man_err)
 		return ;
-	printf("\n");
-	// here put parse tree :)
 	state->cmd_tree = ft_parse_tree(cmd);
 	ft_print_tree(state->cmd_tree);
 }

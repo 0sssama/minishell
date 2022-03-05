@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 12:06:00 by olabrahm          #+#    #+#             */
-/*   Updated: 2021/11/08 13:41:05 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 11:45:29 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static size_t	ft_min(size_t a, size_t b)
 	return (b);
 }
 
-size_t	ft_strlcat(char *dst, const char *src, size_t size)
+size_t	ft_strlcat(char *dst, char *src, size_t size)
 {
 	size_t	dst_len;
 	size_t	src_len;

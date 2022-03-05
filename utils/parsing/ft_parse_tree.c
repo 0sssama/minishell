@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/02 18:26:01 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/03 11:58:26 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	ft_str_istoken(char *str)
 			return (0);
 		i++;
 	}
+	if (i == 0)
+		return (0);
 	return (str[i - 1]);
 }
 
@@ -64,7 +66,7 @@ t_cmd	*ft_free_tree(t_cmd **head)
 		current_node->name = NULL;
 		free(current_node->file);
 		current_node->file = NULL;
-		if (current_node->fd)
+		if (current_node->fd && current_node->fd > -1)
 			close(current_node->fd);
 		ft_free_matrix(current_node->args);
 		tmp = current_node->next;
@@ -113,7 +115,6 @@ t_cmd	*ft_parse_tree(char **cmd)
 	int				inside_cmd;
 	int				file[2];
 	t_cmd			*last_cmd;
-	char			*tmp;
 
 	i = 0;
 	inside_cmd = 0;
@@ -168,38 +169,25 @@ t_cmd	*ft_parse_tree(char **cmd)
 				last_cmd = current_node;
 			}
 		}
-		else {
-			if (inside_cmd)
-			{
-				// found token, create new node with it.
-				previous_node = current_node;
-				current_node = (t_cmd *) malloc(sizeof(t_cmd));
-				previous_node->next = current_node;
-				if (!current_node)
-					return (ft_free_tree(&head));
-				current_node->name = NULL;
-				current_node->args = NULL;
-				current_node->num_of_args = 0;
-				current_node->next = NULL;
-				current_node->file = NULL;
-				current_node->fd = 0;
-				current_node->token = ft_str_istoken(cmd[i]);
-				inside_cmd = ft_str_istoken(cmd[i]) == REDOUT;
-				file[0] = 0;
-				// means if we found a REDOUT, we expect next arg to be file.
-				file[1] = ft_str_istoken(cmd[i]) == REDOUT;
-			}
-			else
-			{
-				tmp = ft_token_to_str(cmd[i]);
-				ft_put_error(NULL, "syntax error near unexpected token `");
-				ft_putstr_fd(tmp, 2);
-				ft_putstr_fd("`\n", 2);
-				free(tmp);
-				tmp = NULL;
-				ft_free_matrix(cmd);
+		else if (inside_cmd)
+		{
+			// found token, create new node with it.
+			previous_node = current_node;
+			current_node = (t_cmd *) malloc(sizeof(t_cmd));
+			previous_node->next = current_node;
+			if (!current_node)
 				return (ft_free_tree(&head));
-			}
+			current_node->name = NULL;
+			current_node->args = NULL;
+			current_node->num_of_args = 0;
+			current_node->next = NULL;
+			current_node->file = NULL;
+			current_node->fd = 0;
+			current_node->token = ft_str_istoken(cmd[i]);
+			inside_cmd = ft_str_istoken(cmd[i]) == REDOUT;
+			file[0] = 0;
+			// means if we found a REDOUT, we expect next arg to be file.
+			file[1] = ft_str_istoken(cmd[i]) == REDOUT;
 		}
 		i++;
 	}

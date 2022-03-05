@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:41:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/18 18:50:17 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/03 11:45:29 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static size_t	ft_word_count(char const *s, char c)
+static size_t	ft_word_count(char *s, char c)
 {
 	size_t	output;
 	size_t	i;
@@ -55,7 +55,7 @@ static char	*ft_strndup(char *str, size_t len)
 	return (output);
 }
 
-static char	*ft_get_next_word(char const *s, size_t *i, char c)
+static char	*ft_get_next_word(char *s, size_t *i, char c)
 {
 	size_t	k;
 	char	*word;
@@ -82,7 +82,7 @@ static void	ft_free_all(char **array, size_t len)
 	free(array);
 }
 
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	char	**output;
 	size_t	word_count;

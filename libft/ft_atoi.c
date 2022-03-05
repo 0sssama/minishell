@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 09:30:21 by olabrahm          #+#    #+#             */
-/*   Updated: 2021/11/08 11:41:10 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/03 11:45:29 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_isspace(char c)
 		|| c == '\f' || c == '\r' || c == ' ');
 }
 
-int	ft_atoi(const char *str)
+int	ft_atoi(char *str)
 {
 	size_t	i;
 	int		output;
