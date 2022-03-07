@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:25:48 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 18:20:38 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/07 20:03:22 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ static void	ft_print_env(t_state *state)
 	current_node = state->env;
 	while (current_node)
 	{
+		if (current_node->value == NULL || ft_strlen(current_node->value) == 0)
+		{
+			current_node = current_node->next;
+			continue ;
+		}
 		printf("%s=%s\n", current_node->name, current_node->value);
 		current_node = current_node->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/07 18:26:35 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/07 20:01:55 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,4 @@ void	ft_execute(t_state *state, t_cmd *current_cmd)
 		ft_exit(state, current_cmd);
 	else
 		ft_execve(state, current_cmd);
-	// ft_free_cmd(state);
 }
