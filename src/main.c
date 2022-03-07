@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/05 13:11:39 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/07 21:17:34 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_handle_sigquit(int signal)
 	if (g_state.pid > 0)
 	{
 		write(2, "Quit: 3\n", 8);
-		kill(g_state.pid, SIGQUIT);
+		kill(g_state.pid, SIGKILL);
 		g_state.pid = -1;
 		g_state.sig = SIGQUIT;
 	}
@@ -37,7 +37,7 @@ void	ft_handle_sigint(int signal)
 	write(2, "\n", 1);
 	if (g_state.pid > 0)
 	{
-		kill(g_state.pid, SIGINT);
+		kill(g_state.pid, SIGKILL);
 		g_state.pid = -1;
 		g_state.sig = SIGINT;
 	}
