@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:02:09 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/03 10:25:38 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/04 11:18:35 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	ft_correct_quotes(char *line)
 	return (count % 2 == 0);
 }
 
-static int	ft_get_token(char *str)
+int	ft_get_token(char *str)
 {
 	if (!str)
 		return (0);
@@ -67,13 +67,15 @@ int	ft_check_syntax(char **cmd, char *line)
 		if (ft_get_token(cmd[i]) == PIPE
 			&& ft_contains_token(cmd[i + 1]) && ft_get_token(cmd[i + 1]) == REDOUT)
 			return (2);
-		if (ft_get_token(cmd[i]) != 0 && ft_get_token(cmd[i]) == ft_get_token(cmd[i + 1]))
+		if (ft_contains_token(cmd[i]) && ft_get_token(cmd[i]) == ft_get_token(cmd[i + 1]))
 			return (2);
 		if (ft_get_token(cmd[i]) == HEREDOC && ft_get_token(cmd[i + 1]) == APPEND)
 			return (2);
 		if (ft_get_token(cmd[i]) == REDIN && ft_get_token(cmd[i]) == REDOUT)
 			return (2);
 		if (ft_contains_token(cmd[i]) && ft_get_token(cmd[i + 1]) == PIPE)
+			return (2);
+		if (i == 0 && ft_get_token(cmd[i]) == REDOUT)
 			return (2);
 		i++;
 	}

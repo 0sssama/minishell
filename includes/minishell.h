@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/04 17:06:02 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/07 17:59:31 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_cmd {
 	char			*file;
 	int				fd;
 	int				token;
+	char			*eof;
 	unsigned int	num_of_args;
 	struct s_cmd	*next;
 }	t_cmd;
@@ -119,6 +120,7 @@ int				ft_token(char *line);
 int				ft_istoken(char c);
 int				ft_contains_token(char *str);
 int				ft_check_syntax(char **cmd, char *line);
+int				ft_get_token(char *str);
 /*			 PARSING - END		*/
 
 /*				ENV-VARIABLES			*/

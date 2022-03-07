@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/03 11:58:26 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:00:44 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ t_cmd	*ft_free_tree(t_cmd **head)
 		current_node->name = NULL;
 		free(current_node->file);
 		current_node->file = NULL;
+		free(current_node->eof);
+		current_node->eof = NULL;
 		if (current_node->fd && current_node->fd > -1)
 			close(current_node->fd);
 		ft_free_matrix(current_node->args);
@@ -136,9 +138,36 @@ t_cmd	*ft_parse_tree(char **cmd)
 				}
 				else if (file[1]) // means we found a file
 				{
+					if (current_node->token == HEREDOC)
+					{
+						current_node->eof = ft_strdup(cmd[i]);
+						current_node->fd = ft_heredoc(current_node->eof);
+						inside_cmd = 0;
+						file[0] = 0;
+						file[1] = 0;
+						i++;
+						continue ;
+					}
 					current_node->file = ft_strdup(cmd[i]);
-					file[0] = 1;
-					current_node->fd = open(current_node->file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+					if (current_node->token == REDIN)
+					{
+						inside_cmd = 0;
+						file[1] = 0;
+					}
+					else
+						file[0] = 1;
+					if (current_node->token == APPEND)
+						current_node->fd = open(current_node->file, O_CREAT | O_RDWR | O_APPEND);
+					else if (current_node->token == REDOUT)
+						current_node->fd = open(current_node->file, O_CREAT | O_RDWR | O_TRUNC);
+					else if (current_node->token == REDIN)
+						current_node->fd = open(current_node->file, O_RDONLY);
+					if (current_node->fd == -1)
+					{
+						ft_put_error(current_node->file, "No such file or directory.\n");
+						ft_free_matrix(cmd);
+						return (ft_free_tree(&head));
+					}
 				}
 				else
 				{
@@ -155,7 +184,10 @@ t_cmd	*ft_parse_tree(char **cmd)
 				if (previous_node)
 					previous_node->next = current_node;
 				if (!current_node)
+				{
+					ft_free_matrix(cmd);
 					return (ft_free_tree(&head));
+				}
 				if (i == 0)
 					head = current_node;
 				inside_cmd = 1;
@@ -163,31 +195,39 @@ t_cmd	*ft_parse_tree(char **cmd)
 				current_node->num_of_args = 1;
 				current_node->args = ft_init_args(cmd[i]);
 				current_node->file = NULL;
+				current_node->eof = NULL;
 				current_node->fd = 0;
 				current_node->token = 0;
 				current_node->next = NULL;
 				last_cmd = current_node;
 			}
 		}
-		else if (inside_cmd)
+		else if (inside_cmd || ft_str_istoken(cmd[i]) == REDIN || ft_str_istoken(cmd[i]) == HEREDOC)
 		{
 			// found token, create new node with it.
 			previous_node = current_node;
 			current_node = (t_cmd *) malloc(sizeof(t_cmd));
-			previous_node->next = current_node;
+			if (previous_node)
+				previous_node->next = current_node;
 			if (!current_node)
+			{
+				ft_free_matrix(cmd);
 				return (ft_free_tree(&head));
+			}
+			if (i == 0)
+				head = current_node;
 			current_node->name = NULL;
 			current_node->args = NULL;
 			current_node->num_of_args = 0;
 			current_node->next = NULL;
 			current_node->file = NULL;
+			current_node->eof = NULL;
 			current_node->fd = 0;
 			current_node->token = ft_str_istoken(cmd[i]);
-			inside_cmd = ft_str_istoken(cmd[i]) == REDOUT;
+			inside_cmd = ft_str_istoken(cmd[i]) == REDOUT || ft_str_istoken(cmd[i]) == REDIN || ft_str_istoken(cmd[i]) == HEREDOC;
 			file[0] = 0;
 			// means if we found a REDOUT, we expect next arg to be file.
-			file[1] = ft_str_istoken(cmd[i]) == REDOUT;
+			file[1] = inside_cmd;
 		}
 		i++;
 	}
