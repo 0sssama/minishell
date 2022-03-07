@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
 /*   Updated: 2022/03/07 17:59:31 by olabrahm         ###   ########.fr       */
@@ -30,6 +30,7 @@
 # include <signal.h>
 # include <limits.h>
 # include <fcntl.h>
+# include <dirent.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -65,6 +66,10 @@ typedef struct s_state {
 	t_env_var	*env;
 	t_cmd		current_cmd;
 	t_cmd		*cmd_tree;
+	int			io[2];
+	int			**fds;
+	int			*pids;
+	int			pipes;
 	char		**envtab;
 	char		*line;
 	char		*pwd;
@@ -79,7 +84,6 @@ typedef struct s_state {
 void			ft_free_exit(t_state *state, int status);
 void			ft_free_cmd(t_state *state);
 void			ft_free_matrix(char **matrix);
-void			ft_exit(t_state *state);
 /*		 EXITTING - END			*/
 
 /*			SIGNALS				*/
@@ -95,8 +99,16 @@ char			**ft_split_args(char *s, char c);
 /*		 PROMPT - END			*/
 
 /*				EXECUTION			*/
-void			ft_execute(t_state *state);
+void			ft_execute(t_state *state, t_cmd *current_cmd);
+void			ft_execution(t_state *state);
 char			*ft_check_path(t_state *state, char **paths, char **cmdarg);
+void			ft_pipe_it(t_state *state, t_cmd *current_cmd, int i);
+int				ft_get_pipes(t_cmd **cmd_tree);
+void			ft_setup_pipe(t_state *state);
+void			ft_exec_cmd(t_state *state, t_cmd *cmd);
+void			ft_loop_pipe(t_state *state, t_cmd *current_node);
+void			ft_save_io(t_state *state);
+void			ft_reset_io(t_state *state);
 /*			 EXECUTION - END		*/
 
 /*				PARSING			*/
@@ -129,12 +141,13 @@ void			ft_get_vars(t_state *state, int *i);
 /*			 ENV-VARIABLES - END		*/
 
 /*				BUILTINS			*/
-void			ft_cd(t_state *state);
-void			ft_echo(t_state *state);
-void			ft_env(t_state *state);
-void			ft_env_export(t_state *state);
-void			ft_env_unset(t_state *state);
+void			ft_cd(t_state *state, t_cmd *current_cmd);
+void			ft_echo(t_state *state, t_cmd *current_cmd);
+void			ft_env(t_state *state, t_cmd *current_cmd);
+void			ft_env_export(t_state *state, t_cmd *current_cmd);
+void			ft_env_unset(t_state *state, t_cmd *current_cmd);
 void			ft_pwd(t_state *state);
+void			ft_exit(t_state *state, t_cmd *current_cmd);
 /*			 BUILTINS - END			*/
 
 /*				ARGS UTILS			*/
@@ -149,5 +162,7 @@ char			*get_pwd(char *pwd);
 void			ft_perror(t_state *state, char *str, int status);
 int				ft_empty_line(char *str);
 void			ft_put_error(char *name, char *error);
+void			ft_close(t_state *state);
+void			ft_free_temp(char **s1);
 /*			 UTILS - END			*/
 #endif

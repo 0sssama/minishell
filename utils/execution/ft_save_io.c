@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_save_io.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 19:25:13 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 18:24:08 by obouadel         ###   ########.fr       */
+/*   Created: 2022/03/04 16:40:54 by obouadel          #+#    #+#             */
+/*   Updated: 2022/03/04 16:55:34 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_pwd(t_state *state)
+void	ft_reset_io(t_state *state)
 {
-	if (state->pwd == NULL)
-		state->pwd = getcwd(NULL, PATH_MAX);
-	if (state->pwd == NULL && errno == ENOENT)
-		state->pwd = getcwd(state->pwd, PATH_MAX);
-	state->status = 0;
-	printf("%s\n", state->pwd);
+	dup2(state->io[0], STDIN_FILENO);
+	dup2(state->io[1], STDOUT_FILENO);	
+}
+
+void	ft_save_io(t_state *state)
+{
+	state->io[0] = dup(STDIN_FILENO);
+	state->io[1] = dup(STDOUT_FILENO);
 }

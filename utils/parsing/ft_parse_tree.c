@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_tree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
 /*   Updated: 2022/03/07 18:00:44 by olabrahm         ###   ########.fr       */

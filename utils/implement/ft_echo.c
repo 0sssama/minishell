@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:23:13 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/24 17:04:59 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/01 18:15:14 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,23 @@ static void	ft_print(char **array, int starting_from)
 	}
 }
 
-void	ft_echo(t_state *state)
+void	ft_echo(t_state *state, t_cmd *current_cmd)
 {
 	int	i;
 
 	i = 1;
-	if (state->current_cmd.num_of_args >= 2)
+	if (current_cmd->num_of_args >= 2)
 	{
-		if (!ft_strncmp(state->current_cmd.args[i], "-n", 3))
+		if (!ft_strncmp(current_cmd->args[i], "-n", 3))
 		{
-			while (!ft_strncmp(state->current_cmd.args[i], "-n", 3))
+			while (!ft_strncmp(current_cmd->args[i], "-n", 3))
 				i++;
-			if (state->current_cmd.num_of_args < 3)
+			if (current_cmd->num_of_args < 3)
 				return ;
-			ft_print(state->current_cmd.args, i);
+			ft_print(current_cmd->args, i);
 			return ;
 		}
-		ft_print(state->current_cmd.args, 1);
+		ft_print(current_cmd->args, 1);
 	}
 	printf("\n");
 	state->status = 0;

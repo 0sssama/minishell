@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:26:20 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/16 15:44:53 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/01 18:20:10 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,17 +58,17 @@ static void	ft_env_del(t_state *state, char *name)
 	ft_lstdelone(state, var);
 }
 
-void	ft_env_unset(t_state *state)
+void	ft_env_unset(t_state *state, t_cmd *current_cmd)
 {
 	unsigned int	i;
 
 	i = 0;
-	if (state->current_cmd.num_of_args == 1)
+	if (current_cmd->num_of_args == 1)
 		return ;
-	while (state->current_cmd.args[++i])
+	while (current_cmd->args[++i])
 	{
-		if (ft_get_env(&state->env, state->current_cmd.args[i]))
-			ft_env_del(state, state->current_cmd.args[i]);
+		if (ft_get_env(&state->env, current_cmd->args[i]))
+			ft_env_del(state, current_cmd->args[i]);
 	}
 	state->status = 0;
 }
