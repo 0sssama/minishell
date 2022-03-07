@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/04 17:12:54 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:26:35 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	ft_reset_signals(void)
-{
-	signal(SIGINT, SIG_DFL);
-	signal(SIGQUIT, SIG_DFL);
-}
 
 static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 {
@@ -35,7 +29,8 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 		ft_free_exit(state, 1);
 	if (state->pid == 0)
 	{
-		ft_reset_signals();
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		execve(path, cmdarg, state->envtab);
 	}
 	waitpid(state->pid, &state->status, 0);
@@ -55,7 +50,8 @@ static void	ft_exec_path(t_state *state, t_cmd *current_cmd)
 		ft_free_exit(state, 1);
 	if (state->pid == 0)
 	{
-		ft_reset_signals();
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_IGN);
 		if (execve(current_cmd->name, \
 			current_cmd->args, state->envtab) == -1)
 		{

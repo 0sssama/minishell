@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/07 17:59:31 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:45:16 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ typedef struct s_state {
 	t_env_var	*path;
 	t_env_var	*home;
 	t_env_var	*env;
-	t_cmd		current_cmd;
 	t_cmd		*cmd_tree;
 	int			io[2];
 	int			**fds;
@@ -82,7 +81,6 @@ typedef struct s_state {
 
 /*			EXITTING			*/
 void			ft_free_exit(t_state *state, int status);
-void			ft_free_cmd(t_state *state);
 void			ft_free_matrix(char **matrix);
 /*		 EXITTING - END			*/
 
@@ -121,6 +119,7 @@ int				ft_istoken(char c);
 int				ft_contains_token(char *str);
 int				ft_check_syntax(char **cmd, char *line);
 int				ft_get_token(char *str);
+int				ft_heredoc(char *eof);
 /*			 PARSING - END		*/
 
 /*				ENV-VARIABLES			*/

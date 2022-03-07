@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/03 13:50:32 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:21:29 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,18 +161,9 @@ char	**ft_clean_args(t_state *state)
 	cmd = ft_check_tokens(cmd); // checks if there are tokens not separated by delimit
 	if (!cmd)
 		ft_free_exit(state, 12);
-	int i = -1;
-	while (cmd[++i])
-		printf("[%s](%zu) ", cmd[i], ft_strlen(cmd[i]));
-	printf("\n");
 	syntax_code = ft_check_syntax(cmd, state->line);
 	if (syntax_code != 0) // checking for syntax errors
 		return (ft_put_syntax_error(state, syntax_code));
 	cmd = ft_expand(state, cmd); // expands $
-	printf("after expansion\n");
-	i = -1;
-	while (cmd[++i])
-		printf("[%s](%zu) ", cmd[i], ft_strlen(cmd[i]));
-	printf("\n");
 	return (cmd);
 }

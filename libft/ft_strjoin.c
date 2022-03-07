@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:25:24 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/04 12:07:40 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:18:31 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,5 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		output[i++] = s2[j++];
 	output[i] = 0;
-	free(s1);
-	s1 = NULL;
 	return (output);
 }

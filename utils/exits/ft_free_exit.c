@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_exit.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:11:20 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/04 17:05:46 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:45:11 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,12 @@ void	ft_free_temp(char **s1)
 	if (!s1)
 		return ;
 	while (s1[i])
-		free(s1[i++]);
+	{
+		free(s1[i]);
+		s1[i++] = NULL;
+	}
 	free(s1);
+	s1 = NULL;
 }
 
 void	ft_free_matrix(char **matrix)
@@ -38,20 +42,6 @@ void	ft_free_matrix(char **matrix)
 	}
 	free(matrix);
 	matrix = NULL;
-}
-
-void	ft_free_cmd(t_state *state)
-{
-	int	i;
-
-	i = 0;
-	while (state->current_cmd.args[i])
-	{
-		free(state->current_cmd.args[i]);
-		state->current_cmd.args[i++] = NULL;
-	}
-	free(state->current_cmd.args);
-	state->current_cmd.args = NULL;
 }
 
 void	ft_free_exit(t_state *state, int status)

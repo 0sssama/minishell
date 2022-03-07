@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_heredoc.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 19:39:52 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/05 18:23:55 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:05:40 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
+
 #define WRITE_END 1
 #define READ_END  0
 
@@ -35,16 +36,3 @@ int	ft_heredoc(char *eof) // return the fd of the file
 		free(line);
 	return ((close(hfd[WRITE_END]), hfd[READ_END]));
 }
-
-/* int main(void)
-{
-	int	fd;
-	fd = ft_heredoc("EOF");
-	if (fd == -1)
-		return (perror("fd"), 1);
-	printf("fd is %d\n", fd);
-	dup2(fd, 0);
-	close(fd);
-	execlp("cat", "cat", NULL);
-	return (0);
-} */

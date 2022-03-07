@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:48:22 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/04 16:58:54 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:37:51 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,20 @@ static void	ft_free_pipes(t_state *state)
 	if (state->pipes == 0)
 		return ;
 	while (i < state->pipes)
-		free(state->fds[i++]);
+	{
+		free(state->fds[i]);
+		state->fds[i] = NULL;
+		i++;
+	}
 	free(state->fds);
+	state->fds = NULL;
 	free(state->pids);
+	state->pids = NULL;
 }
 
 t_cmd	*ft_redirect(t_cmd *cmd)
 {
-	if (cmd->token == REDOUT)
+	if (cmd->token == REDOUT || cmd->token == APPEND)
 	{
 		while (cmd->next && (cmd->next->token == REDOUT || \
 		cmd->next->token == APPEND))
@@ -38,9 +44,10 @@ t_cmd	*ft_redirect(t_cmd *cmd)
 			close(cmd->fd);
 		}
 	}
-	else if (cmd->token == REDIN)
+	else if (cmd->token == REDIN || cmd->token == HEREDOC)
 	{
-		while (cmd->next && cmd->next->token == REDIN)
+		while (cmd->next && (cmd->next->token == REDIN || \
+		cmd->next->token == HEREDOC))
 			cmd = cmd->next;
 		if (cmd)
 		{
@@ -68,7 +75,7 @@ static void	ft_execute_pipeline(t_state *state, t_cmd *cmd, t_cmd *sv)
 		save = cmd;
 	else if (cmd->token == REDOUT || cmd->token == APPEND)
 		cmd = ft_redirect(cmd);
-	else if (cmd->token == REDIN)
+	else if (cmd->token == REDIN || cmd->token == HEREDOC)
 		cmd = ft_redirect(cmd);
 	if (!cmd)
 		return ;

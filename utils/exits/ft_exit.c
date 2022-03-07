@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 16:49:10 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/02 18:29:28 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:45:06 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ static void	ft_check_status(t_state *state, t_cmd *current_cmd)
 		if (arg[i] > 57 || arg[i] < 48)
 		{
 			printf("minishell :exit: %s: numeric argument required\n", arg);
-			ft_free_cmd(state);
 			ft_free_exit(state, 255);
 		}
 		i++;
@@ -51,15 +50,11 @@ void	ft_exit(t_state *state, t_cmd *current_cmd)
 	int	status;
 
 	if (current_cmd->args[1] == NULL)
-	{
-		ft_free_cmd(state);
 		ft_free_exit(state, 0);
-	}
 	else if (current_cmd->args[2] == NULL)
 	{
 		ft_check_status(state, current_cmd);
 		status = ft_atoi(current_cmd->args[1]);
-		ft_free_cmd(state);
 		ft_free_exit(state, status);
 	}
 	else

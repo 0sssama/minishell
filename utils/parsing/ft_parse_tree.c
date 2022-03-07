@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_tree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/07 18:00:44 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:38:16 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,9 +157,9 @@ t_cmd	*ft_parse_tree(char **cmd)
 					else
 						file[0] = 1;
 					if (current_node->token == APPEND)
-						current_node->fd = open(current_node->file, O_CREAT | O_RDWR | O_APPEND);
+						current_node->fd = open(current_node->file, O_CREAT | O_RDWR | O_APPEND, 0644);
 					else if (current_node->token == REDOUT)
-						current_node->fd = open(current_node->file, O_CREAT | O_RDWR | O_TRUNC);
+						current_node->fd = open(current_node->file, O_CREAT | O_RDWR | O_TRUNC, 0644);
 					else if (current_node->token == REDIN)
 						current_node->fd = open(current_node->file, O_RDONLY);
 					if (current_node->fd == -1)
