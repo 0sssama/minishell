@@ -6,42 +6,11 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/03 18:30:10 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:01:09 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	ft_lexer(char *line)
-{
-	int i;
-
-	i = -1;
-	while (line[++i])
-	{
-		if (line[i] == PIPE)
-			printf("PIPE");
-		else if (line[i] == REDIN)
-			printf("REDIN");
-		else if (line[i] == REDOUT)
-			printf("REDOUT");
-		else if (line[i] == APPEND)
-			printf("APPEND");
-		else if (line[i] == HEREDOC)
-			printf("HEREDOC");
-		else if (line[i] == DELIMIT)
-			printf("SPACE");
-		else if (line[i] == QUOTE)
-			printf("QUOTE");
-		else if (line[i] == ENV_SIGN)
-			printf("ENV_SIGN");
-		else if (line[i] == EXIT_STATUS)
-			printf("EXIT");
-		else
-			printf("%c", line[i]);
-	}
-	printf("\n");
-}
 
 int	ft_empty_line(char *str)
 {
@@ -77,6 +46,7 @@ static void	ft_print_tree(t_cmd *head)
 		printf("-	NUM_OF_ARGS : %d -\n", current_node->num_of_args);
 		printf("-	FILE : %s -\n", current_node->file);
 		printf("-	FILE DESCRIPTOR : %d -\n", current_node->fd);
+		printf("-	EOF : %s -\n", current_node->eof);
 		printf("-	TOKEN : %d -\n", current_node->token);
 		current_node = current_node->next;
 	}
@@ -91,7 +61,6 @@ static void	ft_parse(t_state *state)
 	cmd = ft_clean_args(state); // tokenizer
 	if (!cmd && state->man_err)
 		return ;
-	ft_lexer(state->line);
 	state->cmd_tree = ft_parse_tree(cmd);
 	ft_print_tree(state->cmd_tree);
 }
@@ -106,7 +75,7 @@ void	ft_prompt(t_state *state)
 		state->man_err = 0;
 		state->pid = -1;
 		state->sig = 0;
-		state->line = readline("\033[1mminishell-1.0$> \033[m");
+		state->line = readline("\033[1mminishell-1.5$> \033[m");
 		rl_on_new_line();
 		if (!state->line)
 			break ;

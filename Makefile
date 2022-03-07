@@ -6,7 +6,7 @@
 #    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/03/03 09:23:51 by olabrahm         ###   ########.fr        #
+#    Updated: 2022/03/04 11:57:27 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ FILES= 	src/main utils/exits/ft_free_exit src/ft_prompt src/ft_execute utils/imp
 		utils/exits/ft_free_split_args utils/parsing/ft_split_args utils/env/ft_env_addfront \
 		utils/exits/ft_exit utils/exits/ft_perror utils/env/ft_get_vars utils/execution/ft_execute_path \
 		utils/parsing/ft_token utils/parsing/ft_parse_tree utils/args/ft_args \
-		utils/parsing/ft_check_tokens utils/parsing/ft_check_syntax
+		utils/parsing/ft_check_tokens utils/parsing/ft_check_syntax utils/parsing/ft_read_heredoc
 OBJS= $(FILES:=.o)
 NAME= minishell
 INCLUDES=includes
@@ -36,7 +36,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJS) 
 	@$(CC) $(FLAGS) $(OBJS) $(LIBFT_PATH) -I $(INCLUDES) $(READLINE) $(LDFLAGS) -o $(NAME)
-	@echo "\033[30;1m---> \033[0mMinishell V1.0 \033[32;1m [OK] \033[0m"
+	@echo "\033[30;1m---> \033[0mMinishell V1.5 \033[32;1m [OK] \033[0m"
 
 $(LIBFT): 
 	@$(MAKE) -C libft
