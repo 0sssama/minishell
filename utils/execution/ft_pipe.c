@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:03:07 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/02 19:18:00 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/07 19:33:57 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,25 @@ void	ft_setup_pipe(t_state *state)
 
 	i = 0;
 	state->fds = malloc((state->pipes) * sizeof(int *));
+	if (!state->fds)
+		ft_free_exit(state, 12);
 	while (i < state->pipes)
-		state->fds[i++] = malloc(2 * sizeof(int));
+	{
+		state->fds[i] = malloc(2 * sizeof(int));
+		if (!state->fds[i])
+			ft_free_setup(state, i);
+		i++;
+	}
 	state->pids = malloc((state->pipes + 1) * sizeof(int));
 	if (!state->pids)
-		ft_free_exit(state, 12);
+		ft_free_setup(state, 0);
 	i = 0;
 	while (i < state->pipes)
-		pipe(state->fds[i++]);
+	{
+		if (pipe(state->fds[i]) == -1)
+			ft_free_pipefds(state, i);
+		i++;
+	}
 }
 
 void	ft_pipe_it(t_state *state, t_cmd *current_cmd, int i)

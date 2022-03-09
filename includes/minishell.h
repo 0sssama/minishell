@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 14:01:15 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 15:11:32 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,8 @@ void			ft_exec_cmd(t_state *state, t_cmd *cmd);
 void			ft_loop_pipe(t_state *state, t_cmd *current_node);
 void			ft_save_io(t_state *state);
 void			ft_reset_io(t_state *state);
+void			ft_free_pipefds(t_state *state, int i);
+void			ft_free_setup(t_state *state, int i);
 /*			 EXECUTION - END		*/
 
 /*				PARSING			*/
