@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/07 21:14:12 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/08 15:38:17 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 		ft_free_exit(state, 1);
 	if (state->pid == 0)
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		execve(path, cmdarg, state->envtab);
 	}
 	waitpid(state->pid, &state->status, 0);
@@ -50,8 +50,8 @@ static void	ft_exec_path(t_state *state, t_cmd *current_cmd)
 		ft_free_exit(state, 1);
 	if (state->pid == 0)
 	{
-		signal(SIGINT, SIG_IGN);
-		signal(SIGQUIT, SIG_IGN);
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (execve(current_cmd->name, \
 			current_cmd->args, state->envtab) == -1)
 		{

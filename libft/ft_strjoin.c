@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:25:24 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/07 18:18:31 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:54:18 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	size_t	j;
 	size_t	i;
 	size_t	final_len;
+	int		should_free;
 
 	if (!s2)
 		return (ft_strdup(s1));
+	should_free = !s1;
 	if (!s1)
 		s1 = ft_strdup("");
 	final_len = ft_strlen(s1) + ft_strlen(s2);
@@ -35,5 +37,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	while (s2[j])
 		output[i++] = s2[j++];
 	output[i] = 0;
+	if (should_free)
+		free(s1);
 	return (output);
 }

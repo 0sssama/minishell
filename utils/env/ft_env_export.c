@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:26:07 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/07 21:05:50 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 11:41:22 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	ft_print_env_export(t_env_var *head)
 	t_env_var		*current_node;
 	unsigned int	i;
 	unsigned int	lst_size;
+	char			*output;
 
 	i = 0;
 	lst_size = ft_lstsize(head);
@@ -39,10 +40,12 @@ static void	ft_print_env_export(t_env_var *head)
 		current_node = ft_get_sorted_index(head, i);
 		if (!current_node)
 			return ;
-		if (current_node->value && ft_strlen(current_node->value) > 0)
-			printf("declare -x %s=\"%s\"\n", current_node->name, current_node->value);
-		else
+		output = ft_add_backslash(current_node->value);
+		if (!output)
 			printf("declare -x %s\n", current_node->name);
+		else
+			printf("declare -x %s=\"%s\"\n", current_node->name, output);
+		free(output);
 		i++;
 	}
 }

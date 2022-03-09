@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:03:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/01/15 13:38:57 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:05:54 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ t_env_var	*ft_lstnew(char **value)
 	if (!new_lst)
 		return (NULL);
 	new_lst->name = value[0];
-	new_lst->value = value[1];
+	if (!ft_strcmp(new_lst->name, "SHLVL"))
+		new_lst->value = ft_itoa(ft_atoi(value[1]) + 1);
+	else
+		new_lst->value = value[1];
 	new_lst->both = value;
 	new_lst->next = NULL;
 	return (new_lst);

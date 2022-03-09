@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_setup_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 11:14:14 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/02/15 20:35:20 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:41:18 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,22 @@ void	ft_setup_indexes(t_env_var *head)
 	}
 }
 
+void	ft_add_shlvl(t_env_var **env_lst, unsigned int *i)
+{
+	t_env_var		*new_var;
+	char			*env_str;
+	char			**new_env;
+
+	env_str = ft_strdup("SHLVL=0");
+	if (!env_str)
+		return ;
+	new_env = ft_split_env(env_str, '=');
+	new_var = ft_lstnew(new_env);
+	new_var->index = (*i)++;
+	free(env_str);
+	ft_lstadd_back(env_lst, new_var);
+}
+
 t_env_var	*ft_setup_env(char **env)
 {
 	t_env_var		*env_lst;
@@ -54,7 +70,7 @@ t_env_var	*ft_setup_env(char **env)
 
 	i = 0;
 	if (!env || !env[i])
-		return (NULL);
+		return (ft_default_env(NULL));
 	new_env = ft_split_env(env[i], '=');
 	if (!new_env)
 		return (NULL);
@@ -67,6 +83,7 @@ t_env_var	*ft_setup_env(char **env)
 		new_var->index = i++;
 		ft_lstadd_back(&env_lst, new_var);
 	}
+	env_lst = ft_default_env(env_lst);
 	ft_setup_indexes(env_lst);
 	return (env_lst);
 }

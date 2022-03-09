@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/07 21:17:34 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/08 17:48:31 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,36 +17,13 @@ t_state	g_state;
 void	ft_handle_sigquit(int signal)
 {
 	(void) signal;
-	if (g_state.pid > 0)
-	{
-		write(2, "Quit: 3\n", 8);
-		kill(g_state.pid, SIGKILL);
-		g_state.pid = -1;
-		g_state.sig = SIGQUIT;
-	}
-	else
-	{
-		rl_on_new_line();
-		rl_redisplay();
-	}
+	write(2, "Quit: 3\n", 8);
 }
 
 void	ft_handle_sigint(int signal)
 {
 	(void) signal;
 	write(2, "\n", 1);
-	if (g_state.pid > 0)
-	{
-		kill(g_state.pid, SIGKILL);
-		g_state.pid = -1;
-		g_state.sig = SIGINT;
-	}
-	else
-	{
-		rl_replace_line("", 1);
-		rl_on_new_line();
-		rl_redisplay();
-	}
 }
 
 static void	ft_init_main(char **env)
@@ -72,8 +49,6 @@ int	main(int ac, char **av, char **env)
 	(void) av;
 	(void) ac;
 	ft_init_main(env);
-	signal(SIGINT, ft_handle_sigint);
-	signal(SIGQUIT, ft_handle_sigquit);
 	ft_prompt(&g_state);
 	ft_free_exit(&g_state, 0);
 	return (0);

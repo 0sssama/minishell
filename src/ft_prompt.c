@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/07 20:02:30 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/08 17:48:06 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ static void	ft_parse(t_state *state)
 	state->cmd_tree = ft_parse_tree(cmd);
 }
 
+static void	ft_handle_sigint_parent(int signal)
+{
+	(void) signal;
+	write(1, "\n", 1);
+	rl_replace_line("", 1);
+	rl_on_new_line();
+	rl_redisplay();
+}
+
 static void	ft_init_loop(t_state *state)
 {
 	state->cmd_tree = NULL;
@@ -50,6 +59,8 @@ void	ft_prompt(t_state *state)
 {
 	while (69)
 	{
+		signal(SIGINT, ft_handle_sigint_parent);
+		signal(SIGQUIT, SIG_IGN);
 		ft_init_loop(state);
 		if (!state->line)
 			break ;
@@ -66,6 +77,8 @@ void	ft_prompt(t_state *state)
 			free(state->line);
 			continue ;
 		}
+		signal(SIGINT, ft_handle_sigint);
+		signal(SIGQUIT, ft_handle_sigquit);
 		ft_save_io(state);
 		ft_execution(state);
 		free(state->line);
