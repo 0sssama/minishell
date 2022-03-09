@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/09 18:33:37 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:35:29 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static char	**ft_put_syntax_error(t_state *state, int syntax_code)
 	else
 		message = ft_strdup("VERY unexpected error occurred.\n");
 	if (!message)
-		ft_free_exit(state, errno);
+		ft_free_exit(state, OUT_OF_MEM);
 	state->status = 258;
 	ft_put_error(NULL, message);
 	free(message);
@@ -125,7 +125,7 @@ char	**ft_clean_args(t_state *state)
 	// ft_check_tokens already does that!
 	cmd = ft_check_tokens(cmd); // checks if there are tokens not separated by delimit
 	if (!cmd)
-		ft_free_exit(state, errno);
+		ft_free_exit(state, OUT_OF_MEM);
 	syntax_code = ft_check_syntax(cmd, state->line);
 	if (syntax_code != 0) // checking for syntax errors
 		return (ft_put_syntax_error(state, syntax_code));

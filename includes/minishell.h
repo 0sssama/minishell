@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 15:11:32 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:34:56 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # define QUOTE -10 // ' "
 # define ENV_SIGN -11 // $
 # define EXIT_STATUS -12 // $?
+
+# define OUT_OF_MEM 12
 
 # include <stdlib.h>
 # include <unistd.h>
