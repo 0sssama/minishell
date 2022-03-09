@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/09 12:41:53 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:29:07 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static char	**ft_put_syntax_error(t_state *state, int syntax_code)
 		message = ft_strdup("VERY unexpected error occurred.\n");
 	if (!message)
 		ft_free_exit(state, 12);
+	state->status = 258;
 	ft_put_error(NULL, message);
 	free(message);
 	message = NULL;
@@ -73,14 +74,14 @@ static char	*ft_expand_str(t_state *state, char *old_str)
 		else
 		{
 			env = ft_get_env(&state->env, env_name);
-			if (!env)
-			{
-				new_str = ft_strjoin(new_str, "");
-				continue ;
-			}
-			new_str = ft_strjoin(new_str, env->value);
 			free(env_name);
 			env_name = NULL;
+			if (!env)
+			{
+				new_str = ft_strjoin_osm(new_str, "");
+				continue ;
+			}
+			new_str = ft_strjoin_osm(new_str, env->value);
 		}
 	}
 	return (new_str);
@@ -90,13 +91,19 @@ static char	**ft_expand(t_state *state, char **cmd)
 {
 	unsigned int	i;
 	char			**output;
+	char			*tmp;
 
 	i = 0;
 	output = NULL;
+	tmp = NULL;
 	while (cmd[i])
 	{
 		if (ft_strchr(cmd[i], ENV_SIGN))
-			output = ft_add_arg(output, ft_expand_str(state, cmd[i]));
+		{
+			tmp = ft_expand_str(state, cmd[i]);
+			output = ft_add_arg(output, tmp);
+			free(tmp);
+		}
 		else
 			output = ft_add_arg(output, cmd[i]);
 		i++;

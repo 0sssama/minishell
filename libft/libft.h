@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/01 14:40:17 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/03 11:45:29 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:17:26 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*ft_strdup(char *s);
 void	ft_putchar_fd(char c, int fd);
 void	ft_putstr_fd(char *str, int fd);
 int		ft_strcmp(char *s1, char *s2);
+char	*ft_strjoin_osm(char *s1, char *s2);
 /* PART 2 FUNCS */
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strjoin(char *s1, char *s2);

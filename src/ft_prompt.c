@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 16:12:21 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:01:20 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_empty_line(char *str)
 			return (0);
 	return (1);
 }
-static void	ft_print_tree(t_cmd *head)
+/* static void	ft_print_tree(t_cmd *head)
 {
 	unsigned int	i;
 	t_cmd			*current_node;
@@ -50,7 +50,7 @@ static void	ft_print_tree(t_cmd *head)
 		current_node = current_node->next;
 	}
 	printf("-------------------------\n");
-}
+} */
 
 static void	ft_parse(t_state *state)
 {
@@ -66,7 +66,6 @@ static void	ft_parse(t_state *state)
 		state->man_err = 1;
 		ft_free_tree(&state->cmd_tree);
 	}
-	ft_print_tree(state->cmd_tree);
 }
 
 static void	ft_handle_sigint_parent(int signal)
