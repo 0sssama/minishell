@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 13:25:30 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 10:13:49 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:50:59 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	**ft_init_args(char *init)
 	char			**output;
 	int				len;
 
-	len = 2 - (init == NULL); // if init is null, will only allocate one for null terminator.
+	len = 2 - (init == NULL);
 	output = (char **) malloc(len * sizeof(char *));
 	if (!output)
 		return (NULL);
@@ -72,7 +72,7 @@ char	**ft_add_arg(char **args, char *new_arg)
 	i = 0;
 	if (!args)
 		return (ft_init_args(new_arg));
-	len = ft_args_len(args) + 2; // plus new arg, and null terminator
+	len = ft_args_len(args) + 2;
 	new_args = (char **) malloc(len * sizeof(char *));
 	while (args[i])
 	{

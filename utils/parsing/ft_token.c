@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:11:26 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/03 18:23:37 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:49:43 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,52 +18,6 @@
 	line, and then check syntax errors right after that.
 	We don't want to do both at the same time.
 */
-
-// static int	ft_check_redin(char *line, int *i)
-// {
-// 	if (line[*i] == '<' && line[*i + 1] == '<')
-// 	{
-// 		if (line[*i + 2] == '<')
-// 			return (ft_put_error(NULL, \
-// 				"syntax error near unexpected token `<'\n"), 0);
-// 		line[*i] = HEREDOC;
-// 		line[*i + 1] = HEREDOC;
-// 	}
-// 	if (line[*i] == '<')
-// 		line[(*i)++] = REDIN;
-// 	return (1);
-// }
-
-// static int	ft_check_redout(char *line, int *i)
-// {
-// 	if (line[(*i)] == '>' && line[(*i) + 1] == '>')
-// 	{
-// 		if (line[(*i) + 2] == '>')
-// 			return (ft_put_error(NULL, \
-// 				"syntax error near unexpected token `>'\n"), 0);
-// 		line[(*i)++] = APPEND;
-// 		line[(*i)++] = APPEND;
-// 	}
-// 	if (line[(*i)] == '>')
-// 		line[(*i)++] = REDOUT;
-// 	return (1);
-// }
-
-// static int	ft_replace_opp(char *line, int *i)
-// {
-// 	if (line[*i] == '>')
-// 		return (ft_check_redout(line, i));
-// 	else if (line[*i] == '<')
-// 		return (ft_check_redin(line, i));
-// 	else if (line[*i] == '|')
-// 	{	
-// 		if (line[*i + 1] == '|')
-// 			return (ft_put_error(NULL, \
-// 				"syntax error near unexpected token `||'\n"), 0);
-// 		line[(*i)++] = PIPE;
-// 	}
-// 	return (1);
-// }
 
 static void	ft_end_quote(char *line, int *i)
 {
@@ -129,7 +83,7 @@ static void	ft_replace_opp(char *line, int *i)
 			line[*i + 1] = EXIT_STATUS;
 			(*i)++;
 		}
-		else 
+		else
 			line[*i] = ENV_SIGN;
 	}
 	(*i)++;

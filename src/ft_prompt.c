@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 18:39:13 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:50:10 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,40 +24,13 @@ int	ft_empty_line(char *str)
 			return (0);
 	return (1);
 }
-/* static void	ft_print_tree(t_cmd *head)
-{
-	unsigned int	i;
-	t_cmd			*current_node;
-
-	if (!head)
-		return ;
-	i = 0;
-	current_node = head;
-	while (current_node)
-	{
-		printf("-------------------------\n");
-		printf("-	NAME : %s -\n", current_node->name);
-		printf("-	ARGS : ");
-		i = 0;
-		while (current_node->args && current_node->args[i])
-			printf("[%s] ", current_node->args[i++]);
-		printf("-\n");
-		printf("-	NUM_OF_ARGS : %d -\n", current_node->num_of_args);
-		printf("-	FILE : %s -\n", current_node->file);
-		printf("-	FILE DESCRIPTOR : %d -\n", current_node->fd);
-		printf("-	EOF : %s -\n", current_node->eof);
-		printf("-	TOKEN : %d -\n", current_node->token);
-		current_node = current_node->next;
-	}
-	printf("-------------------------\n");
-} */
 
 static void	ft_parse(t_state *state)
 {
 	char	**cmd;
 
 	add_history(state->line);
-	cmd = ft_clean_args(state); // tokenizer
+	cmd = ft_clean_args(state);
 	if (!cmd && state->man_err)
 		return ;
 	state->cmd_tree = ft_parse_tree(cmd);
@@ -116,6 +89,6 @@ void	ft_prompt(t_state *state)
 		free(state->line);
 		ft_free_tree(&state->cmd_tree);
 		ft_reset_io(state);
-		ft_update_env(state); // set oldpwd, setpwd, envtab
+		ft_update_env(state);
 	}
 }
