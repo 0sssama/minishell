@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:24:23 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 18:16:30 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/09 12:45:46 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	ft_cd(t_state *state, t_cmd *current_cmd)
 	{
 		if (!ft_strncmp(current_cmd->args[1], ".", 2) && errno == ENOENT)
 		{
-			printf("cd: error retrieving current directory ");
-			printf("getcwd: cannot access parent directories: ");
-			printf("No such file or directory\n");
+			ft_put_error("cd", "error retrieving current directory ");
+			ft_put_error("getcwd", "cannot access parent directories: ");
+			ft_put_error(NULL, "No such file or directory\n");
 			return ;
 		}
 		if (chdir(current_cmd->args[1]) == -1)

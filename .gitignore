@@ -5,3 +5,4 @@ minishell
 *.a
 .vscode
 *.json
+.DS_Store
