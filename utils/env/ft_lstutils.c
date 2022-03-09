@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 14:03:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 12:05:54 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:46:53 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,20 @@
 t_env_var	*ft_lstnew(char **value)
 {
 	t_env_var	*new_lst;
+	char		*tmp;
 
 	new_lst = (t_env_var *) malloc(1 * sizeof(t_env_var));
 	if (!new_lst)
 		return (NULL);
 	new_lst->name = value[0];
 	if (!ft_strcmp(new_lst->name, "SHLVL"))
-		new_lst->value = ft_itoa(ft_atoi(value[1]) + 1);
-	else
-		new_lst->value = value[1];
+	{
+		tmp = ft_strdup(value[1]);
+		free(value[1]);
+		value[1] = ft_itoa(ft_atoi(tmp) + 1);
+		free(tmp);
+	}
+	new_lst->value = value[1];
 	new_lst->both = value;
 	new_lst->next = NULL;
 	return (new_lst);
