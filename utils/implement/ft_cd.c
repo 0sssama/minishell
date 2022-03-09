@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:24:23 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 12:45:46 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:33:04 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*get_pwd(char *pwd)
 void	ft_cd(t_state *state, t_cmd *current_cmd)
 {
 	state->oldpwd = get_pwd(state->oldpwd);
-		state->status = 0;
+	state->status = 0;
 	if (current_cmd->num_of_args == 1)
 	{
 		if (chdir(state->home->value) == -1)

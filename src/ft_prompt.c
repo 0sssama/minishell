@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/08 17:48:06 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:38:45 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,5 +84,6 @@ void	ft_prompt(t_state *state)
 		free(state->line);
 		ft_free_tree(&state->cmd_tree);
 		ft_reset_io(state);
+		ft_update_env(state); // set oldpwd, setpwd, envtab
 	}
 }

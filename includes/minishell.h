@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 12:29:14 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 13:47:35 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ void			ft_env_add(t_env_var **head, char **new);
 void			ft_env_update(t_env_var **head, char **new);
 void			ft_get_vars(t_state *state, int *i);
 void			ft_add_shlvl(t_env_var **env_lst, unsigned int *i);
+void			ft_update_env(t_state *state);
 /*			 ENV-VARIABLES - END		*/
 
 /*				BUILTINS			*/
