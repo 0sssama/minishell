@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/08 17:48:31 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:19:29 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,17 @@ static void	ft_init_main(char **env)
 {
 	g_state.line = NULL;
 	g_state.man_err = 0;
-	g_state.envtab = env;
 	g_state.env = ft_setup_env(env);
 	if (g_state.env)
 	{
 		g_state.home = ft_get_env(&g_state.env, "HOME");
 		g_state.path = ft_get_env(&g_state.env, "PATH");
 	}
+	g_state.envtab = ft_update_envtab(&g_state);
 	g_state.pid = -1;
 	g_state.status = 0;
 	g_state.oldpwd = NULL;
-	g_state.pwd = NULL;
+	g_state.pwd = getcwd(NULL, PATH_MAX);
 	g_state.sig = 0;
 }
 

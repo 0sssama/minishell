@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:38:10 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 13:46:58 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:11:05 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ static void	ft_update_pwd(t_state *state)
 	env_str = ft_strjoin(tmp, state->pwd);
 	free(tmp);
 	new_env = ft_split_env(env_str, '=');
+	free(env_str);
 	ft_env_update(&state->env, new_env);
 }
 
@@ -35,11 +36,40 @@ static void	ft_update_oldpwd(t_state *state)
 	env_str = ft_strjoin(tmp, state->oldpwd);
 	free(tmp);
 	new_env = ft_split_env(env_str, '=');
+	free(env_str);
 	ft_env_update(&state->env, new_env);
+}
+
+char	**ft_update_envtab(t_state *state)
+{
+	t_env_var	*current_node;
+	char		**output;
+	char		*tmp;
+	char		*tmp2;
+
+	output = NULL;
+	tmp = NULL;
+	current_node = state->env;
+	while (current_node)
+	{
+		tmp = ft_strjoin(current_node->name, "=");
+		if (!tmp)
+			ft_free_exit(state, 13);
+		tmp2 = ft_strjoin(tmp, current_node->value);
+		free(tmp);
+		if (!tmp2)
+			ft_free_exit(state, 13);
+		output = ft_add_arg(output, tmp2);
+		free(tmp2);
+		current_node = current_node->next;
+	}
+	return (output);
 }
 
 void	ft_update_env(t_state *state)
 {
 	ft_update_pwd(state);
 	ft_update_oldpwd(state);
+	ft_free_matrix(state->envtab);
+	state->envtab = ft_update_envtab(state);
 }

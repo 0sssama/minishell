@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:26:07 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 11:41:22 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 14:24:19 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	ft_env_export(t_state *state, t_cmd *current_cmd)
 			new_var = ft_split_env(current_cmd->args[i], '=');
 			if (!new_var)
 			{
-				ft_put_error(NULL, "`%s`: not a valid identifier\n");
+				ft_put_error(current_cmd->args[i], "not a valid identifier\n");
 				state->status = 1;
 			}
 			else if (ft_get_env(&state->env, new_var[0]))
