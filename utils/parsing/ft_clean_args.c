@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/09 18:35:29 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 20:18:59 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,7 @@ static char	*ft_expand_str(t_state *state, char *old_str)
 	while (old_str[i])
 	{
 		while (old_str[i] && old_str[i] != ENV_SIGN)
-		{
-			new_str = ft_charjoin(new_str, old_str[i]);
-			i++;
-		}
+			new_str = ft_charjoin(new_str, old_str[i++]);
 		i++;
 		if (!old_str[i])
 			break ;
@@ -65,10 +62,7 @@ static char	*ft_expand_str(t_state *state, char *old_str)
 			continue ;
 		}
 		while (old_str[i] && (ft_isalnum(old_str[i]) || old_str[i] == '_'))
-		{
-			env_name = ft_charjoin(env_name, old_str[i]);
-			i++;
-		}
+			env_name = ft_charjoin(env_name, old_str[i++]);
 		if (!env_name && old_str[i])
 			new_str = ft_charjoin(new_str, '$');
 		else
@@ -77,11 +71,9 @@ static char	*ft_expand_str(t_state *state, char *old_str)
 			free(env_name);
 			env_name = NULL;
 			if (!env)
-			{
 				new_str = ft_strjoin_osm(new_str, "");
-				continue ;
-			}
-			new_str = ft_strjoin_osm(new_str, env->value);
+			else
+				new_str = ft_strjoin_osm(new_str, env->value);
 		}
 	}
 	return (new_str);
@@ -101,6 +93,12 @@ static char	**ft_expand(t_state *state, char **cmd)
 		if (ft_strchr(cmd[i], ENV_SIGN))
 		{
 			tmp = ft_expand_str(state, cmd[i]);
+			output = ft_add_arg(output, tmp);
+			free(tmp);
+		}
+		else if (ft_strchr(cmd[i], EXIT_STATUS))
+		{
+			tmp = ft_put_exitcode(state, cmd[i]);
 			output = ft_add_arg(output, tmp);
 			free(tmp);
 		}

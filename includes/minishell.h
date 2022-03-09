@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 18:34:56 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 20:08:28 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ int				ft_contains_token(char *str);
 int				ft_check_syntax(char **cmd, char *line);
 int				ft_get_token(char *str);
 int				ft_heredoc(char *eof);
+char			*ft_put_exitcode(t_state *state, char *str);
 /*			 PARSING - END		*/
 
 /*				ENV-VARIABLES			*/

@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/08 15:38:17 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 20:09:57 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static void	ft_execve(t_state *state, t_cmd *current_cmd)
 	int		i;
 
 	i = -1;
+	if (current_cmd->name[0] == 0)
+		return (ft_put_error(current_cmd->name, "command not found\n"));
 	if (current_cmd->args[0][0] == '.' ||
 		ft_strchr(current_cmd->args[0], '/'))
 		return (ft_exec_path(state, current_cmd));

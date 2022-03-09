@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+         #
+#    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/03/09 15:10:43 by obouadel         ###   ########.fr        #
+#    Updated: 2022/03/09 20:21:22 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,8 @@ FILES= 	src/main utils/exits/ft_free_exit src/ft_prompt src/ft_execute utils/imp
 		utils/execution/ft_save_io utils/execution/ft_execution utils/execution/ft_pipe \
 		utils/parsing/ft_token utils/parsing/ft_parse_tree utils/args/ft_args \
 		utils/parsing/ft_check_tokens utils/parsing/ft_check_syntax utils/parsing/ft_heredoc \
-		utils/env/ft_add_backslash utils/env/ft_default_env utils/env/ft_update_env utils/execution/ft_free_setup
+		utils/env/ft_add_backslash utils/env/ft_default_env utils/env/ft_update_env utils/execution/ft_free_setup \
+		utils/parsing/ft_put_exitcode
 
 OBJS= $(FILES:=.o)
 NAME= minishell
@@ -32,8 +33,8 @@ LIBFT_PATH= libft/libft.a
 
 .PHONY: all re clean fclean gen val
 
-%.o: %.c 
-	@$(CC) $(FLAGS) -I $(INCLUDES) -c $? -o $@ $(CPPFLAGS)
+%.o: %.c includes/minishell.h
+	@$(CC) $(FLAGS) -I $(INCLUDES) -c $< -o $@ $(CPPFLAGS)
 
 all: $(NAME)
 

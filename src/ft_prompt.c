@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 18:50:10 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 20:10:57 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	ft_init_loop(t_state *state)
 	state->man_err = 0;
 	state->pid = -1;
 	state->sig = 0;
-	state->line = readline("\033[1mminishell-1.0$> \033[m");
+	state->line = readline("\033[1mminishell-1.9$> \033[m");
 	rl_on_new_line();
 }
 
