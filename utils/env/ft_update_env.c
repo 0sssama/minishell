@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 13:38:10 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 14:11:05 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:32:33 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ char	**ft_update_envtab(t_state *state)
 	{
 		tmp = ft_strjoin(current_node->name, "=");
 		if (!tmp)
-			ft_free_exit(state, 13);
+			ft_free_exit(state, errno);
 		tmp2 = ft_strjoin(tmp, current_node->value);
 		free(tmp);
 		if (!tmp2)
-			ft_free_exit(state, 13);
+			ft_free_exit(state, errno);
 		output = ft_add_arg(output, tmp2);
 		free(tmp2);
 		current_node = current_node->next;

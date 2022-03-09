@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 16:49:10 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/07 18:45:06 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:33:19 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	ft_check_status(t_state *state, t_cmd *current_cmd)
 	{
 		if (arg[i] > 57 || arg[i] < 48)
 		{
-			printf("minishell :exit: %s: numeric argument required\n", arg);
+			ft_put_error("exit", "numeric argument required\n");
 			ft_free_exit(state, 255);
 		}
 		i++;

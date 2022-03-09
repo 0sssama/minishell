@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:03:07 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/07 19:33:57 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:32:38 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_setup_pipe(t_state *state)
 	i = 0;
 	state->fds = malloc((state->pipes) * sizeof(int *));
 	if (!state->fds)
-		ft_free_exit(state, 12);
+		ft_free_exit(state, errno);
 	while (i < state->pipes)
 	{
 		state->fds[i] = malloc(2 * sizeof(int));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_vars.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/18 18:16:32 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/02 17:01:14 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:32:29 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	ft_replace_line(t_state *state, int start, int end, t_env_var *var)
 		len = len + ft_strlen(var->value);
 	newline = ft_calloc(len + 1, sizeof(char));
 	if (!newline)
-		ft_free_exit(state, 12);
+		ft_free_exit(state, errno);
 	while (++i < start)
 		newline[i] = state->line[i];
 	while (var && var->value[j])
@@ -101,7 +101,7 @@ void	ft_get_vars(t_state *state, int *i)
 			l++;
 		name = ft_substr(state->line, (*i) + 1, (l - (*i) - 1));
 		if (!name)
-			ft_free_exit(state, 12);
+			ft_free_exit(state, errno);
 		var = ft_get_env(&state->env, name);
 		free(name);
 		*i = ft_replace_line(state, *i, l, var);
