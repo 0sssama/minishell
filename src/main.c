@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 18:39:37 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/10 14:29:38 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 
 t_state	g_state;
 
-void	ft_handle_sigquit(int signal)
+void	ft_handle_sigint_parent(int signal)
 {
 	(void) signal;
-	write(2, "Quit: 3\n", 8);
+	
+	g_state.status = 1;
+	write(1, "\n", 1);
+	rl_replace_line("", 1);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 void	ft_handle_sigint(int signal)
 {
 	(void) signal;
+	g_state.status = 1;
 	write(2, "\n", 1);
 }
 
@@ -53,25 +59,3 @@ int	main(int ac, char **av, char **env)
 	ft_free_exit(&g_state, 0);
 	return (0);
 }
-
-// signals	[X]
-// syntax	[|]
-// files	[ ]
-
-/*
-
-	-> Add quit 3
-------------------------------
-	-> tokenization [need to token operators, > < >> << | || &&]
-
-	-> expand
-
-	-> parse tree
-	
-	-> Syntax
-		- if ( | ) are in the beginning or end
-		- if (> - < - << - >>) are in the end
-		- unclosed quote
-
-	token = 0
-*/

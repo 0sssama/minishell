@@ -6,11 +6,24 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/09 20:09:57 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/10 14:34:36 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	ft_handle_status(t_state *state)
+{
+	if (state->status == 3) // sigquit
+	{
+		write(2, "Quit: 3\n", 8);
+		state->status = 131;
+	}
+	else if (state->status == 2) // sigint
+		state->status = 130;
+	else
+		state->status = WEXITSTATUS(state->status);
+}
 
 static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 {
@@ -34,13 +47,8 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 		execve(path, cmdarg, state->envtab);
 	}
 	waitpid(state->pid, &state->status, 0);
+	ft_handle_status(state);
 	free(path);
-	if (state->sig == SIGQUIT)
-		state->status = 131;
-	else if (state->sig == SIGINT)
-		state->status = 130;
-	else
-		state->status = WEXITSTATUS(state->status);
 }
 
 static void	ft_exec_path(t_state *state, t_cmd *current_cmd)
@@ -64,7 +72,7 @@ static void	ft_exec_path(t_state *state, t_cmd *current_cmd)
 		}
 	}
 	waitpid(state->pid, &state->status, 0);
-	state->status = WEXITSTATUS(state->status);
+	ft_handle_status(state);
 }
 
 static void	ft_execve(t_state *state, t_cmd *current_cmd)

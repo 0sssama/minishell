@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 20:08:28 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/10 14:29:15 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void			ft_free_matrix(char **matrix);
 
 /*			SIGNALS				*/
 void			ft_handle_sigint(int signal);
-void			ft_handle_sigquit(int signal);
+void			ft_handle_sigint_parent(int signal);
 /*		 SIGNALS - END			*/
 
 /*			PROMPT				*/
