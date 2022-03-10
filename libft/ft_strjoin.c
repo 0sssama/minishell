@@ -6,11 +6,12 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:25:24 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 13:44:59 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:00:34 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 char	*ft_strjoin(char *s1, char *s2)
 {

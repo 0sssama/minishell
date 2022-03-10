@@ -3,52 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wildcard.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:28:11 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/05 18:24:29 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:17:06 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-//token WILDCARD
 
-static void	ft_fill_wildcard(struct dirent *dir, char *wildcard)
+static int	ft_contains_wildcard(char **cmd)
 {
-	char	*temp;
+	unsigned int	i;
 
-	temp = NULL;
-	if (!wildcard)
-		wildcard = ft_strdup(dir->d_name);
-	else
+	i = 0;
+	while (cmd[i])
 	{
-		temp = wildcard;
-		wildcard = ft_strjoin(wildcard, " ");
-		free(temp);
-		temp = wildcard;
-		wildcard = ft_strjoin(wildcard, dir->d_name);
-		free(temp);
+		if (ft_is_wildcard(cmd[i]))
+			return (1);
+		i++;
 	}
+	return (0);
 }
 
-char	*ft_wildcard(char *str)
+char	**ft_replace_wildcard(t_state *state, char **cmd)
 {
-	char			*wildcard;
-	DIR				*directory;
-	struct dirent	*dir;
+	unsigned int	i;
+	char			**output;
+	char			**wildcard;
 
-	directory = opendir(".");
+	output = NULL;
+	if (!cmd)
+		return (ft_free_exit(state, OUT_OF_MEM), NULL);
+	if (!ft_contains_wildcard(cmd))
+		return (cmd);
+	i = 0;
+	while (cmd[i])
+	{
+		if (ft_is_wildcard(cmd[i]))
+		{
+			wildcard = ft_wildcard();
+			if (!wildcard)
+				output = ft_add_arg(output, cmd[i]);
+			else
+				output = ft_merge_args(output, wildcard);
+		}
+		else
+			output = ft_add_arg(output, cmd[i]);
+		i++;
+	}
+	ft_free_matrix(cmd);
+	return (output);
+}
+
+char	**ft_wildcard(void)
+{
+	struct dirent	*dir;
+	char			**wildcard;
+	DIR				*directory;
+
 	wildcard = NULL;
+	directory = opendir(".");
 	if (!directory)
-		return (str);
+		return (NULL);
 	while (1337)
 	{
 		dir = readdir(directory);
-		if (!directory)
+		if (!dir)
 			break ;
-		ft_fill_wildcard(dir, wildcard);
+		if (dir->d_name[0] != '.')
+			wildcard = ft_add_arg(wildcard, dir->d_name);
 	}
 	closedir(directory);
-	//free(str); if u want to replace the old str with the wildcard
 	return (wildcard);
 }

@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/10 14:29:15 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:10:06 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define QUOTE -10 // ' "
 # define ENV_SIGN -11 // $
 # define EXIT_STATUS -12 // $?
+# define WILDCARD -13
 
 # define OUT_OF_MEM 12
 
@@ -117,14 +118,17 @@ void			ft_free_setup(t_state *state, int i);
 t_cmd			*ft_parse_tree(char **cmd);
 t_cmd			*ft_free_tree(t_cmd **head);
 char			**ft_check_tokens(char **cmd);
+char			**ft_replace_wildcard(t_state *state, char **cmd);
 char			*ft_token_to_str(char *tokenized_str);
+char			*ft_put_exitcode(t_state *state, char *str);
 int				ft_token(char *line);
 int				ft_istoken(char c);
 int				ft_contains_token(char *str);
 int				ft_check_syntax(char **cmd, char *line);
 int				ft_get_token(char *str);
 int				ft_heredoc(char *eof);
-char			*ft_put_exitcode(t_state *state, char *str);
+int				ft_is_wildcard(char *str);
+char			**ft_wildcard(void);
 /*			 PARSING - END		*/
 
 /*				ENV-VARIABLES			*/
