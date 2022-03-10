@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/10 16:40:25 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:54:59 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ static char	*ft_expand_str(t_state *state, char *old_str)
 			env_name = NULL;
 			if (!env)
 				new_str = ft_strjoin_osm(new_str, "");
+			else if (ft_is_literal_wildcard(env->value) && !new_str)
+				new_str = ft_charjoin(new_str, WILDCARD);
 			else
 				new_str = ft_strjoin_osm(new_str, env->value);
 		}
@@ -128,6 +130,6 @@ char	**ft_clean_args(t_state *state)
 	if (syntax_code != 0) // checking for syntax errors
 		return (ft_put_syntax_error(state, syntax_code));
 	cmd = ft_expand(state, cmd); // expands $
-	cmd = ft_replace_wildcard(state, cmd);
+	cmd = ft_replace_wildcard(state, cmd); // replaces arg or WILDCARD with wildcard elements
 	return (cmd);
 }

@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:11:26 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/10 16:26:59 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:54:14 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,34 @@ static void	ft_end_quote(char *line, int *i)
 	(*i)++;
 }
 
+static void	ft_valid_wildcard(char *line, int *i)
+{
+	unsigned int	y;
+
+	y = *i;
+	if ((*i) != 0 && line[(*i) - 1] != DELIMIT)
+	{
+		while (line[*i] && line[*i] == '*')
+			(*i)++;
+		(*i)--;
+		return ;
+	}
+	while (line[y] && line[y] == '*')
+		y++;
+	if (!line[y] || line[y] == ' ')
+	{
+		while (line[*i] && line[*i] == '*')	
+			line[(*i)++] = WILDCARD;
+		(*i)--;
+	}
+	else
+	{
+		while (line[*i] && line[*i] == '*')
+			(*i)++;
+		(*i)--;
+	}
+}
+
 static void	ft_replace_opp(char *line, int *i)
 {
 	if (line[*i] == '|')
@@ -86,6 +114,8 @@ static void	ft_replace_opp(char *line, int *i)
 		else
 			line[*i] = ENV_SIGN;
 	}
+	else if (line[*i] == '*')
+		ft_valid_wildcard(line, i);
 	(*i)++;
 }
 
@@ -98,7 +128,7 @@ int	ft_token(char *line)
 	{
 		if (line[i] == '"' || line[i] == '\'')
 			ft_end_quote(line, &i);
-		else if (ft_strchr("<>|$", line[i]))
+		else if (ft_strchr("<>|$*", line[i]))
 			ft_replace_opp(line, &i);
 		else if (line[i] == ' ')
 			line[i++] = DELIMIT;

@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:28:58 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/10 16:32:28 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/10 17:49:11 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static char	**ft_split_token(char *str)
 	return (output);
 }
 
-int	ft_is_wildcard(char *str)
+int	ft_is_literal_wildcard(char *str)
 {
 	unsigned int	i;
 
@@ -63,6 +63,20 @@ int	ft_is_wildcard(char *str)
 	while (str[i])
 	{
 		if (str[i] != '*')
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+int	ft_is_wildcard(char *str)
+{
+	unsigned int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] != WILDCARD)
 			return (0);
 		i++;
 	}
@@ -84,10 +98,7 @@ char	**ft_check_tokens(char **cmd)
 	{
 		if (!ft_contains_token(cmd[i]))
 		{
-			if (ft_is_wildcard(cmd[i]))
-				output = ft_add_arg(output, "*");
-			else
-				output = ft_add_arg(output, cmd[i]);
+			output = ft_add_arg(output, cmd[i]);
 			if (!output)
 				return (NULL);
 		}
