@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 15:53:46 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 20:15:50 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -102,6 +103,7 @@ char			**ft_split_args(char *s, char c);
 void			ft_execute(t_state *state, t_cmd *current_cmd);
 void			ft_execution(t_state *state);
 char			*ft_check_path(t_state *state, char **paths, char **cmdarg);
+char			*ft_check_relative(t_state *state, char *cmd);
 void			ft_pipe_it(t_state *state, t_cmd *current_cmd, int i);
 int				ft_get_pipes(t_cmd **cmd_tree);
 void			ft_setup_pipe(t_state *state);
@@ -186,5 +188,7 @@ int				ft_empty_line(char *str);
 void			ft_put_error(char *name, char *error);
 void			ft_close(t_state *state);
 void			ft_free_temp(char **s1);
+void			ft_free_childs(t_state *state, int status);
+void			ft_handle_status(t_state *state);
 /*			 UTILS - END			*/
 #endif

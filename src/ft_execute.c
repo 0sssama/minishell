@@ -6,13 +6,13 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 14:25:07 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:46:00 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	ft_handle_status(t_state *state)
+void	ft_handle_status(t_state *state)
 {
 	if (state->status == 3)
 	{
@@ -25,7 +25,7 @@ static void	ft_handle_status(t_state *state)
 		state->status = 130;
 	}
 	else
-		state->status = WEXITSTATUS(state->status);
+		state->status = state->status;
 }
 
 static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
@@ -36,10 +36,7 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 	i = 0;
 	path = ft_check_path(state, paths, cmdarg);
 	if (!path)
-	{
-		ft_put_error(cmdarg[0], "command not found\n");
-		return ;
-	}
+		return (ft_put_error(cmdarg[0], "command not found\n"));
 	state->pid = fork();
 	if (state->pid == -1)
 		ft_free_exit(state, 1);
@@ -50,32 +47,25 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 		execve(path, cmdarg, state->envtab);
 	}
 	waitpid(state->pid, &state->status, 0);
-	ft_handle_status(state);
 	free(path);
 }
 
 static void	ft_exec_path(t_state *state, t_cmd *current_cmd)
 {
-	state->pid = fork();
-	if (state->pid == -1)
-		ft_free_exit(state, 1);
-	if (state->pid == 0)
+	int	pid;
+
+	if (!ft_check_relative(state, current_cmd->name))
+		return ;
+	pid = fork();
+	if (pid == -1)
+		ft_free_exit(state, errno);
+	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		if (execve(current_cmd->name, \
-			current_cmd->args, state->envtab) == -1)
-		{
-			if (ft_strchr(current_cmd->name, '/'))
-				ft_put_error(current_cmd->name, \
-					"No such file or directory\n");
-			else
-				ft_put_error(current_cmd->name, "command not found\n");
-			exit(127);
-		}
+		exit(execve(current_cmd->name, current_cmd->args, state->envtab));
 	}
-	waitpid(state->pid, &state->status, 0);
-	ft_handle_status(state);
+	waitpid(pid, &state->status, 0);
 }
 
 static void	ft_execve(t_state *state, t_cmd *current_cmd)

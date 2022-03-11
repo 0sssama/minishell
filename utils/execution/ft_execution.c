@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:48:22 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 14:24:28 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:39:43 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,11 +96,13 @@ void	ft_execution(t_state *state)
 	current_node = state->cmd_tree;
 	state->pipes = ft_get_pipes(&state->cmd_tree);
 	if (state->pipes == 0)
-		return (ft_exec_cmd(state, current_node));
+		return (ft_exec_cmd(state, current_node), ft_handle_status(state));
 	ft_setup_pipe(state);
 	ft_loop_pipe(state, current_node);
 	ft_close(state);
 	while (i < state->pipes + 1)
 		waitpid(state->pids[i++], &state->status, 0);
+	state->status = WEXITSTATUS(state->status);
+	ft_handle_status(state);
 	ft_free_pipes(state);
 }
