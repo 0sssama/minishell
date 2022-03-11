@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/10 17:49:25 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:14:55 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINISHELL_H
 
 # define PIPE -1 // |
+# define WILDCARD -2 // *
 # define REDIN -4 // <
 # define REDOUT -5 // >
 # define APPEND -6 // >>
@@ -22,7 +23,6 @@
 # define QUOTE -10 // ' "
 # define ENV_SIGN -11 // $
 # define EXIT_STATUS -12 // $?
-# define WILDCARD -13
 
 # define OUT_OF_MEM 12
 

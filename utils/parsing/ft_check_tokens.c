@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/01 09:28:58 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/10 17:49:11 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 11:19:06 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	ft_is_wildcard(char *str)
 {
 	unsigned int	i;
 
+	if (!str || !str[0])
+		return (0);
 	i = 0;
 	while (str[i])
 	{
