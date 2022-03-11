@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 12:52:01 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 18:56:22 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@
 # include <limits.h>
 # include <fcntl.h>
 # include <dirent.h>
+# include <sys/stat.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "../libft/libft.h"
@@ -102,6 +103,7 @@ char			**ft_split_args(char *s, char c);
 void			ft_execute(t_state *state, t_cmd *current_cmd);
 void			ft_execution(t_state *state);
 char			*ft_check_path(t_state *state, char **paths, char **cmdarg);
+char			*ft_check_relative(t_state *state, char *cmd);
 void			ft_pipe_it(t_state *state, t_cmd *current_cmd, int i);
 int				ft_get_pipes(t_cmd **cmd_tree);
 void			ft_setup_pipe(t_state *state);
@@ -168,6 +170,9 @@ unsigned int	ft_args_len(char **args);
 char			**ft_init_args(char *init);
 char			**ft_add_arg(char **args, char *new_arg);
 char			**ft_merge_args(char **args1, char **args2);
+void			*ft_free_args_len(char **args, unsigned int len);
+void			ft_free_matrixes(char **m1, char **m2);
+void			ft_cpy_matrix(char **input, char **output, unsigned int *i);
 /*			ARGS UTILS - END		*/
 
 /*			 	UTILS				*/
@@ -177,5 +182,7 @@ int				ft_empty_line(char *str);
 void			ft_put_error(char *name, char *error);
 void			ft_close(t_state *state);
 void			ft_free_temp(char **s1);
+void			ft_free_childs(t_state *state, int status);
+void			ft_handle_status(t_state *state);
 /*			 UTILS - END			*/
 #endif

@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:03:07 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 14:32:04 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/11 19:00:48 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ void	ft_pipe_it(t_state *state, t_cmd *current_cmd, int i)
 	}
 	ft_close(state);
 	ft_exec_cmd(state, current_cmd);
+	ft_free_childs(state, state->status);
 	exit(state->status);
 }
