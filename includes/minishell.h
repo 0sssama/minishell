@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 14:58:03 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:53:46 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,16 @@ void			ft_free_setup(t_state *state, int i);
 /*				PARSING			*/
 t_cmd			*ft_parse_tree(char **cmd);
 t_cmd			*ft_free_tree(t_cmd **head);
+void			ft_replace_append(char *line, int *i);
+void			ft_replace_heredoc(char *line, int *i);
+char			**ft_expand_arg(t_state *state, char **output, char *arg);
+char			**ft_expand_exit(t_state *state, char **output, char *arg);
 char			**ft_check_tokens(char **cmd);
 char			**ft_replace_wildcard(t_state *state, char **cmd);
 char			**ft_wildcard(void);
 char			*ft_token_to_str(char *tokenized_str);
 char			*ft_put_exitcode(t_state *state, char *str);
+char			*ft_expand_str(t_state *state, char *old_str);
 int				ft_token(char *line);
 int				ft_istoken(char c);
 int				ft_contains_token(char *str);
@@ -129,6 +134,7 @@ int				ft_get_token(char *str);
 int				ft_heredoc(char *eof);
 int				ft_is_wildcard(char *str);
 int				ft_is_literal_wildcard(char *str);
+char	*ft_add_expanded_env(t_state *state, char *new_str, char *old_str, unsigned int *i);
 /*			 PARSING - END		*/
 
 /*				ENV-VARIABLES			*/

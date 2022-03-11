@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:28:11 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 11:18:52 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:31:01 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,22 @@ static int	ft_contains_wildcard(char **cmd)
 	return (0);
 }
 
+static char	**ft_add_wildcard(char **output, char *new_arg)
+{
+	char			**wildcard;
+
+	wildcard = ft_wildcard();
+	if (!wildcard)
+		output = ft_add_arg(output, new_arg);
+	else
+		output = ft_merge_args(output, wildcard);
+	return (output);
+}
+
 char	**ft_replace_wildcard(t_state *state, char **cmd)
 {
 	unsigned int	i;
 	char			**output;
-	char			**wildcard;
 
 	output = NULL;
 	if (!cmd)
@@ -41,13 +52,7 @@ char	**ft_replace_wildcard(t_state *state, char **cmd)
 	while (cmd[i])
 	{
 		if (ft_is_wildcard(cmd[i]))
-		{
-			wildcard = ft_wildcard();
-			if (!wildcard)
-				output = ft_add_arg(output, cmd[i]);
-			else
-				output = ft_merge_args(output, wildcard);
-		}
+			output = ft_add_wildcard(output, cmd[i]);
 		else
 			output = ft_add_arg(output, cmd[i]);
 		i++;

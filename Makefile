@@ -6,7 +6,7 @@
 #    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/03/11 14:43:50 by olabrahm         ###   ########.fr        #
+#    Updated: 2022/03/11 15:38:46 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ FILES= 	src/main utils/exits/ft_free_exit src/ft_prompt src/ft_execute utils/imp
 		utils/parsing/ft_token utils/parsing/ft_parse_tree utils/args/ft_args \
 		utils/parsing/ft_check_tokens utils/parsing/ft_check_syntax utils/parsing/ft_heredoc \
 		utils/env/ft_add_backslash utils/env/ft_default_env utils/env/ft_update_env utils/execution/ft_free_setup \
-		utils/parsing/ft_put_exitcode utils/parsing/ft_wildcard utils/parsing/ft_empty_line utils/args/ft_args2
+		utils/parsing/ft_put_exitcode utils/parsing/ft_wildcard utils/parsing/ft_empty_line utils/args/ft_args2 \
+		utils/parsing/ft_token2
 
 OBJS= $(FILES:=.o)
 NAME= minishell
