@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 12:52:01 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:58:03 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,9 @@ unsigned int	ft_args_len(char **args);
 char			**ft_init_args(char *init);
 char			**ft_add_arg(char **args, char *new_arg);
 char			**ft_merge_args(char **args1, char **args2);
+void			*ft_free_args_len(char **args, unsigned int len);
+void			ft_free_matrixes(char **m1, char **m2);
+void			ft_cpy_matrix(char **input, char **output, unsigned int *i);
 /*			ARGS UTILS - END		*/
 
 /*			 	UTILS				*/

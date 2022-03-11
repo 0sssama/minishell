@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 16:49:10 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/09 18:33:19 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:38:38 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	ft_exit(t_state *state, t_cmd *current_cmd)
 		ft_free_exit(state, status);
 	}
 	else
-		printf("minishell: exit: too many arguments\n");
+		ft_put_error("exit", "too many arguments\n");
 }

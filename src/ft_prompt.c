@@ -6,24 +6,11 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 14:16:42 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:39:58 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_empty_line(char *str)
-{
-	int	i;
-
-	i = -1;
-	if (str[0] == 0)
-		return (1);
-	while (str[++i])
-		if (str[i] != ' ' && str[i] != DELIMIT)
-			return (0);
-	return (1);
-}
 
 static void	ft_parse(t_state *state)
 {
@@ -51,6 +38,20 @@ static void	ft_init_loop(t_state *state)
 	rl_on_new_line();
 }
 
+static void	ft_set_status(t_state *state, int status)
+{
+	state->status = status;
+	free(state->line);
+}
+
+static void	ft_reset(t_state *state)
+{
+	free(state->line);
+	ft_free_tree(&state->cmd_tree);
+	ft_reset_io(state);
+	ft_update_env(state);
+}
+
 void	ft_prompt(t_state *state)
 {
 	while (69)
@@ -62,23 +63,18 @@ void	ft_prompt(t_state *state)
 			break ;
 		if (ft_empty_line(state->line))
 		{
-			state->status = 0;
-			free(state->line);
+			ft_set_status(state, 0);
 			continue ;
 		}
 		ft_parse(state);
 		if (state->man_err)
 		{
-			state->status = 258;
-			free(state->line);
+			ft_set_status(state, 258);
 			continue ;
 		}
 		signal(SIGINT, SIG_IGN);
 		ft_save_io(state);
 		ft_execution(state);
-		free(state->line);
-		ft_free_tree(&state->cmd_tree);
-		ft_reset_io(state);
-		ft_update_env(state);
+		ft_reset(state);
 	}
 }
