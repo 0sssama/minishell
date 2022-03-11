@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 20:12:45 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:10:09 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,8 @@ char	*ft_expand_str(t_state *state, char *old_str)
 	{
 		while (old_str[i] && old_str[i] != ENV_SIGN)
 			new_str = ft_charjoin(new_str, old_str[i++]);
-		if (i >= ft_strlen(old_str))
+		if (!ft_check_end(&new_str, old_str, i))
 			break ;
-		else if (old_str[i] == ENV_SIGN && i + 1 == ft_strlen(old_str))
-		{
-			new_str = ft_charjoin(new_str, '$');
-			break ;
-		}
 		i++;
 		if (old_str[i] && ft_isdigit(old_str[i]))
 		{
@@ -74,7 +69,6 @@ static char	**ft_expand(t_state *state, char **cmd)
 	char			**output;
 	char			*tmp;
 
-	// BUG IS HERE!!!! GARBAGE VALUE 
 	i = 0;
 	output = NULL;
 	tmp = NULL;

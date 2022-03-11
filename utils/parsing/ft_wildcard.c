@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:28:11 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 15:31:01 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 20:25:35 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,16 @@ char	**ft_wildcard(void)
 	}
 	closedir(directory);
 	return (wildcard);
+}
+
+int	ft_check_end(char **new_str, char *old_str, size_t i)
+{
+	if (i >= ft_strlen(old_str))
+		return (0);
+	else if (old_str[i] == ENV_SIGN && i + 1 == ft_strlen(old_str))
+	{
+		*new_str = ft_charjoin(*new_str, '$');
+		return (0);
+	}
+	return (1);
 }

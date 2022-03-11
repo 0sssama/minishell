@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_env.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 09:54:46 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 18:33:50 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:25:10 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ static char	*ft_extract_name(char *str, char c)
 		name_len++;
 	}
 	name[name_len] = '\0';
-	/* name = ft_strtrim(name, "\'\"");
-	if (!name)
-		return (NULL); */
 	if (ft_strlen(name) == 0)
 	{
 		free(name);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env_unset.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:26:20 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 18:20:10 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:24:39 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,11 @@ void	ft_lstdelone(t_state *state, t_env_var *elem)
 			if (!before)
 			{
 				state->env = current_node->next;
-				ft_freenode(current_node);
-				ft_setup_indexes(state->env);
-				return ;
+				return (ft_freenode(current_node),
+					ft_setup_indexes(state->env));
 			}
 			before->next = current_node->next;
-			ft_freenode(current_node);
-			ft_setup_indexes(state->env);
-			return ;
+			return (ft_freenode(current_node), ft_setup_indexes(state->env));
 		}
 		before = current_node;
 		current_node = current_node->next;
