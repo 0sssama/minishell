@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:24:23 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 12:46:02 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:16:18 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	ft_chdir_back(t_state *state)
 
 	if (!state->oldpwd)
 	{
-		ft_put_error("cd", "OLDPWD not set\n");
+		ft_put_error("cd", "OLDPWD not set.\n");
 		state->status = 1;
 		return ;
 	}
