@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:48:22 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/09 16:02:14 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:24:28 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ t_cmd	*ft_redirect(t_cmd *cmd)
 static void	ft_execute_pipeline(t_state *state, t_cmd *cmd, t_cmd *sv)
 {
 	t_cmd	*save;
- 
+
 	save = sv;
 	if (!cmd || cmd->token == PIPE)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 12:51:35 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:25:07 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static void	ft_handle_status(t_state *state)
 {
-	if (state->status == 3) // sigquit
+	if (state->status == 3)
 	{
 		write(2, "Quit: 3\n", 8);
 		state->status = 131;
 	}
-	else if (state->status == 2) // sigint
+	else if (state->status == 2)
 	{
 		write(2, "\n", 1);
 		state->status = 130;
