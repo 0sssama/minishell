@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/15 16:49:10 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/09 18:33:19 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:35:24 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,5 @@ void	ft_exit(t_state *state, t_cmd *current_cmd)
 		ft_free_exit(state, status);
 	}
 	else
-		printf("minishell: exit: too many arguments\n");
+		ft_put_error(NULL, "minishell: exit: too many arguments\n");
 }

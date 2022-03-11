@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 15:32:42 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/11 14:50:08 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 						current_node->eof = ft_strdup(cmd[i]);
 						current_node->fd = ft_heredoc(current_node->eof);
 						if (current_node->fd == -1)
-							return NULL;
+							return (ft_free_matrix(cmd), ft_free_tree(&head));
 						inside_cmd = 0;
 						file[0] = 0;
 						file[1] = 0;
@@ -167,8 +167,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 					if (current_node->fd == -1)
 					{
 						ft_put_error(current_node->file, "No such file or directory.\n");
-						ft_free_matrix(cmd);
-						return (ft_free_tree(&head));
+						return (ft_free_matrix(cmd), ft_free_tree(&head));
 					}
 				}
 				else
@@ -186,10 +185,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 				if (previous_node)
 					previous_node->next = current_node;
 				if (!current_node)
-				{
-					ft_free_matrix(cmd);
-					return (ft_free_tree(&head));
-				}
+					return (ft_free_matrix(cmd), ft_free_tree(&head));
 				if (i == 0)
 					head = current_node;
 				inside_cmd = 1;
@@ -212,10 +208,7 @@ t_cmd	*ft_parse_tree(char **cmd)
 			if (previous_node)
 				previous_node->next = current_node;
 			if (!current_node)
-			{
-				ft_free_matrix(cmd);
-				return (ft_free_tree(&head));
-			}
+				return (ft_free_matrix(cmd), ft_free_tree(&head));
 			if (i == 0)
 				head = current_node;
 			current_node->name = NULL;
