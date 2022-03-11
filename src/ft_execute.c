@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 11:15:52 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 12:51:35 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,10 @@ static void	ft_handle_status(t_state *state)
 		state->status = 131;
 	}
 	else if (state->status == 2) // sigint
+	{
+		write(2, "\n", 1);
 		state->status = 130;
+	}
 	else
 		state->status = WEXITSTATUS(state->status);
 }

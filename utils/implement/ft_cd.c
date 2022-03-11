@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:24:23 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 11:52:50 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 12:46:02 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,22 +71,22 @@ static void	ft_chdir(t_state *state, char *dir_name)
 void	ft_cd(t_state *state, t_cmd *current_cmd)
 {
 	if (current_cmd->num_of_args == 1)
-		ft_chdir_home(state);
-	else if (current_cmd->num_of_args == 2)
 	{
-		if (!ft_strncmp(current_cmd->args[1], ".", 2) && errno == ENOENT)
-		{
-			ft_put_error("cd", "error retrieving current directory ");
-			ft_put_error("getcwd", "cannot access parent directories: ");
-			ft_put_error(NULL, "No such file or directory\n");
-			state->status = 0;
-			return ;
-		}
-		if (!ft_strcmp(current_cmd->args[1], "--"))
-			ft_chdir_home(state);
-		else if (!ft_strcmp(current_cmd->args[1], "-"))
-			ft_chdir_back(state);
-		else
-			ft_chdir(state, current_cmd->args[1]);
+		ft_chdir_home(state);
+		return ;
 	}
+	if (!ft_strncmp(current_cmd->args[1], ".", 2) && errno == ENOENT)
+	{
+		ft_put_error("cd", "error retrieving current directory ");
+		ft_put_error("getcwd", "cannot access parent directories: ");
+		ft_put_error(NULL, "No such file or directory\n");
+		state->status = 0;
+		return ;
+	}
+	if (!ft_strcmp(current_cmd->args[1], "--"))
+		ft_chdir_home(state);
+	else if (!ft_strcmp(current_cmd->args[1], "-"))
+		ft_chdir_back(state);
+	else
+		ft_chdir(state, current_cmd->args[1]);
 }

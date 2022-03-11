@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/10 16:39:20 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 12:49:51 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	ft_prompt(t_state *state)
 			free(state->line);
 			continue ;
 		}
-		signal(SIGINT, ft_handle_sigint);
+		signal(SIGINT, SIG_IGN);
 		ft_save_io(state);
 		ft_execution(state);
 		free(state->line);

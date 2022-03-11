@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/10 14:29:38 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 12:51:44 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,6 @@ void	ft_handle_sigint_parent(int signal)
 	rl_replace_line("", 1);
 	rl_on_new_line();
 	rl_redisplay();
-}
-
-void	ft_handle_sigint(int signal)
-{
-	(void) signal;
-	g_state.status = 1;
-	write(2, "\n", 1);
 }
 
 static void	ft_init_main(char **env)
