@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 13:45:09 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/12 15:27:25 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	ft_next_arg_file(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 		iters->inside_cmd = 0;
 		iters->file[0] = 0;
 		iters->file[1] = 0;
-		(iters->i)++;
 		return ;
 	}
 	ft_naf_helper(nodes, iters, cmd);
