@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wildcard.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:28:11 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/12 14:43:57 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/12 17:28:25 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	**ft_wildcard(void)
 	while (69)
 	{
 		dir = readdir(directory);
-		if (!dir)		
+		if (!dir)
 			break ;
 		if (dir->d_name[0] != '.')
 			wildcard = ft_add_arg(wildcard, dir->d_name);
