@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 14:37:29 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 15:47:14 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 17:25:16 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int	ft_empty_line(char *str)
 	while (str[++i])
 		if (!ft_isspace(str[i]) && str[i] != DELIMIT)
 			return (0);
+	add_history(str);
 	return (1);
 }
