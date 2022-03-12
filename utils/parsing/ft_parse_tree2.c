@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_tree2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 21:18:09 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 22:44:35 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 13:44:12 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,24 +38,4 @@ void	ft_naf_helper(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 		iters->stop_tree = 1;
 		return ;
 	}
-}
-
-void	ft_next_arg_file(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
-{
-	if ((nodes->current_node)->token == HEREDOC)
-	{
-		(nodes->current_node)->eof = ft_strdup(cmd[iters->i]);
-		(nodes->current_node)->fd = ft_heredoc((nodes->current_node)->eof);
-		if ((nodes->current_node)->fd == -1)
-		{
-			iters->stop_tree = 1;
-			return ;
-		}
-		iters->inside_cmd = 0;
-		iters->file[0] = 0;
-		iters->file[1] = 0;
-		(iters->i)++;
-		return ;
-	}
-	ft_naf_helper(nodes, iters, cmd);
 }

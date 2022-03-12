@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 18:46:00 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/12 14:28:22 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ void	ft_handle_status(t_state *state)
 		write(2, "\n", 1);
 		state->status = 130;
 	}
+	else if (state->status == 127 || state->status == 126)
+		return ;
 	else
-		state->status = state->status;
+		state->status = WEXITSTATUS(state->status);
 }
 
 static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
@@ -36,7 +38,10 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 	i = 0;
 	path = ft_check_path(state, paths, cmdarg);
 	if (!path)
+	{
+		state->status = 127;
 		return (ft_put_error(cmdarg[0], "command not found\n"));
+	}
 	state->pid = fork();
 	if (state->pid == -1)
 		ft_free_exit(state, 1);

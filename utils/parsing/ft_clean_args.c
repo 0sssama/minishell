@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clean_args.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 22:38:15 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 14:32:56 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,7 @@ char	**ft_clean_args(t_state *state)
 		return (ft_put_syntax_error(state, syntax_code));
 	cmd = ft_expand(state, cmd);
 	cmd = ft_replace_wildcard(state, cmd);
+	if (!cmd || !cmd[0] || !cmd[0][0])
+		return (set_man_err_null(state));
 	return (cmd);
 }

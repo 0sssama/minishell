@@ -3,16 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 14:34:16 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 13:45:09 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 t_state	g_state;
+
+void	ft_next_arg_file(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
+{
+	if ((nodes->current_node)->token == HEREDOC)
+	{
+		(nodes->current_node)->eof = ft_strdup(cmd[iters->i]);
+		(nodes->current_node)->fd = ft_heredoc((nodes->current_node)->eof);
+		if ((nodes->current_node)->fd == -1)
+		{
+			g_state.status = 1;
+			iters->stop_tree = 1;
+			return ;
+		}
+		iters->inside_cmd = 0;
+		iters->file[0] = 0;
+		iters->file[1] = 0;
+		(iters->i)++;
+		return ;
+	}
+	ft_naf_helper(nodes, iters, cmd);
+}
 
 void	ft_handle_sigint_parent(int signal)
 {
