@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_args.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 13:25:30 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 18:50:59 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 14:40:54 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,31 +95,17 @@ char	**ft_add_arg(char **args, char *new_arg)
 char	**ft_merge_args(char **args1, char **args2)
 {
 	unsigned int	i;
-	unsigned int	j;
 	unsigned int	len;
 	char			**output;
 
 	i = 0;
-	j = 0;
 	len = ft_args_len(args1) + ft_args_len(args2) + 1;
 	output = (char **) malloc(len * sizeof(char *));
 	if (!output)
 		return (NULL);
-	while (args1 && args1[i])
-	{
-		output[i] = ft_strdup(args1[i]);
-		if (!output[i])
-			return (ft_free_args_len(output, i));
-		i++;
-	}
-	while (args2 && args2[j])
-	{
-		output[i++] = ft_strdup(args2[j++]);
-		if (!output[i - 1])
-			return (ft_free_args_len(output, i - 1));
-	}
+	ft_cpy_matrix(args1, output, &i);
+	ft_cpy_matrix(args2, output, &i);
 	output[i] = NULL;
-	ft_free_matrix(args1);
-	ft_free_matrix(args2);
+	ft_free_matrixes(args1, args2);
 	return (output);
 }

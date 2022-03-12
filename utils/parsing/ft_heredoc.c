@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 19:39:52 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/09 18:48:38 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:43:56 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ int	ft_heredoc(char *eof)
 		ft_doc_child(eof, hfd);
 	close(hfd[1]);
 	waitpid(pid, &status, 0);
-	signal(SIGINT, SIG_DFL);
 	if (status == 2)
 		return (-1);
 	return (hfd[0]);

@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 15:11:26 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/10 17:54:14 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 15:38:26 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,18 @@
 	line, and then check syntax errors right after that.
 	We don't want to do both at the same time.
 */
+
+static void	ft_replace_exit(char *line, int *i)
+{
+	if (line[*i + 1] == '?')
+	{
+		line[*i] = EXIT_STATUS;
+		line[*i + 1] = EXIT_STATUS;
+		(*i)++;
+	}
+	else
+		line[*i] = ENV_SIGN;
+}
 
 static void	ft_end_quote(char *line, int *i)
 {
@@ -31,16 +43,7 @@ static void	ft_end_quote(char *line, int *i)
 	while (line[*i] && line[*i] != quote)
 	{
 		if (line[*i] == '$' && replace_env)
-		{
-			if (line[*i + 1] == '?')
-			{
-				line[*i] = EXIT_STATUS;
-				line[*i + 1] = EXIT_STATUS;
-				(*i)++;
-			}
-			else
-				line[*i] = ENV_SIGN;
-		}
+			ft_replace_exit(line, i);
 		(*i)++;
 	}
 	if (!line[*i])
@@ -65,7 +68,7 @@ static void	ft_valid_wildcard(char *line, int *i)
 		y++;
 	if (!line[y] || line[y] == ' ')
 	{
-		while (line[*i] && line[*i] == '*')	
+		while (line[*i] && line[*i] == '*')
 			line[(*i)++] = WILDCARD;
 		(*i)--;
 	}
@@ -82,38 +85,11 @@ static void	ft_replace_opp(char *line, int *i)
 	if (line[*i] == '|')
 		line[*i] = PIPE;
 	else if (line[*i] == '<')
-	{
-		if (line[(*i) + 1] == '<')
-		{
-			line[*i] = HEREDOC;
-			line[(*i) + 1] = HEREDOC;
-			(*i)++;
-		}
-		else
-			line[*i] = REDIN;
-	}
+		ft_replace_heredoc(line, i);
 	else if (line[*i] == '>')
-	{
-		if (line[(*i) + 1] == '>')
-		{
-			line[*i] = APPEND;
-			line[(*i) + 1] = APPEND;
-			(*i)++;
-		}
-		else
-			line[*i] = REDOUT;
-	}
+		ft_replace_append(line, i);
 	else if (line[*i] == '$')
-	{
-		if (line[*i + 1] == '?')
-		{
-			line[*i] = EXIT_STATUS;
-			line[*i + 1] = EXIT_STATUS;
-			(*i)++;
-		}
-		else
-			line[*i] = ENV_SIGN;
-	}
+		ft_replace_exit(line, i);
 	else if (line[*i] == '*')
 		ft_valid_wildcard(line, i);
 	(*i)++;

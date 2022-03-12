@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:11:20 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 13:51:52 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 20:30:41 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,46 @@ void	ft_free_exit(t_state *state, int status)
 	clear_history();
 	ft_lstclear(&state->env);
 	exit(status);
+}
+
+void	ft_free_childs(t_state *state, int status)
+{
+	if (state->line)
+		free(state->line);
+	if (state->pwd)
+		free(state->pwd);
+	if (state->oldpwd)
+		free(state->oldpwd);
+	ft_free_pipefds(state, state->pipes);
+	ft_free_tree(&state->cmd_tree);
+	ft_free_matrix(state->envtab);
+	clear_history();
+	ft_lstclear(&state->env);
+	exit(status);
+}
+
+t_cmd	*ft_free_tree(t_cmd **head)
+{
+	t_cmd	*current_node;
+	t_cmd	*tmp;
+
+	if (!head || !(*head))
+		return (NULL);
+	current_node = *head;
+	while (current_node)
+	{
+		free(current_node->name);
+		current_node->name = NULL;
+		free(current_node->file);
+		current_node->file = NULL;
+		free(current_node->eof);
+		current_node->eof = NULL;
+		if (current_node->fd && current_node->fd > -1)
+			close(current_node->fd);
+		ft_free_matrix(current_node->args);
+		tmp = current_node->next;
+		free(current_node);
+		current_node = tmp;
+	}
+	return (NULL);
 }

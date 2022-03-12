@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/15 09:54:46 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 11:37:41 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:25:10 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,6 @@ static char	*ft_extract_name(char *str, char c)
 		name_len++;
 	}
 	name[name_len] = '\0';
-	/* name = ft_strtrim(name, "\'\"");
-	if (!name)
-		return (NULL); */
 	if (ft_strlen(name) == 0)
 	{
 		free(name);

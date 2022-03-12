@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 12:51:44 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 16:43:28 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,28 @@
 
 t_state	g_state;
 
+void	ft_next_arg_file(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
+{
+	if ((nodes->current_node)->token == HEREDOC)
+	{
+		(nodes->current_node)->eof = ft_strdup(cmd[iters->i]);
+		(nodes->current_node)->fd = ft_heredoc((nodes->current_node)->eof);
+		if ((nodes->current_node)->fd == -1)
+		{
+			g_state.status = 1;
+			iters->stop_tree = 1;
+			return ;
+		}
+		iters->file[0] = 1;
+		iters->file[1] = 0;
+		return ;
+	}
+	ft_naf_helper(nodes, iters, cmd);
+}
+
 void	ft_handle_sigint_parent(int signal)
 {
 	(void) signal;
-	
 	g_state.status = 1;
 	write(1, "\n", 1);
 	rl_replace_line("", 1);

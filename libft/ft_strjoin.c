@@ -6,17 +6,25 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 12:25:24 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/10 17:00:34 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:31:49 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+
+static char	*ft_cpy2out(char *output, size_t *i, char *str)
+{
+	size_t	j;
+
+	j = 0;
+	while (str[j])
+		output[(*i)++] = str[j++];
+	return (output);
+}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*output;
-	size_t	j;
 	size_t	i;
 	size_t	final_len;
 	int		should_free;
@@ -31,12 +39,8 @@ char	*ft_strjoin(char *s1, char *s2)
 	if (!output)
 		return (0);
 	i = 0;
-	j = 0;
-	while (s1[j])
-		output[i++] = s1[j++];
-	j = 0;
-	while (s2[j])
-		output[i++] = s2[j++];
+	ft_cpy2out(output, &i, s1);
+	ft_cpy2out(output, &i, s2);
 	output[i] = 0;
 	if (should_free)
 		free(s1);

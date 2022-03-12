@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/05 14:41:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/03 11:45:29 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/11 22:27:59 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,23 +90,21 @@ char	**ft_split(char *s, char c)
 	size_t	i;
 
 	if (!s)
-		return (0);
+		return (NULL);
 	wc = -1;
 	i = 0;
 	word_count = ft_word_count(s, c);
 	output = (char **) malloc((word_count + 1) * sizeof(char *));
 	if (!output)
-		return (0);
+		return (NULL);
 	while (++wc < word_count)
 	{
 		output[wc] = ft_get_next_word(s, &i, c);
 		if (!output[wc])
 		{
 			if (wc > 0)
-				ft_free_all(output, wc);
-			else
-				free(output);
-			return (0);
+				return (ft_free_all(output, wc), NULL);
+			return (free(output), NULL);
 		}
 	}
 	output[word_count] = 0;
