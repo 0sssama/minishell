@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 17:36:12 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/12 17:28:16 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,8 @@ int				ft_is_wildcard(char *str);
 int				ft_str_istoken(char *str);
 int				ft_is_literal_wildcard(char *str);
 int				ft_check_end(char **new_str, char *old_str, size_t i);
-void			ft_naf_helper(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd);
+void			ft_naf_helper(t_ptree_nodes *nodes, t_ptree_iters *iters,
+					char **cmd);
 /*			 PARSING - END		*/
 
 /*				ENV-VARIABLES			*/

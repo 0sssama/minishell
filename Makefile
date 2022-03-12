@@ -6,7 +6,7 @@
 #    By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/03/12 17:35:48 by obouadel         ###   ########.fr        #
+#    Updated: 2022/03/12 15:37:04 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,22 +29,21 @@ NAME= minishell
 INCLUDES=includes
 READLINE=-lreadline
 RM= rm -rf
-LIBFT= libft.a
 LIBFT_PATH= libft/libft.a
 
-.PHONY: all re clean fclean gen val
-
-%.o: %.c includes/minishell.h
-	@$(CC) $(FLAGS) -I $(INCLUDES) -c $< -o $@ $(CPPFLAGS)
+.PHONY: all re clean fclean
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJS) 
+$(NAME): $(LIBFT_PATH) $(OBJS) 
 	@$(CC) $(FLAGS) $(OBJS) $(LIBFT_PATH) -I $(INCLUDES) $(READLINE) $(LDFLAGS) -o $(NAME)
 	@echo "\033[30;1m---> \033[0mMinishell V2.0 \033[32;1m [OK] \033[0m"
 
-$(LIBFT): 
+$(LIBFT_PATH): 
 	@$(MAKE) -C libft
+
+%.o: %.c includes/minishell.h
+	@$(CC) $(FLAGS) -I $(INCLUDES) -c $< -o $@ $(CPPFLAGS)
 
 clean:
 	@$(RM) $(OBJS)
@@ -55,14 +54,5 @@ fclean: clean
 	@$(RM) $(NAME)
 	@$(MAKE) fclean -C libft 
 	@echo "\033[30;1m---> \033[0mBinary files clean\033[32;1m [DONE] \033[0m"
-
-gen: fclean all
-	clear
-	@$(MAKE) clean
-	@./minishell
-
-val: all clean
-	clear
-	valgrind --leak-check=full ./minishell
 
 re: fclean all

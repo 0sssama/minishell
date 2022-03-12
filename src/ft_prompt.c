@@ -3,7 +3,7 @@
 /*                                                        :::      ::::::::   */
 /*   ft_prompt.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
 /*   Updated: 2022/03/12 17:28:31 by obouadel         ###   ########.fr       */
@@ -63,12 +63,16 @@ void	ft_prompt(t_state *state)
 			break ;
 		if (ft_empty_line(state->line))
 		{
+			free(state->line);
 			ft_set_status(state, 0);
 			continue ;
 		}
 		ft_parse(state);
 		if (state->man_err)
+		{
+			free(state->line);
 			continue ;
+		}
 		signal(SIGINT, SIG_IGN);
 		ft_save_io(state);
 		ft_execution(state);

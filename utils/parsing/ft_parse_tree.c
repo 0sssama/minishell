@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_parse_tree.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 13:43:44 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/12 17:20:31 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void	ft_parse_token(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 	(nodes->current_node)->token = ft_str_istoken(cmd[iters->i]);
 	iters->inside_cmd = (ft_str_istoken(cmd[(iters->i)]) == REDOUT
 			|| ft_str_istoken(cmd[iters->i]) == REDIN
-			|| ft_str_istoken(cmd[iters->i]) == HEREDOC);
+			|| ft_str_istoken(cmd[iters->i]) == HEREDOC
+			|| ft_str_istoken(cmd[iters->i]) == APPEND);
 	iters->file[0] = 0;
 	iters->file[1] = iters->inside_cmd;
 }
@@ -111,11 +112,11 @@ t_cmd	*ft_parse_tree(char **cmd)
 				ft_notkn_outcmd(&nodes, &iters, cmd);
 		}
 		else if (iters.inside_cmd || ft_str_istoken(cmd[(iters.i)]) == REDIN
-			|| ft_str_istoken(cmd[(iters.i)]) == HEREDOC)
+			|| ft_str_istoken(cmd[(iters.i)]) == HEREDOC
+			|| ft_str_istoken(cmd[iters.i]) == REDOUT)
 			ft_parse_token(&nodes, &iters, cmd);
 		(iters.i)++;
 	}
-	
 	ft_free_matrix(cmd);
 	if (iters.stop_tree)
 		return (NULL);
