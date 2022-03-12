@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 15:27:25 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 16:43:28 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	ft_next_arg_file(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 			iters->stop_tree = 1;
 			return ;
 		}
-		iters->inside_cmd = 0;
-		iters->file[0] = 0;
+		iters->file[0] = 1;
 		iters->file[1] = 0;
 		return ;
 	}

@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 15:26:18 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 17:20:31 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ t_cmd	*ft_parse_tree(char **cmd)
 				ft_notkn_outcmd(&nodes, &iters, cmd);
 		}
 		else if (iters.inside_cmd || ft_str_istoken(cmd[(iters.i)]) == REDIN
-			|| ft_str_istoken(cmd[(iters.i)]) == HEREDOC)
+			|| ft_str_istoken(cmd[(iters.i)]) == HEREDOC
+			|| ft_str_istoken(cmd[iters.i]) == REDOUT)
 			ft_parse_token(&nodes, &iters, cmd);
 		(iters.i)++;
 	}
