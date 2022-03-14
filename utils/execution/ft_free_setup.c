@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 19:19:46 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/09 18:48:54 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:18:44 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	ft_free_pipefds(t_state *state, int i)
 		close(state->fds[i][0]);
 		i--;
 	}
-	ft_free_setup(state, -1);
 	free(state->pids);
+	ft_free_setup(state, -1);
 }
 
 void	ft_free_setup(t_state *state, int i)
@@ -36,13 +36,12 @@ void	ft_free_setup(t_state *state, int i)
 		while (i >= 0)
 			free(state->fds[i--]);
 		free(state->fds);
-		return ;
 	}
-	if (i == -1)
+	else if (i == -1)
 	{
 		while (j < state->pipes)
 			free(state->fds[j++]);
 		free(state->fds);
-		return ;
 	}
+	ft_free_exit(state, OUT_OF_MEM);
 }

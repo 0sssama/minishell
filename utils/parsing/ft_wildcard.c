@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 15:28:11 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/12 17:28:25 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:54:32 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,10 @@ char	**ft_replace_wildcard(t_state *state, char **cmd)
 	unsigned int	i;
 	char			**output;
 
+	(void) state;
 	output = NULL;
 	if (!cmd)
-		return (ft_free_exit(state, OUT_OF_MEM), NULL);
+		return (NULL);
 	if (!ft_contains_wildcard(cmd))
 		return (cmd);
 	i = 0;

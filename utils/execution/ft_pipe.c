@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:03:07 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 19:00:48 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:29:06 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	ft_setup_pipe(t_state *state)
 	i = 0;
 	state->fds = malloc((state->pipes) * sizeof(int *));
 	if (!state->fds)
-		ft_free_exit(state, errno);
+		ft_free_exit(state, OUT_OF_MEM);
 	while (i < state->pipes)
 	{
 		state->fds[i] = malloc(2 * sizeof(int));
@@ -69,7 +69,10 @@ void	ft_setup_pipe(t_state *state)
 	while (i < state->pipes)
 	{
 		if (pipe(state->fds[i]) == -1)
+		{
+			ft_put_error("pipe", "broken pipe error\n");
 			ft_free_pipefds(state, i);
+		}
 		i++;
 	}
 }
@@ -87,6 +90,5 @@ void	ft_pipe_it(t_state *state, t_cmd *current_cmd, int i)
 	}
 	ft_close(state);
 	ft_exec_cmd(state, current_cmd);
-	ft_free_childs(state, state->status);
 	exit(state->status);
 }

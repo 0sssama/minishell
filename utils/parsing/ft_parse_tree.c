@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 17:20:31 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:09:28 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,18 @@ void	ft_notkn_incmd(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 
 void	ft_notkn_outcmd(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 {
+	if (iters->file[1])
+	{
+		iters->file[0] = 0;
+		ft_notkn_incmd(nodes, iters, cmd);
+		return ;
+	}
 	nodes->previous_node = (nodes->current_node);
 	(nodes->current_node) = (t_cmd *) malloc(sizeof(t_cmd));
 	if (nodes->previous_node)
 		nodes->previous_node->next = (nodes->current_node);
+	if (!nodes->head)
+		nodes->head = nodes->current_node;
 	if (!(nodes->current_node))
 	{
 		iters->stop_tree = 1;
@@ -49,10 +57,11 @@ void	ft_notkn_outcmd(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 	(nodes->current_node)->args = ft_init_args(cmd[iters->i]);
 	(nodes->current_node)->file = NULL;
 	(nodes->current_node)->eof = NULL;
-	(nodes->current_node)->fd = 0;
+	(nodes->current_node)->fd = -1;
 	(nodes->current_node)->token = 0;
 	(nodes->current_node)->next = NULL;
 	nodes->last_cmd = (nodes->current_node);
+	iters->file[0] = 1;
 }
 
 void	ft_parse_token(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
@@ -76,12 +85,13 @@ void	ft_parse_token(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 	(nodes->current_node)->eof = NULL;
 	(nodes->current_node)->fd = 0;
 	(nodes->current_node)->token = ft_str_istoken(cmd[iters->i]);
-	iters->inside_cmd = (ft_str_istoken(cmd[(iters->i)]) == REDOUT
-			|| ft_str_istoken(cmd[iters->i]) == REDIN
-			|| ft_str_istoken(cmd[iters->i]) == HEREDOC
-			|| ft_str_istoken(cmd[iters->i]) == APPEND);
+	// iters->inside_cmd = (ft_str_istoken(cmd[(iters->i)]) == REDOUT
+	// 		|| ft_str_istoken(cmd[iters->i]) == REDIN
+	// 		|| ft_str_istoken(cmd[iters->i]) == HEREDOC
+	// 		|| ft_str_istoken(cmd[iters->i]) == APPEND);
 	iters->file[0] = 0;
-	iters->file[1] = iters->inside_cmd;
+	// iters->file[1] = iters->inside_cmd;
+	iters->file[1] = 1;
 }
 
 void	ft_init_ptree(t_ptree_nodes *nodes, t_ptree_iters *iters)
@@ -113,7 +123,8 @@ t_cmd	*ft_parse_tree(char **cmd)
 		}
 		else if (iters.inside_cmd || ft_str_istoken(cmd[(iters.i)]) == REDIN
 			|| ft_str_istoken(cmd[(iters.i)]) == HEREDOC
-			|| ft_str_istoken(cmd[iters.i]) == REDOUT)
+			|| ft_str_istoken(cmd[iters.i]) == REDOUT
+			|| ft_str_istoken(cmd[iters.i]) == APPEND)
 			ft_parse_token(&nodes, &iters, cmd);
 		(iters.i)++;
 	}

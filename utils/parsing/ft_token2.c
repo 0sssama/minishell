@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:36:19 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 17:15:59 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 18:47:47 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ char	**ft_expand_arg(t_state *state, char **output, char *arg)
 	char	*tmp;
 
 	tmp = ft_expand_str(state, arg);
+	if (!tmp[0])
+	{
+		free(tmp);
+		return (output);
+	}
 	if (ft_strchr(tmp, EXIT_STATUS))
 		output = ft_expand_exit(state, output, tmp);
 	else

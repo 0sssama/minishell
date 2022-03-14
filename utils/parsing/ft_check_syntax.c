@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:02:09 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 22:08:00 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/12 19:20:18 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ static int	ft_check_syntax_helper(char **cmd, unsigned int i)
 	if (ft_get_token(cmd[i]) == REDIN && ft_get_token(cmd[i]) == REDOUT)
 		return (1);
 	if (ft_contains_token(cmd[i]) && ft_get_token(cmd[i + 1]) == PIPE)
-		return (1);
-	if (i == 0 && ft_get_token(cmd[i]) == REDOUT)
 		return (1);
 	return (0);
 }

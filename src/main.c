@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 16:43:28 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:08:56 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ t_state	g_state;
 
 void	ft_next_arg_file(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 {
+	iters->file[0] = iters->inside_cmd;
+	iters->file[1] = 0;
 	if ((nodes->current_node)->token == HEREDOC)
 	{
 		(nodes->current_node)->eof = ft_strdup(cmd[iters->i]);
@@ -26,8 +28,9 @@ void	ft_next_arg_file(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 			iters->stop_tree = 1;
 			return ;
 		}
-		iters->file[0] = 1;
-		iters->file[1] = 0;
+		// This means that in the next arg, if we are inside a command
+		// add it as an argument, else it should be a completely new node
+		// with a completely new command.
 		return ;
 	}
 	ft_naf_helper(nodes, iters, cmd);
