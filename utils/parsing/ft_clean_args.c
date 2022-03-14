@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/16 16:00:50 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/12 18:57:19 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 14:37:31 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ static char	**ft_put_syntax_error(t_state *state, int syntax_code)
 		message = ft_strdup("syntax error due to unclosed quotes\n");
 	else if (syntax_code == 2)
 		message = ft_strdup("syntax error near unexpected token\n");
+	else if (syntax_code == 3)
+		message = ft_strdup("ambiguous redirect\n");
 	else
 		message = ft_strdup("VERY unexpected error occurred.\n");
 	if (!message)
@@ -98,7 +100,7 @@ char	**ft_clean_args(t_state *state)
 	cmd = ft_check_tokens(cmd);
 	if (!cmd)
 		ft_free_exit(state, OUT_OF_MEM);
-	syntax_code = ft_check_syntax(cmd, state->line);
+	syntax_code = ft_check_syntax(state, cmd, state->line);
 	if (syntax_code != 0)
 	{
 		ft_free_matrix(cmd);

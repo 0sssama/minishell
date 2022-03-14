@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/12 14:28:22 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/14 14:43:32 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void	ft_cmd_exec(t_state *state, char **paths, char **cmdarg)
 	}
 	waitpid(state->pid, &state->status, 0);
 	free(path);
+	exit(WEXITSTATUS(state->status));
 }
 
 static void	ft_exec_path(t_state *state, t_cmd *current_cmd)
@@ -68,7 +69,8 @@ static void	ft_exec_path(t_state *state, t_cmd *current_cmd)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		exit(execve(current_cmd->name, current_cmd->args, state->envtab));
+		execve(current_cmd->name, current_cmd->args, state->envtab);
+		exit(1);
 	}
 	waitpid(pid, &state->status, 0);
 }

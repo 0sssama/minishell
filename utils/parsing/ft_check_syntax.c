@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:02:09 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 19:20:18 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 14:37:02 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,21 @@ int	ft_get_token(char *str)
 	return (0);
 }
 
-static int	ft_check_syntax_helper(char **cmd, unsigned int i)
+static int	ft_empty_env(t_state *state, char *str)
+{
+	char	*name;
+
+	name = ft_expand_str(state, str);
+	if (!name[0])
+	{
+		free(name);
+		return (1);
+	}
+	free(name);
+	return (0);
+}
+
+static int	ft_check_syntax_helper(t_state *state, char **cmd, unsigned int i)
 {
 	if (ft_contains_token(cmd[i])
 		&& ft_get_token(cmd[i]) == ft_get_token(cmd[i + 1]))
@@ -51,6 +65,9 @@ static int	ft_check_syntax_helper(char **cmd, unsigned int i)
 		return (1);
 	if (ft_contains_token(cmd[i]) && ft_get_token(cmd[i + 1]) == PIPE)
 		return (1);
+	if (ft_get_token(cmd[i]) == REDOUT && ft_strchr(cmd[i + 1], ENV_SIGN)
+		&& ft_empty_env(state, cmd[i + 1]))
+		return (3);
 	return (0);
 }
 
@@ -61,9 +78,10 @@ static int	ft_check_syntax_helper(char **cmd, unsigned int i)
 	0: success;
 	1: unclosed quotes; (ft_correct_quotes())
 	2: syntax error near unexpected token;
+	2: ambiguous redirect;
 	99: something unexpected;
 */
-int	ft_check_syntax(char **cmd, char *line)
+int	ft_check_syntax(t_state *state, char **cmd, char *line)
 {
 	unsigned int	i;
 
@@ -82,8 +100,8 @@ int	ft_check_syntax(char **cmd, char *line)
 		if (ft_get_token(cmd[i]) == PIPE && ft_contains_token(cmd[i + 1])
 			&& ft_get_token(cmd[i + 1]) == REDOUT)
 			return (2);
-		if (ft_check_syntax_helper(cmd, i))
-			return (2);
+		if (ft_check_syntax_helper(state, cmd, i))
+			return (ft_check_syntax_helper(state, cmd, i));
 		i++;
 	}
 	return (0);
