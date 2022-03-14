@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+         #
+#    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/03/12 15:37:04 by olabrahm         ###   ########.fr        #
+#    Updated: 2022/03/14 10:23:58 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,6 +43,7 @@ $(LIBFT_PATH):
 	@$(MAKE) -C libft
 
 %.o: %.c includes/minishell.h
+	@echo "Compiling " $(@F)
 	@$(CC) $(FLAGS) -I $(INCLUDES) -c $< -o $@ $(CPPFLAGS)
 
 clean:

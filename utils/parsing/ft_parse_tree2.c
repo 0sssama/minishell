@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 21:18:09 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/14 10:08:59 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:47:26 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,4 +31,11 @@ void	ft_naf_helper(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 		iters->stop_tree = 1;
 		return ;
 	}
+}
+
+void	ft_get_file(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
+{
+	iters->file[0] = 0;
+	ft_notkn_incmd(nodes, iters, cmd);
+	return ;
 }

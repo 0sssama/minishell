@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 17:28:16 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:48:30 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,10 @@ void			ft_handle_status(t_state *state);
 /*		 PARSE TREE HELPERS			*/
 void			ft_next_arg_file(t_ptree_nodes *nodes,
 					t_ptree_iters *iters, char **cmd);
+void			ft_get_file(t_ptree_nodes *nodes, t_ptree_iters *iters,
+					char **cmd);
+void			ft_notkn_incmd(t_ptree_nodes *nodes, t_ptree_iters *iters,
+					char **cmd);
 /*	   PARSE TREE HELPERS - END		*/
 
 #endif
