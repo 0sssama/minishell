@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/14 10:47:54 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:20:36 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,9 @@ void	ft_parse_token(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 	(nodes->current_node)->fd = 0;
 	(nodes->current_node)->token = ft_str_istoken(cmd[iters->i]);
 	iters->file[0] = 0;
-	iters->file[1] = 1;
+	iters->file[1] = ft_str_istoken(cmd[iters->i]) != PIPE;
+	if (ft_str_istoken(cmd[iters->i]) == PIPE)
+		iters->inside_cmd = 0;
 }
 
 void	ft_init_ptree(t_ptree_nodes *nodes, t_ptree_iters *iters)
@@ -119,6 +121,9 @@ t_cmd	*ft_parse_tree(char **cmd)
 	}
 	ft_free_matrix(cmd);
 	if (iters.stop_tree)
+	{
+		ft_free_tree(&nodes.head);
 		return (NULL);
+	}
 	return (nodes.head);
 }
