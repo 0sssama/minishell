@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/25 19:48:56 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/14 11:20:36 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 11:21:49 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,9 +121,6 @@ t_cmd	*ft_parse_tree(char **cmd)
 	}
 	ft_free_matrix(cmd);
 	if (iters.stop_tree)
-	{
-		ft_free_tree(&nodes.head);
-		return (NULL);
-	}
+		return (ft_free_tree(&nodes.head));
 	return (nodes.head);
 }
