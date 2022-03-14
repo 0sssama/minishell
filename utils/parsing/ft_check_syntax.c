@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 19:02:09 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/14 14:37:02 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:53:33 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	ft_empty_env(t_state *state, char *str)
 	char	*name;
 
 	name = ft_expand_str(state, str);
-	if (!name[0])
+	if (!name || !name[0])
 	{
 		free(name);
 		return (1);
@@ -65,8 +65,9 @@ static int	ft_check_syntax_helper(t_state *state, char **cmd, unsigned int i)
 		return (1);
 	if (ft_contains_token(cmd[i]) && ft_get_token(cmd[i + 1]) == PIPE)
 		return (1);
-	if (ft_get_token(cmd[i]) == REDOUT && ft_strchr(cmd[i + 1], ENV_SIGN)
-		&& ft_empty_env(state, cmd[i + 1]))
+	if ((ft_get_token(cmd[i]) == REDOUT || ft_get_token(cmd[i]) == REDIN
+			|| ft_get_token(cmd[i]) == APPEND)
+		&& ft_strchr(cmd[i + 1], ENV_SIGN) && ft_empty_env(state, cmd[i + 1]))
 		return (3);
 	return (0);
 }
