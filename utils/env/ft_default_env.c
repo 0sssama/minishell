@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/09 12:09:23 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/09 12:38:21 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:15:30 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static t_env_var	*ft_add_pwd(unsigned int *i)
 	pwd = getcwd(NULL, PATH_MAX);
 	env_str = ft_strjoin(tmp, pwd);
 	free(tmp);
+	free(pwd);
 	new_env = ft_split_env(env_str, '=');
 	free(env_str);
 	var = ft_lstnew(new_env);

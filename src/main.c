@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/14 10:25:23 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:13:53 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ static void	ft_init_main(char **env)
 	g_state.pid = -1;
 	g_state.status = 0;
 	g_state.oldpwd = NULL;
-	g_state.pwd = getcwd(NULL, PATH_MAX);
 	g_state.sig = 0;
 }
 
