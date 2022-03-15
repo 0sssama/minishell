@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:24:23 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/11 14:16:18 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/15 09:32:23 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,19 @@ char	*get_pwd(char *pwd)
 
 void	ft_chdir_home(t_state *state)
 {
-	if (!state->home)
+	char	*tmp;
+
+	if (!state->home || !state->home->value)
 	{
 		ft_put_error("cd", "HOME not set.\n");
 		state->status = 1;
 		return ;
 	}
-	state->oldpwd = get_pwd(state->oldpwd);
+	tmp = ft_strdup(state->pwd);
 	if (chdir(state->home->value) == -1)
-		ft_perror(state, "cd", 1);
-	state->pwd = get_pwd(state->pwd);
-	state->status = 0;
+		ft_free_puterror(state, state->home->value, tmp);
+	else
+		ft_chdir_update(state, tmp);
 }
 
 static void	ft_chdir_back(t_state *state)
@@ -48,24 +50,33 @@ static void	ft_chdir_back(t_state *state)
 		state->status = 1;
 		return ;
 	}
-	tmp = ft_strdup(state->oldpwd);
+	tmp = ft_strdup(state->pwd);
 	if (!tmp)
 		ft_free_exit(state, OUT_OF_MEM);
-	state->oldpwd = get_pwd(state->oldpwd);
-	if (chdir(tmp) == -1)
-		ft_perror(state, "cd", 1);
-	free(tmp);
-	state->pwd = get_pwd(state->pwd);
-	state->status = 0;
+	if (chdir(state->oldpwd) == -1)
+		ft_free_puterror(state, state->oldpwd, tmp);
+	else
+		ft_chdir_update(state, tmp);
 }
 
 static void	ft_chdir(t_state *state, char *dir_name)
 {
-	state->oldpwd = get_pwd(state->oldpwd);
+	char	*tmp;
+
+	tmp = NULL;
+	tmp = get_pwd(tmp);
+	if ((!ft_strcmp(dir_name, ".") || !ft_strcmp(dir_name, ".."))
+		&& errno == ENOENT)
+	{
+		ft_free_puterror(state, ".", tmp);
+		return ;
+	}
+	else if (errno == ENOENT || !tmp)
+		tmp = ft_strdup(state->pwd);
 	if (chdir(dir_name) == -1)
-		ft_perror(state, dir_name, 1);
-	state->pwd = get_pwd(state->pwd);
-	state->status = 0;
+		ft_free_puterror(state, dir_name, tmp);
+	else
+		ft_chdir_update(state, tmp);
 }
 
 void	ft_cd(t_state *state, t_cmd *current_cmd)
@@ -73,14 +84,6 @@ void	ft_cd(t_state *state, t_cmd *current_cmd)
 	if (current_cmd->num_of_args == 1)
 	{
 		ft_chdir_home(state);
-		return ;
-	}
-	if (!ft_strncmp(current_cmd->args[1], ".", 2) && errno == ENOENT)
-	{
-		ft_put_error("cd", "error retrieving current directory ");
-		ft_put_error("getcwd", "cannot access parent directories: ");
-		ft_put_error(NULL, "No such file or directory\n");
-		state->status = 0;
 		return ;
 	}
 	if (!ft_strcmp(current_cmd->args[1], "--"))

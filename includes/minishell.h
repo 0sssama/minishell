@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:24:08 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 17:28:16 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 21:02:00 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ char			ft_token_to_char(char token);
 int				ft_token(char *line);
 int				ft_istoken(char c);
 int				ft_contains_token(char *str);
-int				ft_check_syntax(char **cmd, char *line);
+int				ft_check_syntax(t_state *state, char **cmd, char *line);
 int				ft_get_token(char *str);
 int				ft_heredoc(char *eof);
 int				ft_is_wildcard(char *str);
@@ -205,6 +205,7 @@ char			**ft_init_args(char *init);
 char			**ft_add_arg(char **args, char *new_arg);
 char			**ft_merge_args(char **args1, char **args2);
 void			ft_cpy_matrix(char **input, char **output, unsigned int *i);
+char			**ft_add_splitted(char **output, char *tmp);
 /*			ARGS UTILS - END		*/
 
 /*			 	UTILS				*/
@@ -214,11 +215,19 @@ int				ft_empty_line(char *str);
 void			ft_put_error(char *name, char *error);
 void			ft_close(t_state *state);
 void			ft_handle_status(t_state *state);
+void			ft_put_cderror(t_state *state, char *dir_name);
+void			ft_chdir_update(t_state *state, char *new);
+void			ft_free_puterror(t_state *state, char *dir_name,
+					char *to_free);
 /*			 UTILS - END			*/
 
 /*		 PARSE TREE HELPERS			*/
 void			ft_next_arg_file(t_ptree_nodes *nodes,
 					t_ptree_iters *iters, char **cmd);
+void			ft_get_file(t_ptree_nodes *nodes, t_ptree_iters *iters,
+					char **cmd);
+void			ft_notkn_incmd(t_ptree_nodes *nodes, t_ptree_iters *iters,
+					char **cmd);
 /*	   PARSE TREE HELPERS - END		*/
 
 #endif

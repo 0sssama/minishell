@@ -6,38 +6,11 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:07:26 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 19:22:54 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:45:30 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static void	ft_print_tree(t_cmd *head)
-{
-	unsigned int	i;
-	t_cmd			*current_node;
-
-	if (!head)
-		return ;
-	i = 0;
-	current_node = head;
-	while (current_node)
-	{
-		printf("-------------------------\n");
-		printf("-	NAME : %s -\n", current_node->name);
-		printf("-	ARGS : ");
-		i = 0;
-		while (current_node->args && current_node->args[i])
-			printf("[%s] ", current_node->args[i++]);
-		printf("-\n");
-		printf("-	NUM_OF_ARGS : %d -\n", current_node->num_of_args);
-		printf("-	FILE : %s -\n", current_node->file);
-		printf("-	FILE DESCRIPTOR : %d -\n", current_node->fd);
-		printf("-	TOKEN : %d -\n", current_node->token);
-		current_node = current_node->next;
-	}
-	printf("-------------------------\n");
-}
 
 static void	ft_parse(t_state *state)
 {
@@ -50,10 +23,9 @@ static void	ft_parse(t_state *state)
 	state->cmd_tree = ft_parse_tree(cmd);
 	if (!state->cmd_tree)
 	{
+		state->status = 1;
 		state->man_err = 1;
-		ft_free_tree(&state->cmd_tree);
 	}
-	ft_print_tree(state->cmd_tree);
 }
 
 static void	ft_init_loop(t_state *state)
@@ -77,7 +49,6 @@ static void	ft_reset(t_state *state)
 	free(state->line);
 	ft_free_tree(&state->cmd_tree);
 	ft_reset_io(state);
-	ft_update_env(state);
 }
 
 void	ft_prompt(t_state *state)

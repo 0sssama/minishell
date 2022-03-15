@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+         #
+#    By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/11 09:24:43 by olabrahm          #+#    #+#              #
-#    Updated: 2022/03/12 15:37:04 by olabrahm         ###   ########.fr        #
+#    Updated: 2022/03/14 20:29:14 by olabrahm         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ FILES= 	src/main utils/exits/ft_free_exit src/ft_prompt src/ft_execute utils/imp
 		utils/parsing/ft_check_tokens utils/parsing/ft_check_syntax utils/parsing/ft_heredoc \
 		utils/env/ft_add_backslash utils/env/ft_default_env utils/env/ft_update_env utils/execution/ft_free_setup \
 		utils/parsing/ft_put_exitcode utils/parsing/ft_wildcard utils/parsing/ft_empty_line utils/args/ft_args2 \
-		utils/parsing/ft_token2 utils/parsing/ft_check_token utils/parsing/ft_parse_tree2 utils/parsing/ft_check_tokens2 
+		utils/parsing/ft_token2 utils/parsing/ft_check_token utils/parsing/ft_parse_tree2 utils/parsing/ft_check_tokens2 \
+		utils/parsing/ft_add_splitted utils/implement/ft_put_cderror
 
 OBJS= $(FILES:=.o)
 NAME= minishell
@@ -43,6 +44,7 @@ $(LIBFT_PATH):
 	@$(MAKE) -C libft
 
 %.o: %.c includes/minishell.h
+	@echo "Compiling " $(@F)
 	@$(CC) $(FLAGS) -I $(INCLUDES) -c $< -o $@ $(CPPFLAGS)
 
 clean:

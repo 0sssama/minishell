@@ -6,7 +6,7 @@
 /*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 15:35:29 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/12 14:28:22 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:27:27 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static void	ft_exec_path(t_state *state, t_cmd *current_cmd)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		exit(execve(current_cmd->name, current_cmd->args, state->envtab));
+		execve(current_cmd->name, current_cmd->args, state->envtab);
 	}
 	waitpid(pid, &state->status, 0);
 }

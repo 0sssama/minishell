@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 09:05:39 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/14 10:08:56 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:44:30 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,6 @@ void	ft_next_arg_file(t_ptree_nodes *nodes, t_ptree_iters *iters, char **cmd)
 			iters->stop_tree = 1;
 			return ;
 		}
-		// This means that in the next arg, if we are inside a command
-		// add it as an argument, else it should be a completely new node
-		// with a completely new command.
 		return ;
 	}
 	ft_naf_helper(nodes, iters, cmd);
@@ -59,8 +56,8 @@ static void	ft_init_main(char **env)
 	g_state.envtab = ft_update_envtab(&g_state);
 	g_state.pid = -1;
 	g_state.status = 0;
-	g_state.oldpwd = NULL;
 	g_state.pwd = getcwd(NULL, PATH_MAX);
+	g_state.oldpwd = NULL;
 	g_state.sig = 0;
 }
 

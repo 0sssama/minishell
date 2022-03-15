@@ -6,7 +6,7 @@
 /*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/11 15:36:19 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/12 18:47:47 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:05:04 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ char	**ft_expand_arg(t_state *state, char **output, char *arg)
 	if (ft_strchr(tmp, EXIT_STATUS))
 		output = ft_expand_exit(state, output, tmp);
 	else
-		output = ft_add_arg(output, tmp);
+		output = ft_add_splitted(output, tmp);
 	free(tmp);
 	return (output);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execute_path.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/14 15:26:31 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/11 18:26:15 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:21:59 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,12 @@ char	*ft_check_relative(t_state *state, char *cmd)
 		else
 			return (cmd);
 	}
-	if (ft_strchr(cmd, '/'))
+	if (!access(cmd, F_OK))
+	{
+		state->status = 126;
+		return (ft_put_error(cmd, "Permission denied\n"), NULL);
+	}
+	else if (ft_strchr(cmd, '/'))
 		ft_put_error(cmd, "No such file or directory\n");
 	else
 		ft_put_error(cmd, "command not found\n");

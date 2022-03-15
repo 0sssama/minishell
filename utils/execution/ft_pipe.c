@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pipe.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:03:07 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/12 18:29:06 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:36:50 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	ft_loop_pipe(t_state *state, t_cmd *current_node)
 	i = 0;
 	while (i < state->pipes + 1 && current_node)
 	{
+		if (current_node->next == NULL)
+			state->sig = 1;
 		state->pids[i] = fork();
+		if (state->pids[i] == -1)
+			ft_free_setup(state, -1);
 		if (state->pids[i] == 0)
 			ft_pipe_it(state, current_node, i);
 		while (current_node && current_node->token != PIPE)
@@ -65,15 +69,14 @@ void	ft_setup_pipe(t_state *state)
 	state->pids = malloc((state->pipes + 1) * sizeof(int));
 	if (!state->pids)
 		ft_free_setup(state, 0);
-	i = 0;
-	while (i < state->pipes)
+	i = -1;
+	while (++i < state->pipes)
 	{
 		if (pipe(state->fds[i]) == -1)
 		{
 			ft_put_error("pipe", "broken pipe error\n");
 			ft_free_pipefds(state, i);
 		}
-		i++;
 	}
 }
 
@@ -90,5 +93,7 @@ void	ft_pipe_it(t_state *state, t_cmd *current_cmd, int i)
 	}
 	ft_close(state);
 	ft_exec_cmd(state, current_cmd);
+	if (state->sig)
+		ft_handle_status(state);
 	exit(state->status);
 }

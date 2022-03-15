@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execution.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/28 18:48:22 by obouadel          #+#    #+#             */
-/*   Updated: 2022/03/12 18:17:30 by olabrahm         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:28:57 by obouadel         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,9 @@ void	ft_execution(t_state *state)
 {
 	int		i;
 	t_cmd	*current_node;
+	int		status;
 
-	i = 0;
+	i = -1;
 	current_node = state->cmd_tree;
 	state->pipes = ft_get_pipes(&state->cmd_tree);
 	if (state->pipes == 0)
@@ -100,9 +101,11 @@ void	ft_execution(t_state *state)
 	ft_setup_pipe(state);
 	ft_loop_pipe(state, current_node);
 	ft_close(state);
-	while (i < state->pipes + 1)
-		waitpid(state->pids[i++], &state->status, 0);
+	while (++i < state->pipes + 1)
+	{
+		if (waitpid(state->pids[i], &status, 0) == state->pids[state->pipes])
+				state->status = status;
+	}
 	state->status = WEXITSTATUS(state->status);
-	ft_handle_status(state);
 	ft_free_pipes(state);
 }
