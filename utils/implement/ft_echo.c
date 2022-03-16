@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: obouadel <obouadel@student.42.fr>          +#+  +:+       +#+        */
+/*   By: olabrahm <olabrahm@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 19:23:13 by olabrahm          #+#    #+#             */
-/*   Updated: 2022/03/01 18:15:14 by obouadel         ###   ########.fr       */
+/*   Updated: 2022/03/16 10:29:08 by olabrahm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	ft_echo(t_state *state, t_cmd *current_cmd)
 	{
 		if (!ft_strncmp(current_cmd->args[i], "-n", 3))
 		{
-			while (!ft_strncmp(current_cmd->args[i], "-n", 3))
+			while (current_cmd->args[i] && !ft_strncmp(current_cmd->args[i], "-n", 3))
 				i++;
 			if (current_cmd->num_of_args < 3)
 				return ;
